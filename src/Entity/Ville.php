@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\VilleRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -33,6 +35,16 @@ class Ville
      */
     private $codePostal;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Lieu::class, mappedBy="ville")
+     */
+    private $lieu;
+
+    public function __construct()
+    {
+        $this->lieu = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -58,6 +70,36 @@ class Ville
     public function setCodePostal(string $codePostal): self
     {
         $this->codePostal = $codePostal;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Lieu>
+     */
+    public function getLieu(): Collection
+    {
+        return $this->lieu;
+    }
+
+    public function addLieu(Lieu $lieu): self
+    {
+        if (!$this->lieu->contains($lieu)) {
+            $this->lieu[] = $lieu;
+            $lieu->setVille($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLieu(Lieu $lieu): self
+    {
+        if ($this->lieu->removeElement($lieu)) {
+            // set the owning side to null (unless already changed)
+            if ($lieu->getVille() === $this) {
+                $lieu->setVille(null);
+            }
+        }
 
         return $this;
     }
