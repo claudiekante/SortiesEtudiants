@@ -1,0 +1,166 @@
+/****************
+*****GENERAL*****
+*****************/
+
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #EFEFEF;
+    color: #281508;
+    font-family: 'Rubik', sans-serif;
+    margin: 0;
+}
+
+/****************
+*****NAVBAR******
+*****************/
+
+nav {
+    background-color: #fff;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 10px 30px;
+    position : sticky;
+    top:0;
+    z-index: 3;
+}
+
+#logodiv {
+    display: flex;
+    align-items: center;
+}
+
+#logo {
+    height: 45px;
+    padding : 5px;
+}
+
+nav p {
+    color: #281508;
+    font-weight: bold;
+    margin: 5px 5px 5px 20px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.burger {
+    border: 0;
+    cursor: pointer;
+    display: none;
+    font-size: 22px;
+    position: relative;
+    padding: 0;
+    outline: none;
+    height: 30px;
+    width: 30px;
+    background-color: white;
+}
+
+.burger:active {
+    color: #EC3F25;
+    outline: none;
+}
+
+.burger .bar1, .burger .bar2, .burger .bar3 {
+    background-color: #EC3F25;
+    width: 30px;
+    content: "";
+    display: block;
+    height: 3px;
+    border-radius: 3px;
+    margin: 7px 0;
+    transition: 0.3s ease;
+}
+
+.burger .bar1 {
+    top: 40%;
+}
+
+.burger .bar3 {
+    top: 60%;
+}
+
+
+.nav_list {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.nav_item {
+    margin: 0 10px;
+}
+
+.nav_item a {
+    color: #281508;
+    position: relative;
+    text-decoration: none;
+    padding : 10px 0;
+}
+
+.nav_item a::after {
+    content: '';
+    background-color: #EC3F25;
+    position: absolute;
+    bottom:0;
+    left: -20px;
+    opacity: 0;
+    height: 3px;
+    width: 100%;
+    border-radius: 3px;
+    transition: transform 0.2s ease;
+}
+
+.nav_item a:hover::after {
+    opacity: 1;
+    transform: translateX(20px);
+}
+
+@media all and (max-width: 600px) {
+
+    .burger {
+        display: block;
+    }
+
+    .burger.show-x .bar1 {
+        transform: translateY(8px) rotate(135deg);
+    }
+
+    .burger.show-x .bar3 {
+        transform: translateY(-12px) rotate(-135deg);
+    }
+
+    .burger.show-x .bar2 {
+        transform: scale(0);
+    }
+
+    .nav_list {
+        background-color: #fff;
+        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+        flex-direction: column;
+        text-align: center;
+        position: fixed;
+        top: 80px;
+        left: 10%;
+        transform: translateX(120%);
+        width: 80%;
+        transition: transform 0.3s ease-in;
+        z-index: 100;
+    }
+
+    ul.show {
+        transform: translateX(0);
+    }
+
+    .nav_item {
+        margin: 15px;
+    }
+
+}
