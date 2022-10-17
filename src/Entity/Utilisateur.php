@@ -94,6 +94,11 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $organisateur;
 
+    /**
+     * @ORM\Column(type="string", length=30, unique=true)
+     */
+    private $pseudo;
+
     public function __construct()
     {
         $this->sorties = new ArrayCollection();
@@ -326,6 +331,18 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
                 $organisateur->setOrganisateur(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPseudo(): ?string
+    {
+        return $this->pseudo;
+    }
+
+    public function setPseudo(string $pseudo): self
+    {
+        $this->pseudo = $pseudo;
 
         return $this;
     }
