@@ -73,7 +73,7 @@ class Sortie
     private $participant;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Utilisateur::class, inversedBy="organisateur")
+     * @ORM\ManyToOne(targetEntity=Utilisateur::class, inversedBy="soritesOrganisees")
      */
     private $organisateur;
 
