@@ -92,12 +92,12 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="organisateur")
      */
-    private $organisateur;
+    private $soritesOrganisees;
 
     public function __construct()
     {
         $this->sorties = new ArrayCollection();
-        $this->organisateur = new ArrayCollection();
+        $this->soritesOrganisees = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -303,15 +303,15 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return Collection<int, Sortie>
      */
-    public function getOrganisateur(): Collection
+    public function getSoritesOrganisees(): Collection
     {
-        return $this->organisateur;
+        return $this->soritesOrganisees;
     }
 
     public function addOrganisateur(Sortie $organisateur): self
     {
-        if (!$this->organisateur->contains($organisateur)) {
-            $this->organisateur[] = $organisateur;
+        if (!$this->soritesOrganisees->contains($organisateur)) {
+            $this->soritesOrganisees[] = $organisateur;
             $organisateur->setOrganisateur($this);
         }
 
@@ -320,7 +320,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeOrganisateur(Sortie $organisateur): self
     {
-        if ($this->organisateur->removeElement($organisateur)) {
+        if ($this->soritesOrganisees->removeElement($organisateur)) {
             // set the owning side to null (unless already changed)
             if ($organisateur->getOrganisateur() === $this) {
                 $organisateur->setOrganisateur(null);
