@@ -38,10 +38,6 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     * @Assert\NotBlank(message="Merci de renseigner un mot de passe")
-     * @Assert\Length(min=8, max=25,
-     *      minMessage="Le mot de passe doit faire au moins 8 caractères",
-     *      maxMessage="Le mot de passe doit faire maximum 25 caractères")
      */
     private $password;
 
