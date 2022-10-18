@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+ {% form_theme  lieuType "bootstrap_3_horizontal_layout.html.twig" %}
+
+
+{% block title %}Créer une sorite{% endblock %}
+
+{% block body %}
+
+    <h1>Choisir un lieux</h1>
+    {{ form_start(lieuType) }}
+    {{ form_widget(lieuType)}}
+    <br>
+    <button type="submit">Ajouter</button>
+
+    {{ form_end(lieuType) }}
+{% endblock %}

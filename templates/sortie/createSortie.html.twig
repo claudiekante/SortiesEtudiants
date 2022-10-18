@@ -2,14 +2,28 @@
 
  {% form_theme  sortieCreateType "bootstrap_3_horizontal_layout.html.twig" %}
 
+
 {% block title %}Créer une sorite{% endblock %}
 
 {% block body %}
 
     <h1>Créer une sortie</h1>
     {{ form_start(sortieCreateType) }}
-    {{ form_widget(sortieCreateType)}}
+    {{ form_row(sortieCreateType.nom) }}
+    {{ form_row(sortieCreateType.lieu) }} <br>
+    <button  type="button" class="btn btn-outline-warning" onclick="window.location.href ='{{ path('/lieu') }}'">Ajouter un nouveau lieu</button>
+    <br>
+    {{ form_row(sortieCreateType.dateHeureDebut) }}
+    {{ form_row(sortieCreateType.duree) }}
+    {{ form_row(sortieCreateType.dateLimitInscription) }}
+    {{ form_row(sortieCreateType.nbInscriptionsMax) }}
+    {{ form_row(sortieCreateType.infosSortie) }}
+    {{ form_row(sortieCreateType.campus) }}   {# La récupération du campus doit se faire en dur en fonction du campus d'appartenance de l'utilisateur #}
+    {{ form_row(sortieCreateType.etat) }}
+
+
     <button type="submit">Valider</button>
+
     {{ form_end(sortieCreateType) }}
 
 {% endblock %}

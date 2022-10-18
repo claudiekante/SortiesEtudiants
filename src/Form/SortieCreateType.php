@@ -6,12 +6,14 @@ use App\Entity\Campus;
 use App\Entity\Etat;
 use App\Entity\Lieu;
 use App\Entity\Sortie;
+use App\Entity\Ville;
 use phpDocumentor\Reflection\TypeResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -40,9 +42,9 @@ class SortieCreateType extends AbstractType
             ->add('nbInscriptionsMax')
             ->add('infosSortie', TextareaType::class)
             ->add('campus', EntityType::class, [
-                'label'=> 'campus',
-                'class'=> Campus::class,
-                'choice_label'=>'nom',
+               'label'=> 'campus',
+               'class'=> Campus::class,
+               'choice_label'=>'nom',
                 'placeholder'=>'--choisir un campus--'
             ])
             ->add('etat', EntityType::class,[
@@ -51,13 +53,34 @@ class SortieCreateType extends AbstractType
                 'choice_label'=>'libelle',
                 'placeholder'=>'--choisir un état--'
             ])
-
             ->add('lieu', EntityType::class,[
                 'label'=> 'lieu',
                 'class'=> Lieu::class,
-                'choice_label' => 'nom',
+                'choice_label'=>'nom',
                 'placeholder'=>'--choisir un lieu--'
             ])
+                //'class'=> Lieu::class
+
+            //->add('lieuRue',TextType::class,[
+              //  'mapped'=>false,
+             //   'label'=> 'rue',
+                //'class'=> Lieu::class
+           // ])
+            //->add('ville', EntityType::class, [
+                //'mapped'=>false,
+               // 'label'=> 'ville',
+               // 'class'=>Ville::class,
+               // 'choice_label'=>'nom',
+                //'placeholder'=>'--choisir une ville--'
+           // ])
+
+
+            //->add('lieu', EntityType::class,[
+             //   'label'=> 'lieu',
+             //   'class'=> Lieu::class,
+            //    'choice_label' => 'nom',
+             //   'placeholder'=>'--choisir un lieu--'
+           // ])
 
         ;
     }
