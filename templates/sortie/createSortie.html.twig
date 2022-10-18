@@ -1,12 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{# {% form_theme  sortieCreateType "bootstrap_3_horizontal_layout.html.twig" %}#}
-
-
 {% block title %}{{ parent() }} | Créer une sortie{% endblock %}
-
 {% block body %}
-
     <div class="container">
     <div class="row">
         <div class="col d-flex justify-content-center">
@@ -25,8 +20,7 @@
 
     <div class="card" style="width: 28rem;">
     <div class="card-body">
-
-
+        Campus : {{ app.user.campus.nom }}
     {{ form_start(sortieCreateType) }}
     {{ form_row(sortieCreateType.nom) }}
     {{ form_row(sortieCreateType.lieu) }} <br>
@@ -42,17 +36,8 @@
     {{ form_row(sortieCreateType.nbInscriptionsMax) }}
     {{ form_row(sortieCreateType.infosSortie) }}
     {{ form_row(sortieCreateType.etat) }}
-
-    Campus : {{ app.user.campus.nom }}
-    {{app.user.id }}
-   {#  {{ form_row(sortieCreateType.etat) }}#}
-   {# {{ utilisateurCourant.campus.nom }}#}
-
     <br>
     <button type="submit" class="btn btn-light">Valider</button>
-
-
-
     {{ form_end(sortieCreateType) }}
 
     <!-- Modal -->
@@ -75,8 +60,6 @@
             </div>
         </div>
     </div>
-
-
     </div>
     </div>
     </div>

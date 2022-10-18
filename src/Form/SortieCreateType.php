@@ -44,15 +44,10 @@ class SortieCreateType extends AbstractType
                 'html5'=> true,
                 'widget'=> 'single_text'
             ])
-//            ->add('nbInscriptionsMax')
+
             ->add('nbInscriptionsMax')
             ->add('infosSortie', TextareaType::class)
-          //  ->add('campus', EntityType::class, [
-             //  'label'=> 'campus',
-              // 'class'=> Campus::class,
-              // 'choice_label'=>'nom',
-               // 'placeholder'=>'--choisir un campus--'
-           // ])
+
            ->add('etat', EntityType::class,[
                 'label'=> 'etat',
                'class'=> Etat::class,
@@ -64,32 +59,7 @@ class SortieCreateType extends AbstractType
                 'class'=> Lieu::class,
                 'choice_label'=>'nom',
                 'placeholder'=>'--choisir un lieu--'
-            ])
-
-                //'class'=> Lieu::class
-
-            //->add('lieuRue',TextType::class,[
-              //  'mapped'=>false,
-             //   'label'=> 'rue',
-                //'class'=> Lieu::class
-           // ])
-            //->add('ville', EntityType::class, [
-                //'mapped'=>false,
-               // 'label'=> 'ville',
-               // 'class'=>Ville::class,
-               // 'choice_label'=>'nom',
-                //'placeholder'=>'--choisir une ville--'
-           // ])
-
-
-            //->add('lieu', EntityType::class,[
-             //   'label'=> 'lieu',
-             //   'class'=> Lieu::class,
-            //    'choice_label' => 'nom',
-             //   'placeholder'=>'--choisir un lieu--'
-           // ])
-
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

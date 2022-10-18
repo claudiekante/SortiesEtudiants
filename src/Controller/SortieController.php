@@ -40,17 +40,11 @@ class SortieController extends AbstractController
 
         $sortieForm->handleRequest($request);
         if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
-          // $lieu = new Lieu();
-         //   $lieu->setNom($sortieForm->get('lieu')->getData());
-           // $lieu->setRue($sortieForm->get('lieuRue')->getData());
-
-          //  $lieu->setVille($sortieForm->get('ville')->getData());$entityManager->persist($lieu);
             $entityManager->persist($sortie);
             $entityManager->flush();
         }
 
         return $this->render('sortie/createSortie.html.twig', [
-            //'lieuType' => $lieuForm->createView(),
             'sortieCreateType' => $sortieForm->createView(),
             'utilisateurCourant'=>$utilisateurCourant
         ]);
@@ -60,7 +54,6 @@ class SortieController extends AbstractController
      */
     public function choixLieu(Request $request, EntityManagerInterface $entityManager): Response
     {
-
         $lieu = new Lieu();
         $lieuForm = $this->createForm(LieuType::class, $lieu);
         $lieuForm->handleRequest($request);
