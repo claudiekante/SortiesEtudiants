@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+ {% form_theme  sortieCreateType "bootstrap_3_horizontal_layout.html.twig" %}
+
+{% block title %}Créer une sorite{% endblock %}
+
+{% block body %}
+
+    <h1>Créer une sortie</h1>
+    {{ form_start(sortieCreateType) }}
+    {{ form_widget(sortieCreateType)}}
+    <button type="submit">Valider</button>
+    {{ form_end(sortieCreateType) }}
+
+{% endblock %}
