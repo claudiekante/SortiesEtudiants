@@ -15,7 +15,7 @@
         {% if app.user %}
         <li class="nav_item"><a href="#">Mon profil</a></li>
         <li class="nav_item"><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
-            <li class="nav_item"><a href="{{ path('creer') }}">Créer une sortie</a></li>
+
         {% else %}
         <li class="nav_item"><a href="{{ path('app_login') }}">Connexion</a></li>
         <li class="nav_item"><a href="{{ path('app_register') }}">Inscription</a></li>
