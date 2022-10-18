@@ -1,9 +1,27 @@
 {% extends 'base.html.twig' %}
+{#{% form_theme registrationForm "bootstrap_5_layout.html.twig" %}#}
 
-{% block title %}Register{% endblock %}
+{% block title %}{{ parent() }} | Inscription {% endblock %}
 
 {% block body %}
-    <h1>Page d'inscription à sortir.com</h1>
+<div class="container">
+    <div class="row">
+        <div class="col d-flex justify-content-center">
+            <p> </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col d-flex justify-content-center">
+            <p> </p>
+            <h1 class="h3 mb-3 font-weight-normal">Page d'inscription à sortir.com</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col d-flex justify-content-center">
+
+            <div class="card" style="width: 28rem;">
+                <div class="card-body">
 
     {{ form_start(registrationForm) }}
    {{ form_row(registrationForm.pseudo) }}
@@ -17,9 +35,15 @@
         }) }}
 {#        {{ form_row(registrationForm.agreeTerms) }}#}
 
-        <button type="submit" class="btn">Register</button>
+        <button type="submit" class="btn btn-light">Register</button>
     {{ form_end(registrationForm) }}
 
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
     <p>il faudra mettre ici la possibilité de télecharger une photo (property Avatar dans l'entité Utilisateur) </p>
 
