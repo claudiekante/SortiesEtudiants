@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Campus;
 use App\Entity\Utilisateur;
 use App\Form\RegistrationFormType;
 use App\Security\AppAuthenticator;
@@ -25,13 +26,12 @@ class RegistrationController extends AbstractController
         $user->setAdministrateur(false);
         $user->setActif(true);
         $user->setRoles(["ROLE_USER"]);
-//       $user->setCampus("nantes");
-//        $user->setPassword('asrubale');
+
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
-//      if ($form->isSubmitted() && $form->isValid()) {
-          if ($form->isSubmitted()) {
+      if ($form->isSubmitted() && $form->isValid()) {
+
 //             encode the plain password
             $user->setPassword(
             $userPasswordHasher->hashPassword(
