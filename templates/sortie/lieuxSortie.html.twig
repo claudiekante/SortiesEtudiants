@@ -1,18 +1,43 @@
  {% extends 'base.html.twig' %}
 
- {% form_theme lieuType "bootstrap_3_horizontal_layout.html.twig" %}
+{# {% form_theme lieuType "bootstrap_3_horizontal_layout.html.twig" %}#}
 
 
- {% block title %}Créer une sortie{% endblock %}
+ {% block title %}{{ parent() }} | Nouvelle adresse{% endblock %}
 
   {% block body %}
 
-    <h1>Choisir un lieux</h1>
+      <div class="container">
+      <div class="row">
+          <div class="col d-flex justify-content-center">
+              <p> </p>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col d-flex justify-content-center">
+              <p> </p>
+              <h1 class="h3 mb-3 font-weight-normal">Enregistre ici une nouvelle adresse</h1>
+          </div>
+      </div>
+
+
+
+      <div class="row">
+      <div class="col d-flex justify-content-center">
+
+      <div class="card" style="width: 18rem;">
+      <div class="card-body">
     {{ form_start(lieuType) }}
     {{ form_widget(lieuType)}}
     <br>
-    <button type="submit">Ajouter</button>
+    <button class="btn btn-light" type="submit">Ajouter</button>
 
     {{ form_end(lieuType) }}
+
+      </div>
+      </div>
+      </div>
+      </div>
+      </div>
 
  {% endblock %}

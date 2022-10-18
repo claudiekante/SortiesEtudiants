@@ -4,13 +4,39 @@
 
 {% block body %}
 
-    <h2>Mon Profil</h2>
+    <div class="container">
+    <div class="row">
+        <div class="col d-flex justify-content-center">
+            <p> </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col d-flex justify-content-center">
+            <p> </p>
+            <h1 class="h3 mb-3 font-weight-normal">Mon profil</h1>
+        </div>
+    </div>
+
+
+
+    <div class="row">
+    <div class="col d-flex justify-content-center">
+
+    <div class="card" style="width: 28rem;">
+    <div class="card-body">
+
+{#    <h2>Mon Profil</h2>#}
 
     {{ form_start(form) }}
     {{ form_widget(form) }}
-    <button type="submit">Enregistrer</button>
-    <button type="button"><a href="{{ path('main_accueil') }}">Annuler</a></button>
+    <button class="btn btn-light" type="submit">Enregistrer</button>
+    <button class="btn btn-light" type="button"><a href="{{ path('main_accueil') }}">Annuler</a></button>
     {{ form_end(form) }}
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
 
 
 {% endblock %}

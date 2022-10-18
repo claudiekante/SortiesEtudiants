@@ -13,7 +13,7 @@
     <ul class="nav_list">
         {% if app.user %}
             <li class="nav_item">  Bonjour {{ app.user.pseudo }} ! </li>
-        <li class="nav_item"><a href="#">Mon profil</a></li>
+        <li class="nav_item"><a href="{{ path('utilisateur_profil') }}">Mon profil</a></li>
         <li class="nav_item"><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
         {% else %}
             <li class="nav_item"><a href="{{ path('main_accueil') }}">Accueil</a></li>
