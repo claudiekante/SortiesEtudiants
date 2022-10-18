@@ -6,6 +6,8 @@ use App\Entity\Lieu;
 use App\Entity\Sortie;
 use App\Form\LieuType;
 use App\Form\SortieCreateType;
+use App\Repository\EtatRepository;
+use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,11 +30,14 @@ class SortieController extends AbstractController
     /**
      * @Route("/creer", name="creer")
      */
-    public function creerSortie(Request $request, EntityManagerInterface $entityManager): Response
+    public function creerSortie(Request $request, UtilisateurRepository $utilisateurRepository, EntityManagerInterface $entityManager): Response
     {
+        $utilisateurCourant = $utilisateurRepository->find($this->getUser());
 
         $sortie = new Sortie();
         $sortieForm = $this->createForm(SortieCreateType::class, $sortie);
+        $sortie->setCampus($utilisateurCourant->getCampus());
+
         $sortieForm->handleRequest($request);
         if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
           // $lieu = new Lieu();
@@ -47,10 +52,9 @@ class SortieController extends AbstractController
         return $this->render('sortie/createSortie.html.twig', [
             //'lieuType' => $lieuForm->createView(),
             'sortieCreateType' => $sortieForm->createView(),
+            'utilisateurCourant'=>$utilisateurCourant
         ]);
     }
-
-
     /**
      * @Route("/lieu", name="/lieu")
      */
