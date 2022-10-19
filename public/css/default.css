@@ -165,6 +165,16 @@ nav p {
 
 
 
+
+}
+
+/****************
+******TABLE******
+*****************/
+
+.custom-table {
+    height: 300px;
+    overflow: auto;
 }
 
 /*input, textarea, select {*/

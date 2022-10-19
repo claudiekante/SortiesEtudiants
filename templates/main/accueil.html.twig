@@ -2,12 +2,18 @@
 
 {% block title %} {{ parent() }} | Accueil | {{ parent() }} {% endblock %}
 
+
 {%  block body %}
 
-    <h1>Bienvenue </h1>
-    <button  type="button" class="btn btn-outline-warning" onclick="window.location.href ='{{ path('creer') }}'">Creer une sortie</button>
+    {{ form_start(searchForm) }}
+    {{ form_widget(searchForm) }}
+
+    <button  type="button" class="btn btn-outline-warning">Rechercher</button>
+
+    {{ form_end(searchForm) }}
 
 
+    <div class="custom-table">
     <table class="table table-striped">
         <thead>
         <tr>
@@ -23,16 +29,23 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
+        {% for sortie in sorties %}
+            <tr>
+                <td> {{ sortie.nom }}</td>
+                <td> {{ sortie.dateHeureDebut | date('d/m/Y à H:i')}}</td>
+                <td> {{ sortie.dateLimitInscription | date('d/m/Y')}}</td>
+                <td> {{ sortie.participant.count }} / {{ sortie.nbInscriptionsMax }}</td>
+                <td> {{ sortie.etat.libelle }}</td>
+                <td> X </td>
+                <td> {{ sortie.organisateur.pseudo }}</td>
+                <td> actions à coder </td>
 
-
-        </tr>
-        <tr>
-
-
-        </tr>
-
+            </tr>
+        {% endfor %}
         </tbody>
     </table>
+    </div>
+
+    <button  type="button" class="btn btn-outline-warning" onclick="window.location.href ='{{ path('creer') }}'">Creer une sortie</button>
 
 {% endblock %}
