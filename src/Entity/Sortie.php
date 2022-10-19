@@ -6,6 +6,7 @@ use App\Repository\SortieRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=SortieRepository::class)
@@ -21,31 +22,41 @@ class Sortie
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\notBlank (message="Ce champs est obligatoire")
+     * @Assert\Length(max=255, min=5)
      */
     private $nom;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\notBlank (message="Ce champs est obligatoire")
+     * @Assert\GreaterThan("today", message="cette date doit être supérieur à la date du jour")
      */
     private $dateHeureDebut;
 
     /**
      * @ORM\Column(type="time")
+     * @Assert\notBlank (message="Ce champs est obligatoire")
      */
     private $duree;
 
     /**
      * @ORM\Column(type="date")
+     * @Assert\notBlank (message="Ce champs est obligatoire")
+     * @Assert\LessThan(propertyPath="dateHeureDebut", message="Cette date doit être inferieur à la date de début de la sortie")
      */
     private $dateLimitInscription;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\notBlank (message="Ce champs est obligatoire")
      */
     private $nbInscriptionsMax;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\notBlank (message="Ce champs est obligatoire")
+     * @Assert\Length(max=255)
      */
     private $infosSortie;
 

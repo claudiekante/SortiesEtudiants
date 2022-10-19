@@ -21,8 +21,8 @@
     <div class="card" style="width: 28rem;">
     <div class="card-body">
         Campus : {{ app.user.campus.nom }}
-        {{ form_row(sortieCreateType.organisateur) }}
-    {{ form_start(sortieCreateType) }}
+
+        {{ form_start(sortieCreateType) }}
     {{ form_row(sortieCreateType.nom) }}
     {{ form_row(sortieCreateType.lieu) }} <br>
    <button  type="button" class="btn btn-outline-warning" onclick="window.location.href ='{{ path('/lieu') }}'">Ajouter un lieu (nouvelle page)</button>

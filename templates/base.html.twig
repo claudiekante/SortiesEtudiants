@@ -23,6 +23,13 @@
 <header>
     {% include ('inc/_nav.html.twig') %}
 </header>
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div>
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}
 <body>
 {% block body %}{% endblock %}
 </body>

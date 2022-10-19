@@ -33,6 +33,7 @@ class SortieCreateType extends AbstractType
         $builder
             ->add('nom')
             ->add('dateHeureDebut', DateTimeType::class,[
+                //'attr'   => ['min' => new \DateTime()],
                 'label'=>'Date et heure du début',
                 'html5'=> true,
                 'widget'=> 'single_text'
@@ -49,19 +50,13 @@ class SortieCreateType extends AbstractType
             ])
             ->add('nbInscriptionsMax')
             ->add('infosSortie', TextareaType::class)
-
-           ->add('etat', EntityType::class,[
+            ->add('etat', EntityType::class,[
                 'label'=> 'etat',
-               'class'=> Etat::class,
-               //'choice_attr'=> ['créée'=> 'créée', 'Ouverte'=>'Ouverte'],
-              'choice_label'=>'libelle',
-
+                'class'=> Etat::class,
+                'choice_label'=>'libelle',
                 'placeholder'=>'--choisir un état--'
           ])
-            ->add('organisateur',EntityType::class,[
-                'class'=>Utilisateur::class,
-                'choice_label'=>'pseudo'
-            ])
+
             ->add('lieu', EntityType::class,[
                 'label'=> 'Lieu',
                 'class'=> Lieu::class,

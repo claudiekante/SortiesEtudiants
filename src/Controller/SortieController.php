@@ -39,11 +39,16 @@ class SortieController extends AbstractController
         $sortie = new Sortie();
         $sortieForm = $this->createForm(SortieCreateType::class, $sortie);
         $sortie->setCampus($utilisateurCourant->getCampus());
+
         $sortieForm->handleRequest($request);
 
         if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
+            $sortie->setOrganisateur($utilisateurCourant);
             $entityManager->persist($sortie);
             $entityManager->flush();
+
+            $this->addFlash('success', 'La sortie a bien été enregistrée');
+            return $this->redirectToRoute('main_accueil');
         }
 
         return $this->render('sortie/createSortie.html.twig', [
