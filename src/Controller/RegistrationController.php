@@ -32,6 +32,9 @@ class RegistrationController extends AbstractController
 
       if ($form->isSubmitted() && $form->isValid()) {
 
+          //          ligne pour récupérer les données de l'image
+          $file=$form->get('avatar')->getData();
+
 //             encode the plain password
             $user->setPassword(
             $userPasswordHasher->hashPassword(
@@ -43,6 +46,17 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
             // do anything else you need here, like send an email
+
+          //ligne pour transferer l'image et la renommer en bdd
+          if ($file){
+              $newFilename = $user->getPseudo()."-".$user->getId().".".$file->guessExtension();
+              $file->move($this->getParameter('upload_champ_entite_dir'), $newFilename);
+              $user->setAvatar($newFilename);
+          }
+
+          //il faut repeter le flush
+          $entityManager->persist($user);
+          $entityManager->flush();
 
             return $userAuthenticator->authenticateUser(
                 $user,

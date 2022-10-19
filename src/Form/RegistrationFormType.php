@@ -7,6 +7,7 @@ use App\Entity\Utilisateur;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -40,6 +41,13 @@ class RegistrationFormType extends AbstractType
 //                    ]),
 //                ],
 //            ])
+
+            ->add('avatar', FileType::class, [
+                'mapped' => false,
+                'required' => false,
+                'label'=>'Si tu veux, rajoute ta photo'
+            ])
+
             ->add('plainPassword', RepeatedType::class, [
                 // Ajouts pour le type Repeated
                 // Doivent être placés au début
