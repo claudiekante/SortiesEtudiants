@@ -33,7 +33,7 @@ class SortieCreateType extends AbstractType
         $builder
             ->add('nom')
             ->add('dateHeureDebut', DateTimeType::class,[
-                //'attr'   => ['min' => new \DateTime()],
+
                 'label'=>'Date et heure du début',
                 'html5'=> true,
                 'widget'=> 'single_text'
