@@ -21,6 +21,7 @@
     <div class="card" style="width: 28rem;">
     <div class="card-body">
         Campus : {{ app.user.campus.nom }}
+        {{ form_row(sortieCreateType.organisateur) }}
     {{ form_start(sortieCreateType) }}
     {{ form_row(sortieCreateType.nom) }}
     {{ form_row(sortieCreateType.lieu) }} <br>
@@ -30,6 +31,7 @@
     <button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#exampleModal">
         Ajouter un lieu (modal)
     </button>
+
     {{ form_row(sortieCreateType.dateHeureDebut) }}
     {{ form_row(sortieCreateType.duree) }}
     {{ form_row(sortieCreateType.dateLimitInscription) }}

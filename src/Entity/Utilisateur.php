@@ -85,20 +85,23 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $sorties;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="organisateur")
-     */
-    private $soritesOrganisees;
+
 
     /**
      * @ORM\Column(type="string", length=30, unique=true)
      */
     private $pseudo;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="Organisateur", orphanRemoval=true)
+     */
+    private $sortieOrganisee;
+
     public function __construct()
     {
         $this->sorties = new ArrayCollection();
-        $this->soritesOrganisees = new ArrayCollection();
+        $this->sortieOrganisee = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -301,35 +304,6 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, Sortie>
-     */
-    public function getSoritesOrganisees(): Collection
-    {
-        return $this->soritesOrganisees;
-    }
-
-    public function addOrganisateur(Sortie $organisateur): self
-    {
-        if (!$this->soritesOrganisees->contains($organisateur)) {
-            $this->soritesOrganisees[] = $organisateur;
-            $organisateur->setOrganisateur($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOrganisateur(Sortie $organisateur): self
-    {
-        if ($this->soritesOrganisees->removeElement($organisateur)) {
-            // set the owning side to null (unless already changed)
-            if ($organisateur->getOrganisateur() === $this) {
-                $organisateur->setOrganisateur(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function getPseudo(): ?string
     {
@@ -339,6 +313,36 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPseudo(string $pseudo): self
     {
         $this->pseudo = $pseudo;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Sortie>
+     */
+    public function getSortieOrganisee(): Collection
+    {
+        return $this->sortieOrganisee;
+    }
+
+    public function addSortieOrganisee(Sortie $sortieOrganisee): self
+    {
+        if (!$this->sortieOrganisee->contains($sortieOrganisee)) {
+            $this->sortieOrganisee[] = $sortieOrganisee;
+            $sortieOrganisee->setOrganisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSortieOrganisee(Sortie $sortieOrganisee): self
+    {
+        if ($this->sortieOrganisee->removeElement($sortieOrganisee)) {
+            // set the owning side to null (unless already changed)
+            if ($sortieOrganisee->getOrganisateur() === $this) {
+                $sortieOrganisee->setOrganisateur(null);
+            }
+        }
 
         return $this;
     }

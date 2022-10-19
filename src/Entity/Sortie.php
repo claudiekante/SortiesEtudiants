@@ -73,10 +73,12 @@ class Sortie
     private $participant;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Utilisateur::class, inversedBy="soritesOrganisees")
+     * @ORM\ManyToOne(targetEntity=Utilisateur::class, inversedBy="sortieOrganisee")
      *
      */
-    private $organisateur;
+    private $Organisateur;
+
+
 
     public function __construct()
     {
@@ -222,13 +224,14 @@ class Sortie
 
     public function getOrganisateur(): ?Utilisateur
     {
-        return $this->organisateur;
+        return $this->Organisateur;
     }
 
-    public function setOrganisateur(?Utilisateur $organisateur): self
+    public function setOrganisateur(?Utilisateur $Organisateur): self
     {
-        $this->organisateur = $organisateur;
+        $this->Organisateur = $Organisateur;
 
         return $this;
     }
+
 }

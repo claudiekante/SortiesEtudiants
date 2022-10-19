@@ -7,12 +7,15 @@ use App\Entity\Sortie;
 use App\Form\LieuType;
 use App\Form\SortieCreateType;
 use App\Repository\EtatRepository;
+use App\Repository\SortieRepository;
 use App\Repository\UtilisateurRepository;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
 
 
 class SortieController extends AbstractController
@@ -26,7 +29,6 @@ class SortieController extends AbstractController
             'controller_name' => 'SortieController',
         ]);
     }
-
     /**
      * @Route("/creer", name="creer")
      */
@@ -37,8 +39,8 @@ class SortieController extends AbstractController
         $sortie = new Sortie();
         $sortieForm = $this->createForm(SortieCreateType::class, $sortie);
         $sortie->setCampus($utilisateurCourant->getCampus());
-
         $sortieForm->handleRequest($request);
+
         if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
             $entityManager->persist($sortie);
             $entityManager->flush();
@@ -49,6 +51,7 @@ class SortieController extends AbstractController
             'utilisateurCourant'=>$utilisateurCourant
         ]);
     }
+
     /**
      * @Route("/lieu", name="/lieu")
      */
@@ -66,4 +69,5 @@ class SortieController extends AbstractController
 
         ]);
     }
+
 }
