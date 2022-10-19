@@ -39,6 +39,19 @@ class SortieRepository extends ServiceEntityRepository
         }
     }
 
+    public function listSortie()
+    {
+        $query = $this
+            ->createQueryBuilder('s')
+            ->select('s','p','o', 'e')
+            ->leftJoin('s.Organisateur', 'o')
+            ->leftJoin('s.etat', 'e')
+            ->leftJoin('s.participant','p')
+            ->getQuery()
+            ->getResult();
+        return $query;
+    } // -- listSortie()
+
 //    /**
 //     * @return Sortie[] Returns an array of Sortie objects
 //     */
