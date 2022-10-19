@@ -14,6 +14,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Regex;
 
 class RegistrationFormType extends AbstractType
 {
@@ -40,14 +41,33 @@ class RegistrationFormType extends AbstractType
 //                ],
 //            ])
             ->add('plainPassword', RepeatedType::class, [
+                // Ajouts pour le type Repeated
+                // Doivent être placés au début
                 'type' => PasswordType::class,
-                'mapped' => false,
-                'invalid_message' => 'Les mots de passe ne correspondent pas',
+                'invalid_message' => 'Les valeurs pour les champs mots de passe doivent être identiques.',
                 'options' => ['attr' => ['class' => 'password-field']],
                 'required' => true,
-                'first_options'  => ['label' => 'Password'],
-                'second_options' => ['label' => 'Repeat Password'],
-            ]);
+                'first_options'  => ['label' => 'Mot de passe'],
+                'second_options' => ['label' => 'Répétez le mot de passe'],
+
+                // Code généré par la commande 'make:registration-form'
+                // instead of being set onto the object directly,
+                // this is read and encoded in the controller
+                'mapped' => false,
+                'attr' => ['autocomplete' => 'new-password'],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Mot de passe obligatoire',
+                    ]),
+                    new Length([
+                        'min' => 6,
+                        'minMessage' => 'Le mot de passe doit avoir une longueur minimum de {{ limit }} caractères.',
+                        // max length allowed by Symfony for security reasons
+                        'max' => 4096,
+                    ]
+                    )
+                ],
+            ])
         ;
     }
 
