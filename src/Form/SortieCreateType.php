@@ -8,7 +8,9 @@ use App\Entity\Lieu;
 use App\Entity\Sortie;
 use App\Entity\Utilisateur;
 use App\Entity\Ville;
+use App\Repository\EtatRepository;
 use App\Repository\UtilisateurRepository;
+use Doctrine\ORM\EntityRepository;
 use phpDocumentor\Reflection\TypeResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -53,8 +55,18 @@ class SortieCreateType extends AbstractType
             ->add('etat', EntityType::class,[
                 'label'=> 'etat',
                 'class'=> Etat::class,
+                'query_builder'=> function (EtatRepository $etatRepository) {
+                    return $etatRepository->createQueryBuilder('e')
+                        ->select('e')
+                        ->andWhere('e.libelle = :libelle')
+                        ->orWhere('e.libelle = :libelle2')
+                        ->setParameter('libelle','Ouverte')
+                        ->setParameter('libelle2','Créée');
+                },
                 'choice_label'=>'libelle',
                 'placeholder'=>'--choisir un état--'
+
+
           ])
 
             ->add('lieu', EntityType::class,[

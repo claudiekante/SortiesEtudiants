@@ -73,6 +73,7 @@ class SortieController extends AbstractController
             'lieuType' => $lieuForm->createView(),
 
         ]);
+
     }
 
 }
