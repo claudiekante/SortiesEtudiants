@@ -1,21 +1,47 @@
 <nav>
+
+    <div class="responsive_nav">
     <div id="logodiv">
         <a href="{{ path('main_accueil') }}" title="Accueil"> <img id="logo" src="{{ asset('img/logo.png') }}" alt="logo Sortir"></a>
         <p>Sortir.com </p>
     </div>
+
 
     <button id="burger" class="burger">
         <div class="bar1"></div>
         <div class="bar2"></div>
         <div class="bar3"></div>
     </button>
+    </div>
 
 
-    <ul class="nav_list">
+
+
+
+
+
+
+
+    <div class="nav_avatar">
+
+            <ul class="nav_list">
         {% if app.user %}
+            <li class="nav_item"><a href="{{ path('main_accueil') }}">Accueil</a></li>
+            <li class="nav_item"><a href="{{ path('utilisateur_profil') }}">Mon profil</a>
+
+            </li>
+            <li class="nav_item"><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
+        {% else %}
+            <li class="nav_item"><a href="{{ path('main_accueil') }}">Accueil</a></li>
+            <li class="nav_item"><a href="{{ path('app_login') }}">Connexion</a></li>
+            <li class="nav_item"><a href="{{ path('app_register') }}">Inscription</a></li>
+        {% endif %}
+
+    </ul>
 
             {#            effacer ci dessous pour enlever l'avatar de la barre de nav #}
-            <li class="nav_item">
+
+            {% if(app.user) %}
                 {% if(app.user.avatar) %}
                     <div class="avatarnav"
                          style="background-image: url('{{ asset('img/' ~ app.user.avatar) }}');">
@@ -25,21 +51,8 @@
                          style="background-image: url('{{ asset('img/emoticons.jpg') }}');">
                     </div>
                 {% endif %}
-            </li>
+            {% endif %}
             {#  fin de la zone à effacer pour eliminer l'avatar de la navbar #}
-
-
-            <li class="nav_item"><a href="{{ path('main_accueil') }}">Accueil</a></li>
-        <li class="nav_item"><a href="{{ path('utilisateur_profil') }}">Mon profil</a>
-
-        </li>
-        <li class="nav_item"><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
-        {% else %}
-            <li class="nav_item"><a href="{{ path('main_accueil') }}">Accueil</a></li>
-        <li class="nav_item"><a href="{{ path('app_login') }}">Connexion</a></li>
-        <li class="nav_item"><a href="{{ path('app_register') }}">Inscription</a></li>
-        {% endif %}
-
-    </ul>
+    </div>
 </nav>
 

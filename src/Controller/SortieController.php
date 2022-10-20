@@ -32,7 +32,7 @@ class SortieController extends AbstractController
     /**
      * @Route("/creer", name="creer")
      */
-    public function creerSortie(Request $request, UtilisateurRepository $utilisateurRepository, EntityManagerInterface $entityManager): Response
+    public function creerSortie(Request $request,EtatRepository $etatRepository, UtilisateurRepository $utilisateurRepository, EntityManagerInterface $entityManager): Response
     {
         $utilisateurCourant = $utilisateurRepository->find($this->getUser());
 
@@ -73,6 +73,18 @@ class SortieController extends AbstractController
 
         ]);
 
+    }
+
+    /**
+     * @Route ("detailssortie/{id}", name="sortie_detailssortie", methods={"GET"}, requirements={"id"="\d+"})
+     */
+
+    public function detailsSortie(SortieRepository $sortieRepository, int $id): Response {
+        $sortie = $sortieRepository->find($id);
+
+        return $this->render('sortie/detailssortie.html.twig', [
+           'sortie' => $sortie,
+        ]);
     }
 
 
