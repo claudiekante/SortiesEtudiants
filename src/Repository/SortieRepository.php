@@ -52,7 +52,7 @@ class SortieRepository extends ServiceEntityRepository
         return $query;
     } // -- listSortie()
 
-    public function search($mots = null , $campus = null, $organisateur = false, $id,
+    public function search($id, $mots = null , $campus = null, $organisateur = false,
                            $inscrit = false, $pasInscrit = false, $dejaPasse = false,
                            $dateHeureDebut = null, $dateLimiteInscription = null
     )
@@ -66,24 +66,26 @@ class SortieRepository extends ServiceEntityRepository
         if ($campus != null)
         {
             $query->leftJoin('s.campus', 'c');
-            $query->andWhere('c.id = :id')->setParameter('id', $campus);
+            $query->andWhere('c.id = :campus')->setParameter('campus', $campus);
         }
 
         if ($organisateur)
         {
-            $query->andWhere('s.Organisateur = :id')->setParameter('id', $id);
+            $query->andWhere('s.Organisateur = :organisateur')->setParameter('organisateur', $id);
         }
 
-        if ($inscrit)
-        {
-            $query->innerJoin('s.participant', 'p');
-            $query->andWhere('p.id = :id')          ->setParameter('id', $id);
-        }
+        if(!$inscrit || !$pasInscrit) {
 
-        if ($pasInscrit)
-        {
-            $query->innerJoin('s.participant', 'p');
-            $query->andWhere('p.id != :id')->setParameter('id', $id);
+            if ($inscrit) {
+                $query->innerJoin('s.participant', 'p');
+                $query->andWhere('p.id = :id')->setParameter('id', $id);
+            }
+
+            if ($pasInscrit) {
+                $query->innerJoin('s.participant', 'p');
+                $query->andWhere('p.id != :id')->setParameter('id', $id);
+            }
+
         }
 
         if ($dejaPasse)

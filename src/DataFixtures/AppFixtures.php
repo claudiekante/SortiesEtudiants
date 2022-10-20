@@ -10,7 +10,7 @@ use App\Entity\Utilisateur;
 use App\Entity\Ville;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+
 
 class AppFixtures extends Fixture
 {
@@ -106,6 +106,7 @@ class AppFixtures extends Fixture
             'Opera', 'Ballet', 'Théâtre', 'Paintball'];
         //Participants & sorties
         $tabParticipants = [];
+
         //Admin
         $utilisateur = new Utilisateur();
         $utilisateur->setNom($faker->lastName());

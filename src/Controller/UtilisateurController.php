@@ -27,6 +27,9 @@ class UtilisateurController extends AbstractController
             $file=$form->get('avatar')->getData();
 
 
+            //ligne pour récupérer les données de l'image
+            $file=$form->get('avatar')->getData();
+
             $utilisateurCourant->setPassword(
                 $userPasswordHasher->hashPassword(
                     $utilisateurCourant,

@@ -23,7 +23,7 @@ class MainController extends AbstractController
         $searchForm = $this->createForm(ListeSortieType::class);
         $searchForm->handleRequest($request);
 
-        if($searchForm->isSubmitted()) {
+        if($searchForm->isSubmitted() && $searchForm->isValid()) {
             $utilisateurCourant = $utilisateurRepository->find($this->getUser());
 
             $mots = $searchForm->get('search')->getData();
@@ -36,7 +36,7 @@ class MainController extends AbstractController
             $dateFin = $searchForm->get('dateFin')->getData();
 
 
-            $sorties = $sortieRepository->search($mots, $campus, $organisateur, $utilisateurCourant, $inscrit, $pasInscrit, $dejaPassee, $dateDebut, $dateFin);
+            $sorties = $sortieRepository->search($utilisateurCourant->getId(), $mots, $campus, $organisateur,  $inscrit, $pasInscrit, $dejaPassee, $dateDebut, $dateFin);
 
             return $this->render('main/accueil.html.twig', [
                 "sorties" => $sorties,
