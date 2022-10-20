@@ -41,4 +41,16 @@ class UtilisateurController extends AbstractController
             'form' => $form
         ]);
     }
+
+    /**
+     * @Route ("/profil/{id}" ,name="utilisateur_profilid", methods={"GET"}, requirements={"id"="\d+"})
+     */
+
+    public function profilid(UtilisateurRepository $utilisateurRepository, int $id): Response {
+        $profil = $utilisateurRepository->find($id);
+
+        return $this->render('utilisateur/profilid.html.twig', [
+            'profil' => $profil,
+        ]);
+    }
 }

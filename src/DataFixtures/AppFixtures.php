@@ -10,6 +10,7 @@ use App\Entity\Utilisateur;
 use App\Entity\Ville;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
@@ -145,13 +146,14 @@ class AppFixtures extends Fixture
                     $sortie->setNom($nomsSorties[mt_rand(0, count($nomsSorties)-1)]);
                     $sortie->setDateHeureDebut($faker->dateTimeBetween('-30 days', '+5 months'));
                     $sortie->setDuree($faker->dateTime());
-                    $sortie->setDateLimitInscription($faker->dateTime());
+                    $sortie->setDateLimitInscription($faker->dateTimeBetween('-30 days' ,$sortie->getDateHeureDebut()));
                     $sortie->setNbInscriptionsMax($faker->numberBetween(5,12));
                     $sortie->setInfosSortie($faker->text(255));
-                    $sortie->setEtat($etat1);
+                    $sortie->setEtat($etats[mt_rand(0,5)]);
                     $sortie->setCampus($campus);
                     $sortie->setLieu($tabLieu[mt_rand(0,19)]);
                     $sortie->setOrganisateur($utilisateur);
+                    $sortie->addParticipant($utilisateur);
 
 
                     $manager->persist($sortie);

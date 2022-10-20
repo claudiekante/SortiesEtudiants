@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h4>{{ profil.pseudo }}</h4>
+    {% if profil.avatar %}
+        <img src="{{ asset('img/emoticons.jpg') }}" alt="Avatar {{ profil.pseudo }}">
+    {% endif %}
+    <p>Prénom : {{ profil.prenom }}</p>
+    <p>Nom : {{ profil.nom }}</p>
+    <p>Téléphone : {{ profil.telephone }}</p>
+    <p>Email : {{ profil.email }}</p>
+    <p>Campus : {{ profil.campus.nom }}</p>
+
+    <a href="{{ path('main_accueil') }}"><button type="button">Retour</button></a>
+
+{% endblock %}
+
+{% block title %}
+    Détails du profil | {{ parent() }}
+{% endblock %}
+

@@ -10,6 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=SortieRepository::class)
+ * @ORM\Table(name="sortie", indexes={@ORM\Index(columns={"nom","infos_sortie"}, flags={"fulltext"})})
  */
 class Sortie
 {
@@ -23,7 +24,7 @@ class Sortie
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank (message="Ce champs est obligatoire")
-     * @Assert\Length(max=255, min=5)
+     * @Assert\Length(max=255, min=3)
      */
     private $nom;
 

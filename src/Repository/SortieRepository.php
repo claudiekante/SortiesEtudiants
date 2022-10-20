@@ -52,6 +52,64 @@ class SortieRepository extends ServiceEntityRepository
         return $query;
     } // -- listSortie()
 
+    public function search($mots = null , $campus = null, $organisateur = false, $id,
+                           $inscrit = false, $pasInscrit = false, $dejaPasse = false,
+                           $dateHeureDebut = null, $dateLimiteInscription = null
+    )
+    {
+        $query = $this->createQueryBuilder('s');
+
+        if ($mots != null){
+            $query->where('MATCH_AGAINST (s.nom, s.infosSortie) AGAINST (:mots boolean)>0')->setParameter('mots', $mots);
+        }
+
+        if ($campus != null)
+        {
+            $query->leftJoin('s.campus', 'c');
+            $query->andWhere('c.id = :id')->setParameter('id', $campus);
+        }
+
+        if ($organisateur)
+        {
+            $query->andWhere('s.Organisateur = :id')->setParameter('id', $id);
+        }
+
+        if ($inscrit)
+        {
+            $query->innerJoin('s.participant', 'p');
+            $query->andWhere('p.id = :id')          ->setParameter('id', $id);
+        }
+
+        if ($pasInscrit)
+        {
+            $query->innerJoin('s.participant', 'p');
+            $query->andWhere('p.id != :id')->setParameter('id', $id);
+        }
+
+        if ($dejaPasse)
+        {
+            $query->leftJoin('s.etat','e');
+            $query->andWhere('e.libelle = :passee ');
+            $query->setParameter('passee','Passée');
+
+        }
+
+        if ($dateHeureDebut != null)
+        {
+            $query->andWhere('s.dateHeureDebut > :dateHeureDebut')->setParameter('dateHeureDebut',  $dateHeureDebut);
+            $query->orderBy('s.dateHeureDebut', 'ASC');
+        }
+
+        if ($dateLimiteInscription != null)
+        {
+            $query->andWhere('s.dateHeureDebut < :dateLimite')
+                ->setParameter('dateLimite', $dateLimiteInscription);
+            $query->orderBy('s.dateHeureDebut', 'ASC');
+        }
+
+        return $query->getQuery()->getResult();
+    } // -- search()
+
 //    /**
 //     * @return Sortie[] Returns an array of Sortie objects
 //     */
