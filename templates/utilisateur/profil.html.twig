@@ -5,35 +5,64 @@
 {% block body %}
 
     <div class="container">
-    <div class="row">
-        <div class="col d-flex justify-content-center">
-            <p> </p>
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+                <p></p>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col d-flex justify-content-center">
-            <p> </p>
-            <h1 class="h3 mb-3 font-weight-normal">Mon profil</h1>
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center">
+                <p></p>
+                <h1 class="h3 mb-3 font-weight-normal">Mon profil</h1>
+            </div>
         </div>
-    </div>
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center">
 
-    <div class="row">
-    <div class="col d-flex justify-content-center">
+                  {% if(app.user.avatar) %}
+                        <div class="avatarpage"
+                             style="background-image: url('{{ asset('img/' ~ app.user.avatar) }}');">
+                        </div>
 
-    <div class="card" style="width: 28rem;">
-    <div class="card-body">
+                    {% else %}
+                        <div class="avatarpage"
+                             style="background-image: url('{{ asset('img/emoticons.jpg') }}');">
+                        </div>
+                    {% endif %}
 
-{#    <h2>Mon Profil</h2>#}
+                <p></p>
 
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn btn-light" type="submit">Enregistrer</button>
-    <button class="btn btn-light" type="button"><a href="{{ path('main_accueil') }}">Annuler</a></button>
-    {{ form_end(form) }}
-    </div>
-    </div>
-    </div>
-    </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center">
+                <p>Bonjour {{ app.user.pseudo }}, tu peux vérifier et/ou modifier ton profil ici</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+
+                <div class="card" style="width: 28rem;">
+                    <div class="card-body">
+
+                        {#    <h2>Mon Profil</h2> #}
+
+                        {{ form_start(form) }}
+                        {{ form_widget(form) }}
+                        <button class="btn btn-light" type="submit">Enregistrer</button>
+                        <button class="btn btn-light" type="button"><a href="{{ path('main_accueil') }}">Annuler</a>
+                        </button>
+                        {{ form_end(form) }}
+                        <p></p>
+                        <p>les champs marqués avec une * sont obligatoires </p>
+                        <p></p>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 

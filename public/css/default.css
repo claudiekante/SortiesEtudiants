@@ -189,12 +189,12 @@ nav p {
 }
 
 .avatarpage {
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
-    border-radius: 30px 30px 30px 30px;
+    border-radius: 40px 40px 40px 40px;
 }
 
 /*    margin-bottom: 1rem;*/

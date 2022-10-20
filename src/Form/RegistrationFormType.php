@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
@@ -22,17 +23,27 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('pseudo')
-            ->add('nom')
-            ->add('prenom')
+            ->add('pseudo', TextType::class, [
+                'label'=>'Pseudo*',
+                ])
+            ->add('nom', TextType::class, [
+                'label'=>'Nom*',
+            ])
+            ->add('prenom', TextType::class, [
+                'label'=>'Prenom*',
+            ])
             ->add('campus', EntityType::class,[
-                'label'=>'Campus',
+                'label'=>'Campus*',
                 'class' => Campus::class,
                 'choice_label' =>'nom',
                 'placeholder'=>'--choisi ton campus--'
             ])
-            ->add('telephone')
-            ->add('email')
+            ->add('telephone', TextType::class, [
+                'label'=>'Telephone*',
+            ])
+            ->add('email', TextType::class, [
+                'label'=>'Email*',
+            ])
 //            ->add('agreeTerms', CheckboxType::class, [
 //                'mapped' => false,
 //                'constraints' => [
@@ -45,7 +56,7 @@ class RegistrationFormType extends AbstractType
             ->add('avatar', FileType::class, [
                 'mapped' => false,
                 'required' => false,
-                'label'=>'Si tu veux, rajoute ta photo'
+                'label'=>'Photo du profil'
             ])
 
             ->add('plainPassword', RepeatedType::class, [
@@ -55,8 +66,8 @@ class RegistrationFormType extends AbstractType
                 'invalid_message' => 'Les valeurs pour les champs mots de passe doivent être identiques.',
                 'options' => ['attr' => ['class' => 'password-field']],
                 'required' => true,
-                'first_options'  => ['label' => 'Mot de passe'],
-                'second_options' => ['label' => 'Répétez le mot de passe'],
+                'first_options'  => ['label' => 'Mot de passe*'],
+                'second_options' => ['label' => 'Répétez le mot de passe*'],
 
                 // Code généré par la commande 'make:registration-form'
                 // instead of being set onto the object directly,

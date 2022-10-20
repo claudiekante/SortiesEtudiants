@@ -23,6 +23,10 @@ class UtilisateurController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()) {
 
+            //          ligne pour récupérer les données de l'image
+            $file=$form->get('avatar')->getData();
+
+
             $utilisateurCourant->setPassword(
                 $userPasswordHasher->hashPassword(
                     $utilisateurCourant,
@@ -30,6 +34,14 @@ class UtilisateurController extends AbstractController
                 )
             );
 
+            //          ligne pour récupérer les données de l'image
+            if ($file){
+ //               $file->move($this->getParameter('upload_champ_entite_dir'));
+
+                $newFilename = $utilisateurCourant->getPseudo()."-".$utilisateurCourant->getId().".".$file->guessExtension();
+                $file->move($this->getParameter('upload_champ_entite_dir'), $newFilename);
+                $utilisateurCourant->setAvatar($newFilename);
+            }
 
             $entityManager->persist($utilisateurCourant);
             $entityManager->flush();
