@@ -34,6 +34,7 @@ class UtilisateurController extends AbstractController
             $entityManager->persist($utilisateurCourant);
             $entityManager->flush();
 
+            $this->addFlash('success', 'La modification a bien été enregistrée');
             return $this->redirectToRoute("main_accueil");
         }
 

@@ -25,7 +25,7 @@
 </header>
 {% for label, messages in app.flashes %}
     {% for message in messages %}
-        <div>
+        <div class="alert alert-success" role="alert">
             {{ message }}
         </div>
     {% endfor %}
