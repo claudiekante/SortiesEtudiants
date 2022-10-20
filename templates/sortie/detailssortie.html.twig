@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h4>Détails de la sortie {{ sortie.nom }}</h4>
+
+{% endblock %}
+
+{% block title %}
+ {{ sortie.nom }} | {{ parent() }}
+{% endblock %}
+

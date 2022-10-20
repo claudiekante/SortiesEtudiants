@@ -24,7 +24,7 @@ class Sortie
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank (message="Ce champs est obligatoire")
-     * @Assert\Length(max=255, min=3)
+     * @Assert\Length(max=255, min=3, minMessage="Le champ doit contenir au moins 3 caractères")
      */
     private $nom;
 

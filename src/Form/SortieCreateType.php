@@ -33,7 +33,7 @@ class SortieCreateType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom')
+            ->add('nom', TextType::class)
             ->add('dateHeureDebut', DateTimeType::class,[
                 'label'=>'Date et heure du début',
                 'html5'=> true,
