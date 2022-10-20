@@ -2,8 +2,9 @@
 
 namespace App\Controller;
 
-use App\Form\ListeSortiesType;
+use App\Form\ListeSortieType;
 use App\Repository\SortieRepository;
+use App\Repository\UtilisateurRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,15 +13,36 @@ use Symfony\Component\Routing\Annotation\Route;
 class MainController extends AbstractController
 {
     /**
-     * @Route("/", name="main_accueil", methods={"GET"})
+     * @Route("/", name="main_accueil", methods={"GET", "POST"})
      */
 
-    public function accueil(Request $request, SortieRepository $sortieRepository): Response {
+    public function accueil(Request $request, SortieRepository $sortieRepository, UtilisateurRepository $utilisateurRepository): Response {
 
         $sorties = $sortieRepository->listSortie();
 
-        $searchForm = $this->createForm(ListeSortiesType::class);
+        $searchForm = $this->createForm(ListeSortieType::class);
         $searchForm->handleRequest($request);
+
+        if($searchForm->isSubmitted()) {
+            $utilisateurCourant = $utilisateurRepository->find($this->getUser());
+
+            $mots = $searchForm->get('search')->getData();
+            $campus = $searchForm->get('campus')->getData();
+            $organisateur = $searchForm->get('organisateur')->getData();
+            $inscrit = $searchForm->get('inscrit')->getData();
+            $pasInscrit = $searchForm->get('pasInscrit')->getData();
+            $dejaPassee = $searchForm->get('dejaPassee')->getData();
+            $dateDebut = $searchForm->get('dateDebut')->getData();
+            $dateFin = $searchForm->get('dateFin')->getData();
+
+
+            $sorties = $sortieRepository->search($mots, $campus, $organisateur, $utilisateurCourant, $inscrit, $pasInscrit, $dejaPassee, $dateDebut, $dateFin);
+
+            return $this->render('main/accueil.html.twig', [
+                "sorties" => $sorties,
+                "searchForm" => $searchForm->createView(),
+            ]);
+        }
 
         return $this->render('main/accueil.html.twig', [
             "sorties" => $sorties,

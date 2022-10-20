@@ -34,11 +34,24 @@ class UtilisateurController extends AbstractController
             $entityManager->persist($utilisateurCourant);
             $entityManager->flush();
 
+            $this->addFlash('success', 'La modification a bien été enregistrée');
             return $this->redirectToRoute("main_accueil");
         }
 
         return $this->renderForm('utilisateur/profil.html.twig', [
             'form' => $form
+        ]);
+    }
+
+    /**
+     * @Route ("/profil/{id}" ,name="utilisateur_profilid", methods={"GET"}, requirements={"id"="\d+"})
+     */
+
+    public function profilid(UtilisateurRepository $utilisateurRepository, int $id): Response {
+        $profil = $utilisateurRepository->find($id);
+
+        return $this->render('utilisateur/profilid.html.twig', [
+            'profil' => $profil,
         ]);
     }
 }

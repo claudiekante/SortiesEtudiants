@@ -38,11 +38,10 @@ class SortieController extends AbstractController
 
         $sortie = new Sortie();
         $sortieForm = $this->createForm(SortieCreateType::class, $sortie);
-        $sortie->setCampus($utilisateurCourant->getCampus());
-
         $sortieForm->handleRequest($request);
 
         if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
+            $sortie->setCampus($utilisateurCourant->getCampus());
             $sortie->setOrganisateur($utilisateurCourant);
             $entityManager->persist($sortie);
             $entityManager->flush();
