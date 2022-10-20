@@ -5,30 +5,30 @@
 
 {%  block body %}
 
-    <p>test pour affichage de l'image utilisateur</p>
-    {% if (app.user) %}
-        {% if(app.user.avatar) %}
-            <p>Ceci est une image qui pourrait accompagner les sorties</p>
-            <div class="avatarpage"
-                 style="background-image: url('{{ asset('img/' ~ app.user.avatar) }}');">
-            </div>
-            <p>Ceci est une image qui pourrait aller dans la navbar</p>
-            <div class="avatarnav"
-                 style="background-image: url('{{ asset('img/' ~ app.user.avatar) }}');">
-            </div>
-        {% else %}
-            <p>Ceci est l'image qui s'affiche si la personne n'as pas chargé sa photo</p>
-            <div class="avatarpage"
-                 style="background-image: url('{{ asset('img/emoticons.jpg') }}');">
-            </div>
-            <p>voici sa version pour la nav bar</p>
-            <div class="avatarnav"
-                 style="background-image: url('{{ asset('img/emoticons.jpg') }}');">
-            </div>
-
-        {% endif %}
-    {% endif %}
-    <p></p>
+{#    code à utiliser pour afficher l'image de l'user dans le site#}
+{#    <p>test pour affichage de l'image utilisateur</p>#}
+{#    {% if (app.user) %}#}
+{#        {% if(app.user.avatar) %}#}
+{#            <p>Ceci est une image qui pourrait accompagner les sorties</p>#}
+{#            <div class="avatarpage"#}
+{#                 style="background-image: url('{{ asset('img/' ~ app.user.avatar) }}');">#}
+{#            </div>#}
+{#            <p>Ceci est une image qui pourrait aller dans la navbar</p>#}
+{#            <div class="avatarnav"#}
+{#                 style="background-image: url('{{ asset('img/' ~ app.user.avatar) }}');">#}
+{#            </div>#}
+{#        {% else %}#}
+{#            <p>Ceci est l'image qui s'affiche si la personne n'as pas chargé sa photo</p>#}
+{#            <div class="avatarpage"#}
+{#                 style="background-image: url('{{ asset('img/emoticons.jpg') }}');">#}
+{#            </div>#}
+{#            <p>voici sa version pour la nav bar</p>#}
+{#            <div class="avatarnav"#}
+{#                 style="background-image: url('{{ asset('img/emoticons.jpg') }}');">#}
+{#            </div>#}
+{#        {% endif %}#}
+{#    {% endif %}#}
+{#    <p></p>#}
 
     {{ form_start(searchForm) }}
     {{ form_widget(searchForm) }}

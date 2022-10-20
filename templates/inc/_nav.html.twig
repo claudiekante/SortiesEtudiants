@@ -10,16 +10,36 @@
         <div class="bar3"></div>
     </button>
 
+
     <ul class="nav_list">
         {% if app.user %}
-           {# <li class="nav_item">  Bonjour {{ app.user.pseudo }} ! </li>#}
+
+            {#            effacer ci dessous pour enlever l'avatar de la barre de nav #}
+            <li class="nav_item">
+                {% if(app.user.avatar) %}
+                    <div class="avatarnav"
+                         style="background-image: url('{{ asset('img/' ~ app.user.avatar) }}');">
+                    </div>
+                {% else %}
+                    <div class="avatarnav"
+                         style="background-image: url('{{ asset('img/emoticons.jpg') }}');">
+                    </div>
+                {% endif %}
+            </li>
+            {#  fin de la zone à effacer pour eliminer l'avatar de la navbar #}
+
+
             <li class="nav_item"><a href="{{ path('main_accueil') }}">Accueil</a></li>
-        <li class="nav_item"><a href="{{ path('utilisateur_profil') }}">Mon profil</a></li>
+        <li class="nav_item"><a href="{{ path('utilisateur_profil') }}">Mon profil</a>
+
+        </li>
         <li class="nav_item"><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
         {% else %}
             <li class="nav_item"><a href="{{ path('main_accueil') }}">Accueil</a></li>
         <li class="nav_item"><a href="{{ path('app_login') }}">Connexion</a></li>
         <li class="nav_item"><a href="{{ path('app_register') }}">Inscription</a></li>
         {% endif %}
+
     </ul>
 </nav>
+
