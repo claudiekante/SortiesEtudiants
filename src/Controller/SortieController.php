@@ -41,6 +41,18 @@ class SortieController extends AbstractController
         $sortieForm = $this->createForm(SortieCreateType::class, $sortie);
         $sortieForm->handleRequest($request);
 
+        $lieu = new Lieu();
+        $lieuForm = $this->createForm(LieuType::class, $lieu);
+        $lieuForm->handleRequest($request);
+
+        if ($lieuForm->isSubmitted() && $lieuForm->isValid()) {
+
+            $entityManager->persist($lieu);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Le lieu a bien été enregistré');
+            return $this->redirectToRoute('creer');
+        }
         if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
             $sortie->addParticipant($utilisateurCourant);
             $sortie->setCampus($utilisateurCourant->getCampus());
@@ -54,12 +66,13 @@ class SortieController extends AbstractController
 
         return $this->render('sortie/createSortie.html.twig', [
             'sortieCreateType' => $sortieForm->createView(),
-            'utilisateurCourant'=>$utilisateurCourant
+            'utilisateurCourant'=>$utilisateurCourant,
+            'lieuType' => $lieuForm->createView(),
         ]);
     }
 
     /**
-     * @Route("/lieu", name="/lieu")
+     * @Route("/creer", name="/lieu")
      */
     public function choixLieu(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -68,19 +81,17 @@ class SortieController extends AbstractController
         $lieuForm->handleRequest($request);
 
         if ($lieuForm->isSubmitted() && $lieuForm->isValid()) {
+
             $entityManager->persist($lieu);
             $entityManager->flush();
 
             $this->addFlash('success', 'Le lieu a bien été enregistré');
             return $this->redirectToRoute('creer');
         }
-        return $this->render('sortie/lieuxSortie.html.twig', [
+        return $this->render('sortie/createSortie.html.twig', [
+
             'lieuType' => $lieuForm->createView(),
-
-
         ]);
-
-
     }
 
     /**
