@@ -31,10 +31,11 @@ class SortieController extends AbstractController
             'controller_name' => 'SortieController',
         ]);
     }
+
     /**
      * @Route("/creer", name="creer")
      */
-    public function creerSortie(Request $request,EtatRepository $etatRepository, UtilisateurRepository $utilisateurRepository, EntityManagerInterface $entityManager): Response
+    public function creerSortie(Request $request, EtatRepository $etatRepository, UtilisateurRepository $utilisateurRepository, EntityManagerInterface $entityManager): Response
     {
         $utilisateurCourant = $utilisateurRepository->find($this->getUser());
 
@@ -66,23 +67,23 @@ class SortieController extends AbstractController
 
         return $this->render('sortie/createSortie.html.twig', [
             'sortieCreateType' => $sortieForm->createView(),
-            'utilisateurCourant'=>$utilisateurCourant,
+            'utilisateurCourant' => $utilisateurCourant,
             'lieuType' => $lieuForm->createView(),
 
         ]);
     }
 
 
-
     /**
      * @Route ("detailssortie/{id}", name="sortie_detailssortie", methods={"GET"}, requirements={"id"="\d+"})
      */
 
-    public function detailsSortie(SortieRepository $sortieRepository, int $id): Response {
+    public function detailsSortie(SortieRepository $sortieRepository, int $id): Response
+    {
         $sortie = $sortieRepository->find($id);
 
         return $this->render('sortie/detailssortie.html.twig', [
-           'sortie' => $sortie,
+            'sortie' => $sortie,
         ]);
     }
 
@@ -95,7 +96,7 @@ class SortieController extends AbstractController
         $form = $this->createForm(SortieCreateType::class, $sortie);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $sortie = $form->getData();
             $em->persist($sortie);
             $em->flush();
@@ -106,13 +107,13 @@ class SortieController extends AbstractController
             );
             return $this->redirectToRoute('main_accueil');
         }
-        return $this->render('sortie/modifierSortie.html.twig',[
-            'form'=>$form->createView(),
-            'sortie' =>$sortie,
+        return $this->render('sortie/modifierSortie.html.twig', [
+            'form' => $form->createView(),
+            'sortie' => $sortie,
         ]);
 
 
-        }
+    }
 
 
 //        codice ales
@@ -162,5 +163,25 @@ class SortieController extends AbstractController
 //
 //
 //    }
+
+    /**
+     * @Route("/supprimerSortie/{id}"), name="supprimerSortie"
+     */
+    public function supprimerSortie(int $id, Request $request, SortieRepository $sortieRepository, EntityManagerInterface $entityManager): Response
+    {
+        $sortie = $sortieRepository->find($id);
+        $entityManager->remove($sortie);
+        $entityManager->flush();
+
+        $this->addFlash(
+            'success',
+            'La sortie a bien été supprimée'
+        );
+        return $this->redirectToRoute('main_accueil');
+    }
+
+
+
+
 
 }

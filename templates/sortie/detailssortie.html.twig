@@ -1,7 +1,5 @@
 {% extends 'base.html.twig' %}
-
 {% block body %}
-
     <h4>Détails de la sortie {{ sortie.nom }}</h4>
     <!--<p>Nom de la sortie :{#  {{ sortie.nom }}#}</a></p> doublon avec la ligne précédente-->
     <p>Organisée par :<a href="{{ path('utilisateur_profilid', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur.pseudo }}</a></p>
@@ -18,6 +16,13 @@
     <p>Longitude : {{ sortie.lieu.longitude }}</p>
     <a type="bouton" class="btn btn-outline-warning" href="{{ path('app_sortie_modifiersortie', {'id': sortie.id}) }}">Modifier la sortie</a>
     <br>
+    <!--bouton Modal -->
+    <!--<button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#exampleModal">
+        Supprimer une sortie
+    </button>-->
+
+        <!--bouton Modal -->
+
 
 {#    codice Ales#}
     <p></p>
@@ -27,7 +32,6 @@
 
 
     <h5>Liste des participants inscrits</h5>
-
 <div class="custom-table">
     <table class="table table-striped">
         <thead>
@@ -46,10 +50,28 @@
         </tbody>
     </table>
 </div>
-
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Nouveau lieu</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Etes-vous sûr de vouloir supprimer cette sortie ? </p>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                        <button class="btn btn-light" onclick=window.location.href="{{ path('app_sortie_supprimersortie', {'id': sortie.id }) }}">supprimer</button>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- Modal -->
 {% endblock %}
 
-{% block title %}
- {{ sortie.nom }} | {{ parent() }}
-{% endblock %}
+
 
