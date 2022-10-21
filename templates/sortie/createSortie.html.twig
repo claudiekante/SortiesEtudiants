@@ -48,21 +48,23 @@
     <div class="card" style="width: 28rem;">
     <div class="card-body">
         {{ form_start(sortieCreateType) }}
-    {{ form_row(sortieCreateType.nom) }}
+
     {{ form_row(sortieCreateType.lieu) }}
         <button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#exampleModal">
             Ajouter un lieu
         </button>
+        <br> {{ form_row(sortieCreateType.nom) }}
     {{ form_row(sortieCreateType.dateHeureDebut) }}
     {{ form_row(sortieCreateType.duree) }}
     {{ form_row(sortieCreateType.dateLimitInscription) }}
     {{ form_row(sortieCreateType.nbInscriptionsMax) }}
     {{ form_row(sortieCreateType.infosSortie) }}
     {{ form_row(sortieCreateType.etat) }}
+        <i style="font-size: small">* Champ obligatoire</i><br>
     <br>
     <button type="submit" class="btn btn-light">Valider</button>
     {{ form_end(sortieCreateType) }}
-        <i style="font-size: small">* Champ obligatoire</i><br>
+
 
     </div>
     </div>

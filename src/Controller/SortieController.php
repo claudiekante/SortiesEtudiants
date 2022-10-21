@@ -14,6 +14,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -37,6 +38,7 @@ class SortieController extends AbstractController
     {
         $utilisateurCourant = $utilisateurRepository->find($this->getUser());
 
+
         $sortie = new Sortie();
         $sortieForm = $this->createForm(SortieCreateType::class, $sortie);
         $sortieForm->handleRequest($request);
@@ -46,7 +48,6 @@ class SortieController extends AbstractController
         $lieuForm->handleRequest($request);
 
         if ($lieuForm->isSubmitted() && $lieuForm->isValid()) {
-
             $entityManager->persist($lieu);
             $entityManager->flush();
 
@@ -68,31 +69,11 @@ class SortieController extends AbstractController
             'sortieCreateType' => $sortieForm->createView(),
             'utilisateurCourant'=>$utilisateurCourant,
             'lieuType' => $lieuForm->createView(),
+
         ]);
     }
 
-    /**
-     * @Route("/creer", name="/lieu")
-     */
-    public function choixLieu(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $lieu = new Lieu();
-        $lieuForm = $this->createForm(LieuType::class, $lieu);
-        $lieuForm->handleRequest($request);
 
-        if ($lieuForm->isSubmitted() && $lieuForm->isValid()) {
-
-            $entityManager->persist($lieu);
-            $entityManager->flush();
-
-            $this->addFlash('success', 'Le lieu a bien été enregistré');
-            return $this->redirectToRoute('creer');
-        }
-        return $this->render('sortie/createSortie.html.twig', [
-
-            'lieuType' => $lieuForm->createView(),
-        ]);
-    }
 
     /**
      * @Route ("detailssortie/{id}", name="sortie_detailssortie", methods={"GET"}, requirements={"id"="\d+"})
