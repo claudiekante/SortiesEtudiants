@@ -39,6 +39,15 @@ class EtatRepository extends ServiceEntityRepository
         }
     }
 
+    public function findByLibelle(string $libelle) {
+       return $this->createQueryBuilder('e')
+            ->select('e')
+            ->andWhere('e.libelle = :libelle')
+            ->setParameter('libelle', $libelle)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 
 //    /**
 //     * @return Etat[] Returns an array of Etat objects

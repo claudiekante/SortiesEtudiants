@@ -10,10 +10,18 @@ use App\Entity\Utilisateur;
 use App\Entity\Ville;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 
 class AppFixtures extends Fixture
 {
+
+    private UserPasswordHasherInterface $hasher;
+    public function __construct(UserPasswordHasherInterface $hasher)
+    {
+        $this->hasher = $hasher;
+    }
+
     public function load(ObjectManager $manager): void
     {
 
@@ -118,7 +126,7 @@ class AppFixtures extends Fixture
         $utilisateur->setActif(true);
         $utilisateur->setAdministrateur(true);
         $utilisateur->setRoles(["ROLE_ADMIN"]);
-        $utilisateur->setPassword('password');
+        $utilisateur->setPassword($this->hasher->hashPassword($utilisateur, 'password'));
 
         $tabParticipants[] = $utilisateur;
         $manager->persist($utilisateur);
@@ -136,7 +144,7 @@ class AppFixtures extends Fixture
                 $utilisateur->setCampus($campus);
                 $utilisateur->setActif(true);
                 $utilisateur->setAdministrateur(false);
-                $utilisateur->setPassword('password');
+                $utilisateur->setPassword($this->hasher->hashPassword($utilisateur, 'password'));
 
                 $tabParticipants[] = $utilisateur;
 
@@ -150,7 +158,7 @@ class AppFixtures extends Fixture
                     $sortie->setDateLimitInscription($faker->dateTimeBetween('-30 days' ,$sortie->getDateHeureDebut()));
                     $sortie->setNbInscriptionsMax($faker->numberBetween(5,12));
                     $sortie->setInfosSortie($faker->text(255));
-                    $sortie->setEtat($etats[mt_rand(0,5)]);
+                    $sortie->setEtat($etat2);
                     $sortie->setCampus($campus);
                     $sortie->setLieu($tabLieu[mt_rand(0,19)]);
                     $sortie->setOrganisateur($utilisateur);

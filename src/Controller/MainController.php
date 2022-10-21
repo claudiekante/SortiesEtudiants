@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Form\ListeSortieType;
+use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
 use App\Repository\UtilisateurRepository;
+use App\Services\EtatService;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +19,9 @@ class MainController extends AbstractController
      * @Route("/", name="main_accueil", methods={"GET", "POST"})
      */
 
-    public function accueil(Request $request, SortieRepository $sortieRepository, UtilisateurRepository $utilisateurRepository): Response {
+    public function accueil(Request $request, SortieRepository $sortieRepository, UtilisateurRepository $utilisateurRepository, EtatRepository $etatRepository, EtatService $etatService, EntityManagerInterface $entityManager): Response {
+
+        $etatService->updateEtatSortie($sortieRepository, $etatRepository, $entityManager);
 
         $sorties = $sortieRepository->listSortie();
 
@@ -35,8 +40,8 @@ class MainController extends AbstractController
             $dateDebut = $searchForm->get('dateDebut')->getData();
             $dateFin = $searchForm->get('dateFin')->getData();
 
-
             $sorties = $sortieRepository->search($utilisateurCourant->getId(), $mots, $campus, $organisateur,  $inscrit, $pasInscrit, $dejaPassee, $dateDebut, $dateFin);
+
 
             return $this->render('main/accueil.html.twig', [
                 "sorties" => $sorties,
