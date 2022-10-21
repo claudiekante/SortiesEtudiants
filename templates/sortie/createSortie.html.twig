@@ -10,6 +10,9 @@
         </div>
     </div>
     <div class="row">
+    {#  {{render(controller('App\\Controller\\SortieController::choixLieu'))}}#}
+        {#  {% include ('sortie/lieuxSortie.html.twig') with {'lieuType':lieuType}%}#}
+
         <div class="col d-flex justify-content-center">
             <p> </p>
             <h1 class="h3 mb-3 font-weight-normal">Créer une sortie</h1>
@@ -18,46 +21,22 @@
 
     <div class="row">
     <div class="col-12 d-flex justify-content-center">
-
     <div class="card" style="width: 28rem;">
     <div class="card-body">
         {{ form_start(sortieCreateType) }}
     {{ form_row(sortieCreateType.nom) }}
-    {{ form_row(sortieCreateType.lieu) }} <br>
-   <button  type="button" class="btn btn-outline-warning" onclick="window.location.href ='{{ path('/lieu') }}'">Ajouter un lieu (nouvelle page)</button>
-    <br>
+    {{ form_row(sortieCreateType.lieu) }}
     {{ form_row(sortieCreateType.dateHeureDebut) }}
     {{ form_row(sortieCreateType.duree) }}
     {{ form_row(sortieCreateType.dateLimitInscription) }}
     {{ form_row(sortieCreateType.nbInscriptionsMax) }}
-
     {{ form_row(sortieCreateType.infosSortie) }}
     {{ form_row(sortieCreateType.etat) }}
-        <i style="font-size: small">* Champ obligatoire</i><br>
     <br>
     <button type="submit" class="btn btn-light">Valider</button>
     {{ form_end(sortieCreateType) }}
+        <i style="font-size: small">* Champ obligatoire</i><br>
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Nouveau lieu</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                    <button type="button" class="btn btn-outline-warning">Enregistrer</button>
-                </div>
-            </div>
-        </div>
-    </div>
     </div>
     </div>
     </div>

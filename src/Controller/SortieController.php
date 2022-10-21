@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Lieu;
 use App\Entity\Sortie;
 use App\Form\LieuType;
+use App\Form\RegistrationFormType;
 use App\Form\SortieCreateType;
 use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
@@ -65,14 +66,20 @@ class SortieController extends AbstractController
         $lieu = new Lieu();
         $lieuForm = $this->createForm(LieuType::class, $lieu);
         $lieuForm->handleRequest($request);
+
         if ($lieuForm->isSubmitted() && $lieuForm->isValid()) {
             $entityManager->persist($lieu);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Le lieu a bien été enregistré');
+            return $this->redirectToRoute('creer');
         }
         return $this->render('sortie/lieuxSortie.html.twig', [
             'lieuType' => $lieuForm->createView(),
 
+
         ]);
+
 
     }
 
@@ -88,5 +95,32 @@ class SortieController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/modifier/{id}"), name="modifierSortie"
+     */
+    public function modifierSortie(int $id, Request $request, SortieRepository $sortieRepository, EntityManagerInterface $em): Response
+    {
+        $sortie = $sortieRepository->find($id);
+        $form = $this->createForm(SortieCreateType::class, $sortie);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $sortie = $form->getData();
+            $em->persist($sortie);
+            $em->flush();
+
+            $this->addFlash(
+                'success',
+                'Les modifications ont bien été enregistrées.'
+            );
+            return $this->redirectToRoute('main_accueil');
+        }
+        return $this->render('sortie/modifierSortie.html.twig',[
+            'form'=>$form->createView(),
+            'sortie' =>$sortie,
+        ]);
+
+
+        }
 
 }

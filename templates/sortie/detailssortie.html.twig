@@ -15,7 +15,8 @@
     <p>Ville : {{ sortie.lieu.ville.codePostal }} {{ sortie.lieu.ville.nom }}</p>
     <p>Latitude : {{ sortie.lieu.latitude }}</p>
     <p>Longitude : {{ sortie.lieu.longitude }}</p>
-
+    <a type="bouton" class="btn btn-outline-warning" href="{{ path('app_sortie_modifiersortie', {'id': sortie.id}) }}">Modifier la sortie</a>
+    <br>
     <h5>Liste des participants inscrits</h5>
 
 <div class="custom-table">
@@ -35,7 +36,9 @@
         {% endfor %}
         </tbody>
     </table>
+
 </div>
+
 
 
 {% endblock %}
