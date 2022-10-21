@@ -3,8 +3,8 @@
 {% block body %}
 
     <h4>Détails de la sortie {{ sortie.nom }}</h4>
-    <p>Nom de la sortie : <a href="{{ path('utilisateur_profilid', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur.pseudo }}</a></p>
-    <p>Organisée par : {{ path('utilisateur_profilid', {'id': sortie.organisateur.id}) }} </p>
+    <!--<p>Nom de la sortie :{#  {{ sortie.nom }}#}</a></p> doublon avec la ligne précédente-->
+    <p>Organisée par :<a href="{{ path('utilisateur_profilid', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur.pseudo }}</a></p>
     <p>Date et Heure de la sortie : Le {{ sortie.dateHeureDebut | date('d/m/Y à H:i') }}</p>
     <p>Date limite d'inscription : {{ sortie.dateLimitInscription | date('d/m/Y') }}</p>
     <p>Nombre de places restantes : {{ sortie.nbInscriptionsMax - sortie.participant.count }}</p>
@@ -38,10 +38,7 @@
         {% endfor %}
         </tbody>
     </table>
-
 </div>
-
-
 
 {% endblock %}
 
