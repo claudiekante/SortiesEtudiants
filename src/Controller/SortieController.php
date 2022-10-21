@@ -114,4 +114,53 @@ class SortieController extends AbstractController
 
         }
 
+
+//        codice ales
+
+    /**
+     * @Route("/participer/{id}"), name"participerSortie", methods={"GET"}, requirements={"id"="\d+"})
+     */
+    public function participerSortie(int $id, Request $request, SortieRepository $sortieRepository, UtilisateurRepository $utilisateurRepository, EntityManagerInterface $em): Response
+    {
+        $sortie = $sortieRepository->find($id);
+        // $form = $this->createForm(SortieCreateType::class, $sortie);
+        // $form->handleRequest($request);
+
+
+        $utilisateurCourant = $utilisateurRepository->find($this->getUser());
+        $sortie->addParticipant($utilisateurCourant);
+        $em->persist($sortie);
+        $em->flush();
+        $this->addFlash(
+            'success',
+            'Tu est maintenant inscrit.'
+        );
+
+        return $this->render('sortie/detailssortie.html.twig', [
+            'sortie' => $sortie,
+        ]);
+
+    }
+
+
+
+//        if($form->isSubmitted() && $form->isValid()) {
+//            $sortie = $form->getData();
+//            $em->persist($sortie);
+//            $em->flush();
+//
+//            $this->addFlash(
+//                'success',
+//                'Les modifications ont bien été enregistrées.'
+//            );
+//            return $this->redirectToRoute('main_accueil');
+//        }
+//        return $this->render('sortie/modifierSortie.html.twig',[
+//            'form'=>$form->createView(),
+//            'sortie' =>$sortie,
+//        ]);
+//
+//
+//    }
+
 }
