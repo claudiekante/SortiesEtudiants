@@ -35,7 +35,7 @@ class SortieController extends AbstractController
     /**
      * @Route("/creer", name="creer")
      */
-    public function creerSortie(Request $request, EtatRepository $etatRepository, UtilisateurRepository $utilisateurRepository, EntityManagerInterface $entityManager): Response
+    public function creerSortie(Request $request, UtilisateurRepository $utilisateurRepository, EntityManagerInterface $entityManager): Response
     {
         $utilisateurCourant = $utilisateurRepository->find($this->getUser());
 
@@ -78,12 +78,15 @@ class SortieController extends AbstractController
      * @Route ("detailssortie/{id}", name="sortie_detailssortie", methods={"GET"}, requirements={"id"="\d+"})
      */
 
-    public function detailsSortie(SortieRepository $sortieRepository, int $id): Response
+    public function detailsSortie(SortieRepository $sortieRepository, int $id, UtilisateurRepository $utilisateurRepository): Response
     {
+        $utilisateurCourant = $utilisateurRepository->find($this->getUser());
         $sortie = $sortieRepository->find($id);
 
         return $this->render('sortie/detailssortie.html.twig', [
             'sortie' => $sortie,
+            'utilisateurCourant' => $utilisateurCourant,
+
         ]);
     }
 
@@ -134,7 +137,7 @@ class SortieController extends AbstractController
         $em->flush();
         $this->addFlash(
             'success',
-            'Tu est maintenant inscrit.'
+            'Tu es maintenant inscrit.'
         );
 
         return $this->render('sortie/detailssortie.html.twig', [
