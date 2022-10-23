@@ -14,23 +14,32 @@
     <p>Ville : {{ sortie.lieu.ville.codePostal }} {{ sortie.lieu.ville.nom }}</p>
     <p>Latitude : {{ sortie.lieu.latitude }}</p>
     <p>Longitude : {{ sortie.lieu.longitude }}</p>
-    {% if is_granted("ROLE_ADMIN") or sortie.organisateur = utilisateurCourant.id%}
-    <a type="bouton" class="btn btn-outline-warning" href="{{ path('app_sortie_modifiersortie', {'id': sortie.id}) }}">Modifier la sortie</a>
-    {% endif %}
     <br>
-    <!--bouton Modal -->
+    <!--bouton Modal-->
     <!--<button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#exampleModal">
         Supprimer une sortie
     </button>-->
-
         <!--bouton Modal -->
+ {#codice Ales#}
+    {% if sortie.dateLimitInscription < "today"%}
+       <p class="alert alert-danger">La date limite d'inscription pour cette activitée a été dépassé</p>
+    {% endif %}
 
-
-{#    codice Ales#}
-    <p></p>
+    {% if sortie.dateLimitInscription < "today" or (sortie.participant.count < sortie.nbInscriptionsMax) %}
+        <p></p>
     <a type="button" class="btn btn-outline-warning" href="{{ path('app_sortie_participersortie', {'id': sortie.id}) }}">participer à la sortie</a>
     <p></p>
+    {% endif %}
     {#    codice Ales#}
+
+    {% if  sortie.participant.count == sortie.nbInscriptionsMax%}
+        <p class="alert alert-danger">Plus de places disponibles actuellement pour cette sortie</p>
+    {% endif %}
+
+    <br>
+    {% if is_granted("ROLE_ADMIN") or sortie.organisateur.id == app.user.id %}
+        <a type="bouton" class="btn btn-outline-warning" href="{{ path('app_sortie_modifiersortie', {'id': sortie.id}) }}">Modifier la sortie</a>
+    {% endif %}
 
 
     <h5>Liste des participants inscrits</h5>
@@ -48,7 +57,7 @@
             <td><a href="{{ path('utilisateur_profilid', {'id': participant.id}) }}">{{participant.pseudo}}</a></td>
             <td>{{ participant.prenom }} {{ participant.nom | upper }}</td>
         </tr>
-        {% endfor %}
+        {% endfor  %}
         </tbody>
     </table>
 </div>
