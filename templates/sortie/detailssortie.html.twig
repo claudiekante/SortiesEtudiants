@@ -24,12 +24,15 @@
     {% if sortie.dateLimitInscription < "today"%}
        <p class="alert alert-danger">La date limite d'inscription pour cette activitée a été dépassé</p>
     {% endif %}
-
+    {%if sortie.etat.libelle == 'Ouverte'%}
+    {% if not is_granted("ROLE_ADMIN") and sortie.organisateur.id != app.user.id%}
     {% if sortie.dateLimitInscription < "today" or (sortie.participant.count < sortie.nbInscriptionsMax) %}
-        <p></p>
-    <a type="button" class="btn btn-outline-warning" href="{{ path('app_sortie_participersortie', {'id': sortie.id}) }}">participer à la sortie</a>
-    <p></p>
+        <p> <a type="button" class="btn btn-outline-warning" href="{{ path('app_sortie_participersortie', {'id': sortie.id}) }}">participer à la sortie</a></p>
     {% endif %}
+    {% endif %}
+      {% endif %}
+
+
     {#    codice Ales#}
 
     {% if  sortie.participant.count == sortie.nbInscriptionsMax%}
@@ -38,7 +41,8 @@
 
     <br>
     {% if is_granted("ROLE_ADMIN") or sortie.organisateur.id == app.user.id %}
-        <a type="bouton" class="btn btn-outline-warning" href="{{ path('app_sortie_modifiersortie', {'id': sortie.id}) }}">Modifier la sortie</a>
+        <p><a type="bouton" class="btn btn-outline-warning" href="{{ path('app_sortie_modifiersortie', {'id': sortie.id}) }}">Modifier la sortie</a></p>
+        <p><a type="bouton" class="btn btn-outline-warning" href="{{ path('app_sortie_modifiersortie', {'id': sortie.id}) }}">Annuler la sortie</a></p>
     {% endif %}
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Etat;
 use App\Entity\Lieu;
 use App\Entity\Sortie;
 use App\Form\LieuType;
@@ -34,14 +35,22 @@ class SortieController extends AbstractController
 
     /**
      * @Route("/creer", name="creer")
+     * @param Request $request
+     * @param EtatRepository $etatRepository
+     * @param UtilisateurRepository $utilisateurRepository
+     * @param EntityManagerInterface $entityManager
+     * @return Response
      */
     public function creerSortie(Request $request, EtatRepository $etatRepository, UtilisateurRepository $utilisateurRepository, EntityManagerInterface $entityManager): Response
     {
         $utilisateurCourant = $utilisateurRepository->find($this->getUser());
-        $listeEtats = $etatRepository->findAll();
+
+        $etatCreee = $etatRepository->findByLibelle('Ouverte');
 
         $sortie = new Sortie();
+
         $sortieForm = $this->createForm(SortieCreateType::class, $sortie);
+
         $sortieForm->handleRequest($request);
 
         $lieu = new Lieu();
@@ -55,7 +64,9 @@ class SortieController extends AbstractController
             $this->addFlash('success', 'Le lieu a bien été enregistré');
             return $this->redirectToRoute('creer');
         }
+
         if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
+            $sortie->setEtat($etatCreee);
             $sortie->addParticipant($utilisateurCourant);
             $sortie->setCampus($utilisateurCourant->getCampus());
             $sortie->setOrganisateur($utilisateurCourant);
@@ -73,6 +84,8 @@ class SortieController extends AbstractController
 
         ]);
     }
+
+
 
 
     /**

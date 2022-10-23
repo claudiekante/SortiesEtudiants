@@ -48,7 +48,16 @@ class EtatRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    public function etatOuverte (string $libelle)
+    {
+        return $this->createQueryBuilder('e')
+        ->select('e')
+        ->andWhere('e.libelle = :libelle')
+        ->setParameter('libelle', $libelle)
+        ->getQuery()
+        ->getResult();
 
+}
 //    /**
 //     * @return Etat[] Returns an array of Etat objects
 //     */
