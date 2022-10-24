@@ -140,17 +140,12 @@ class SortieController extends AbstractController
         ]);
     }
 
-//        codice ales
-
     /**
      * @Route("/participer/{id}"), name"participerSortie", methods={"GET"}, requirements={"id"="\d+"})
      */
     public function participerSortie(int $id, Request $request, SortieRepository $sortieRepository, UtilisateurRepository $utilisateurRepository, EntityManagerInterface $em): Response
     {
         $sortie = $sortieRepository->find($id);
-        // $form = $this->createForm(SortieCreateType::class, $sortie);
-        // $form->handleRequest($request);
-
 
         $utilisateurCourant = $utilisateurRepository->find($this->getUser());
         $sortie->addParticipant($utilisateurCourant);
@@ -160,13 +155,35 @@ class SortieController extends AbstractController
             'success',
             'Tu es maintenant inscrit.'
         );
-
+        $em->refresh($sortie);
         return $this->render('sortie/detailssortie.html.twig', [
             'sortie' => $sortie,
         ]);
 
     }
 
+    /**
+     * @Route("/nonparticiper/{id}"), name"nonparticiperSortie", methods={"GET"}, requirements={"id"="\d+"})
+     */
+    public function nonparticiperSortie(int $id, Request $request, SortieRepository $sortieRepository, UtilisateurRepository $utilisateurRepository, EntityManagerInterface $em): Response
+    {
+        $sortie = $sortieRepository->find($id);
+
+        $utilisateurCourant = $utilisateurRepository->find($this->getUser());
+        $sortie->removeParticipant($utilisateurCourant);
+        $em->persist($sortie);
+        $em->flush();
+        $this->addFlash(
+            'success',
+            'Tu es maintenant désinscrit.'
+        );
+
+        $em->refresh($sortie);
+        return $this->render('sortie/detailssortie.html.twig', [
+            'sortie' => $sortie,
+        ]);
+
+    }
 
 
 //        if($form->isSubmitted() && $form->isValid()) {

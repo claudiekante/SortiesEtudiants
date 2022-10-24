@@ -1,12 +1,15 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <h4>Détails de la sortie {{ sortie.nom }}</h4>
-    <!--<p>Nom de la sortie :{#  {{ sortie.nom }}#}</a></p> doublon avec la ligne précédente-->
-    <p>Organisée par :<a href="{{ path('utilisateur_profilid', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur.pseudo }}</a></p>
+    <!--<p>Nom de la sortie :{#  {{ sortie.nom }} #}</a></p> doublon avec la ligne précédente-->
+    <p>Organisée par :<a
+                href="{{ path('utilisateur_profilid', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur.pseudo }}</a>
+    </p>
     <p>Date et Heure de la sortie : Le {{ sortie.dateHeureDebut | date('d/m/Y à H:i') }}</p>
     <p>Date limite d'inscription : {{ sortie.dateLimitInscription | date('d/m/Y') }}</p>
-    <p>Nombre de places restantes : {{ sortie.nbInscriptionsMax - sortie.participant.count }} / {{ sortie.nbInscriptionsMax }}</p>
-    <p>Durée : {{ sortie.duree | date('H\\h:i\\m')}}</p>
+    <p>Nombre de places restantes : {{ sortie.nbInscriptionsMax - sortie.participant.count }}
+        / {{ sortie.nbInscriptionsMax }}</p>
+    <p>Durée : {{ sortie.duree | date('H\\h:i\\m') }}</p>
     <p>Informations : {{ sortie.infosSortie }}</p>
     <p>Campus : {{ sortie.campus.nom }}</p>
     <p>Lieu : {{ sortie.lieu.nom }}</p>
@@ -19,72 +22,93 @@
     <!--<button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#exampleModal">
         Supprimer une sortie
     </button>-->
-        <!--bouton Modal -->
- {#codice Ales#}
-    {% if sortie.dateLimitInscription < "today"%}
-       <p class="alert alert-danger">La date limite d'inscription pour cette activitée a été dépassé</p>
+    <!--bouton Modal -->
+
+    {% if sortie.dateLimitInscription < "today" %}
+        <p class="alert alert-danger">La date limite d'inscription pour cette activitée a été dépassé</p>
     {% endif %}
-    {%if sortie.etat.libelle == 'Ouverte'%}
-    {% if sortie.organisateur.id != app.user.id%}
-    {% if sortie.dateLimitInscription < "today" or (sortie.participant.count < sortie.nbInscriptionsMax) %}
-        <p> <a type="button" class="btn btn-outline-warning" href="{{ path('app_sortie_participersortie', {'id': sortie.id}) }}">participer à la sortie</a></p>
-    {% endif %}
-    {% endif %}
-      {% endif %}
+    {% if sortie.etat.libelle == 'Ouverte' %}
+        {% if sortie.organisateur.id != app.user.id %}
+            {% if sortie.dateLimitInscription < "today" or (sortie.participant.count < sortie.nbInscriptionsMax) %}
+
+                {% if app.user in sortie.participant  %}
+
+                    <p><a type="button" class="btn btn-outline-warning"
+                          href="{{ path('app_sortie_nonparticipersortie', {'id': sortie.id}) }}">se désinscrire de la sortie</a></p>
+
+                {% else %}
+
+                <p><a type="button" class="btn btn-outline-warning"
+                      href="{{ path('app_sortie_participersortie', {'id': sortie.id}) }}">participer à la sortie</a></p>
+
+                        {% endif %}
 
 
-    {#    codice Ales#}
+            {% endif %}
+        {% endif %}
+    {% endif %}
 
-    {% if  sortie.participant.count == sortie.nbInscriptionsMax%}
+
+
+
+    {% if  sortie.participant.count == sortie.nbInscriptionsMax %}
         <p class="alert alert-danger">Plus de places disponibles actuellement pour cette sortie</p>
     {% endif %}
 
     <br>
     {% if is_granted("ROLE_ADMIN") or sortie.organisateur.id == app.user.id %}
-        <p><a type="bouton" class="btn btn-outline-warning" href="{{ path('app_sortie_modifiersortie', {'id': sortie.id}) }}">Modifier la sortie</a></p>
-        <p><a type="bouton" class="btn btn-outline-warning" href="{{ path('app_sortie_modifiersortie', {'id': sortie.id}) }}">Annuler la sortie</a></p>
+        <p><a type="bouton" class="btn btn-outline-warning"
+              href="{{ path('app_sortie_modifiersortie', {'id': sortie.id}) }}">Modifier la sortie</a></p>
+        <p><a type="bouton" class="btn btn-outline-warning"
+              href="{{ path('app_sortie_modifiersortie', {'id': sortie.id}) }}">Annuler la sortie</a></p>
     {% endif %}
 
 
     <h5>Liste des participants inscrits</h5>
-<div class="custom-table">
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th scope="col">Pseudo</th>
-            <th scope="col">Nom</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for participant in sortie.participant %}
-        <tr>
-            <td><a href="{{ path('utilisateur_profilid', {'id': participant.id}) }}">{{participant.pseudo}}</a></td>
-            <td>{{ participant.prenom }} {{ participant.nom | upper }}</td>
-        </tr>
-        {% endfor  %}
-        </tbody>
-    </table>
-</div>
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Nouveau lieu</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Etes-vous sûr de vouloir supprimer cette sortie ? </p>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                        <button class="btn btn-light" onclick=window.location.href="{{ path('app_sortie_supprimersortie', {'id': sortie.id }) }}">supprimer</button>
-                    </div>
-                    <div class="modal-footer">
-                    </div>
+    <div class="custom-table">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Pseudo</th>
+                <th scope="col">Nom</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for participant in sortie.participant %}
+                <tr>
+                    <td>
+                        <a href="{{ path('utilisateur_profilid', {'id': participant.id}) }}">{{ participant.pseudo }}</a>
+                    </td>
+                    <td>{{ participant.prenom }} {{ participant.nom | upper }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Nouveau lieu</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Etes-vous sûr de vouloir supprimer cette sortie ? </p>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                    <button class="btn btn-light"
+                            onclick=window.location.href="{{ path('app_sortie_supprimersortie', {'id': sortie.id }) }}">
+                        supprimer
+                    </button>
+                </div>
+                <div class="modal-footer">
                 </div>
             </div>
         </div>
+    </div>
     <!-- Modal -->
 {% endblock %}
 
