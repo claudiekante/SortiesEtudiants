@@ -25,7 +25,7 @@
        <p class="alert alert-danger">La date limite d'inscription pour cette activitée a été dépassé</p>
     {% endif %}
     {%if sortie.etat.libelle == 'Ouverte'%}
-    {% if not is_granted("ROLE_ADMIN") and sortie.organisateur.id != app.user.id%}
+    {% if sortie.organisateur.id != app.user.id%}
     {% if sortie.dateLimitInscription < "today" or (sortie.participant.count < sortie.nbInscriptionsMax) %}
         <p> <a type="button" class="btn btn-outline-warning" href="{{ path('app_sortie_participersortie', {'id': sortie.id}) }}">participer à la sortie</a></p>
     {% endif %}
