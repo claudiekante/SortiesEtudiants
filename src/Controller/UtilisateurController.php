@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controller;
-use App\Form\RegistrationFormType;
+use App\Form\ProfilType;
 use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,7 +17,7 @@ class UtilisateurController extends AbstractController
      */
     public function profil(Request $request, UtilisateurRepository $utilisateurRepository, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher): Response {
         $utilisateurCourant = $utilisateurRepository->find($this->getUser());
-        $form = $this->createForm(RegistrationFormType::class, $utilisateurCourant);
+        $form = $this->createForm(ProfilType::class, $utilisateurCourant);
         $form->handleRequest($request);
 
 
@@ -30,12 +30,6 @@ class UtilisateurController extends AbstractController
             //ligne pour récupérer les données de l'image
             $file=$form->get('avatar')->getData();
 
-            $utilisateurCourant->setPassword(
-                $userPasswordHasher->hashPassword(
-                    $utilisateurCourant,
-                    $form->get('plainPassword')->getData()
-                )
-            );
 
             //          ligne pour récupérer les données de l'image
             if ($file){
