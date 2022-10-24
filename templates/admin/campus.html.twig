@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h4>Gestion des campus</h4>
+
+<div class="custom-table">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Campus</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for campus in listeCampus %}
+
+            <tr>
+                <td>{{ campus.nom }}</td>
+                <td><a href="">Modifier</a> - <a href="{{ path('admin_app_admin_supprimercampus', {'id': campus.id}) }}">Supprimer</a></td>
+            </tr>
+        {% endfor %}
+
+            <tr>
+                {{ form_start(nouveauCampusForm) }}
+                <td>{{ form_widget(nouveauCampusForm) }}</td>
+                <td><button type="submit">Ajouter</button></td>
+                {{ form_end(nouveauCampusForm) }}
+            </tr>
+        </tbody>
+
+    </table>
+</div>
+{% endblock %}
+
+{% block title %}
+
+    Gérer les campus | {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('script/campus.js') }}" defer></script>
+{% endblock %}
+

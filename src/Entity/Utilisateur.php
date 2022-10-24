@@ -76,7 +76,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\ManyToOne(targetEntity=Campus::class, inversedBy="utilisateurs")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $campus;
 
@@ -94,6 +94,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="Organisateur", orphanRemoval=true)
+     *
      */
     private $sortieOrganisee;
 
