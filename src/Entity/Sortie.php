@@ -92,6 +92,11 @@ class Sortie
      */
     private $Organisateur;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $motifAnnulation;
+
 
 
     public function __construct()
@@ -246,6 +251,18 @@ class Sortie
     public function setOrganisateur(?Utilisateur $Organisateur): self
     {
         $this->Organisateur = $Organisateur;
+
+        return $this;
+    }
+
+    public function getMotifAnnulation(): ?string
+    {
+        return $this->motifAnnulation;
+    }
+
+    public function setMotifAnnulation(string $motifAnnulation): self
+    {
+        $this->motifAnnulation = $motifAnnulation;
 
         return $this;
     }

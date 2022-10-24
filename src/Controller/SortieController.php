@@ -6,6 +6,7 @@ use App\Entity\Etat;
 use App\Entity\Lieu;
 use App\Entity\Sortie;
 use App\Form\LieuType;
+use App\Form\MotifAnnulationType;
 use App\Form\RegistrationFormType;
 use App\Form\SortieCreateType;
 use App\Repository\EtatRepository;
@@ -43,11 +44,11 @@ class SortieController extends AbstractController
      */
     public function creerSortie(Request $request, EtatRepository $etatRepository, UtilisateurRepository $utilisateurRepository, EntityManagerInterface $entityManager): Response
     {
-       $choixUtilisateur = $request->request->get('createSortie');
-        if ($choixUtilisateur == 'Ouverte'){
+        $choixUtilisateur = $request->request->get('createSortie');
+        if ($choixUtilisateur == 'Ouverte') {
             $etatCreee = $etatRepository->findByLibelle('Ouverte');
         }
-        if($choixUtilisateur == 'Créée'){
+        if ($choixUtilisateur == 'Créée') {
             $etatCreee = $etatRepository->findByLibelle('Créée');
         }
 
@@ -85,22 +86,40 @@ class SortieController extends AbstractController
             'sortieCreateType' => $sortieForm->createView(),
             'utilisateurCourant' => $utilisateurCourant,
             'lieuType' => $lieuForm->createView(),
+            'sortie' => $sortie,
 
         ]);
     }
 
     /**
-     * @Route ("detailssortie/{id}", name="sortie_detailssortie", methods={"GET"}, requirements={"id"="\d+"})
+     * @Route ("detailssortie/{id}", name="sortie_detailssortie", requirements={"id"="\d+"})
      */
 
-    public function detailsSortie(SortieRepository $sortieRepository, int $id, UtilisateurRepository $utilisateurRepository): Response
+    public function detailsSortie(SortieRepository $sortieRepository,Request $request,EtatRepository $etatRepository,int $id, UtilisateurRepository $utilisateurRepository, EntityManagerInterface $em): Response
     {
         $utilisateurCourant = $utilisateurRepository->find($this->getUser());
         $sortie = $sortieRepository->findOneSortie($id);
+        $etatCreee = $etatRepository->findByLibelle('Annulée');
+        $sortie->setEtat($etatCreee);
+        $motifAnnulationForm = $this->createForm(MotifAnnulationType::class, $sortie);
+        $motifAnnulationForm->handleRequest($request);
+
+        if ($motifAnnulationForm->isSubmitted() && $motifAnnulationForm->isValid()) {
+            $sortie->setEtat($etatCreee);
+            $em->persist($sortie);
+            $em->flush();
+
+            $this->addFlash(
+                'success',
+                'La sortie a bien été annulée'
+            );
+            return $this->redirectToRoute('main_accueil');
+        }
 
         return $this->render('sortie/detailssortie.html.twig', [
             'sortie' => $sortie,
             'utilisateurCourant' => $utilisateurCourant,
+            'motifAnnulationForm' => $motifAnnulationForm->createView(),
 
         ]);
     }
@@ -111,10 +130,10 @@ class SortieController extends AbstractController
     public function modifierSortie(int $id, EtatRepository $etatRepository, Request $request, SortieRepository $sortieRepository, EntityManagerInterface $em): Response
     {
         $choixUtilisateur = $request->request->get('createSortie');
-        if ($choixUtilisateur == 'Ouverte'){
+        if ($choixUtilisateur == 'Ouverte') {
             $etatCreee = $etatRepository->findByLibelle('Ouverte');
         }
-        if($choixUtilisateur == 'Créée'){
+        if ($choixUtilisateur == 'Créée') {
             $etatCreee = $etatRepository->findByLibelle('Créée');
         }
 
@@ -205,23 +224,32 @@ class SortieController extends AbstractController
 //
 //    }
 
-    /**
-     * @Route("/supprimerSortie/{id}"), name="supprimerSortie"
-     */
-    public function supprimerSortie(int $id, Request $request, SortieRepository $sortieRepository, EntityManagerInterface $entityManager): Response
-    {
-        $sortie = $sortieRepository->find($id);
-        $entityManager->remove($sortie);
-        $entityManager->flush();
+  //  /**
+    // * @Route("/supprimerSortie/{id}"), name="supprimerSortie"
+   //  */
+ //   public function supprimerSortie(int $id, EtatRepository $etatRepository, Request $request, SortieRepository $sortieRepository, EntityManagerInterface $em): Response
+   // {
+    ///    $etatCreee = $etatRepository->findByLibelle('Annulée');
+      //  $sortie->setEtat($etatCreee);
+       // $motifAnnulationForm = $this->createForm(MotifAnnulationType::class, $sortie);
+       // $motifAnnulationForm->handleRequest($request);
 
-        $this->addFlash(
-            'success',
-            'La sortie a bien été supprimée'
-        );
-        return $this->redirectToRoute('main_accueil');
-    }
+     //   if ($motifAnnulationForm->isSubmitted() && $motifAnnulationForm->isValid()) {
+      //      $sortie->setEtat($etatCreee);
+       //     $em->persist($sortie);
+        //    $em->flush();
 
-
+       //     $this->addFlash(
+         //       'success',
+        //        'La sortie a bien été annulée'
+        //    );
+         //   return $this->redirectToRoute('main_accueil');
+     //   }/
+       // return $this->renderForm('sortie/detailssortie.html.twig', [
+      //  'motifAnnulationForm' => $motifAnnulationForm->createView(),
+      //  'sortie' => $sortie,
+       // ]);
+  //  }
 
 
 
