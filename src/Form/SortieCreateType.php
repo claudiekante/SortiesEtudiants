@@ -54,10 +54,13 @@ class SortieCreateType extends AbstractType
                 'widget'=> 'single_text'
             ])
             ->add('nbInscriptionsMax', null,[
-                'label'=> 'Nombre de Participants *'
+                'label'=> 'Nombre de Participants *',
+                'attr'=> array('min'=>2)
+
             ])
             ->add('infosSortie', TextareaType::class,[
-                'label'=> 'Description *'
+                'label'=> 'Description *',
+
             ])
 
             ->add('lieu', EntityType::class,[
