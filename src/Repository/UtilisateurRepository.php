@@ -56,7 +56,6 @@ class UtilisateurRepository extends ServiceEntityRepository implements PasswordU
         $this->add($user, true);
     }
 
-
 //    /**
 //     * @return Utilisateur[] Returns an array of Utilisateur objects
 //     */
