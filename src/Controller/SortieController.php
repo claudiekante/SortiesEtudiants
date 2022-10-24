@@ -16,7 +16,6 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -100,7 +99,7 @@ class SortieController extends AbstractController
         $utilisateurCourant = $utilisateurRepository->find($this->getUser());
         $sortie = $sortieRepository->findOneSortie($id);
         $etatCreee = $etatRepository->findByLibelle('Annulée');
-        $sortie->setEtat($etatCreee);
+      //  $sortie->setEtat($etatCreee);
         $motifAnnulationForm = $this->createForm(MotifAnnulationType::class, $sortie);
         $motifAnnulationForm->handleRequest($request);
 
@@ -156,6 +155,7 @@ class SortieController extends AbstractController
         return $this->render('sortie/modifierSortie.html.twig', [
             'form' => $form->createView(),
             'sortie' => $sortie,
+
         ]);
     }
 
@@ -165,7 +165,7 @@ class SortieController extends AbstractController
     public function participerSortie(int $id, Request $request, SortieRepository $sortieRepository, UtilisateurRepository $utilisateurRepository, EntityManagerInterface $em): Response
     {
         $sortie = $sortieRepository->find($id);
-
+        $motifAnnulationForm = $this->createForm(MotifAnnulationType::class, $sortie);
         $utilisateurCourant = $utilisateurRepository->find($this->getUser());
         $sortie->addParticipant($utilisateurCourant);
         $em->persist($sortie);
@@ -173,10 +173,13 @@ class SortieController extends AbstractController
         $this->addFlash(
             'success',
             'Tu es maintenant inscrit.'
+
         );
+
         $em->refresh($sortie);
         return $this->render('sortie/detailssortie.html.twig', [
             'sortie' => $sortie,
+            'motifAnnulationForm' => $motifAnnulationForm->createView(),
         ]);
 
     }
@@ -187,7 +190,7 @@ class SortieController extends AbstractController
     public function nonparticiperSortie(int $id, Request $request, SortieRepository $sortieRepository, UtilisateurRepository $utilisateurRepository, EntityManagerInterface $em): Response
     {
         $sortie = $sortieRepository->find($id);
-
+        $motifAnnulationForm = $this->createForm(MotifAnnulationType::class, $sortie);
         $utilisateurCourant = $utilisateurRepository->find($this->getUser());
         $sortie->removeParticipant($utilisateurCourant);
         $em->persist($sortie);
@@ -200,6 +203,7 @@ class SortieController extends AbstractController
         $em->refresh($sortie);
         return $this->render('sortie/detailssortie.html.twig', [
             'sortie' => $sortie,
+            'motifAnnulationForm' => $motifAnnulationForm->createView(),
         ]);
 
     }

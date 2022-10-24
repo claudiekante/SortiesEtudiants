@@ -32,11 +32,8 @@
 
     {{ form_start(searchForm) }}
     {{ form_widget(searchForm) }}
-
     <button  type="submit" class="btn btn-outline-warning">Rechercher</button>
-
     {{ form_end(searchForm) }}
-
 
     <div class="custom-table">
     <table class="table table-striped">
@@ -50,12 +47,10 @@
             <th scope="col">Inscrit</th>
             <th scope="col">Organisateur</th>
             <th scope="col">Actions</th>
-
         </tr>
         </thead>
         <tbody>
         {% for sortie in sorties %}
-
             <tr>
                 <td>{{ sortie.nom }}</td>
                 <td> {{ sortie.dateHeureDebut | date('d/m/Y à H:i')}}</td>
@@ -69,9 +64,7 @@
                  {% endif %}
                 <td><a href="{{ path('utilisateur_profilid', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur.pseudo }}</a></td>
                 <td> <a href="{{ path('sortie_detailssortie', {'id': sortie.id}) }}">Afficher</a></td>
-
-              {#  {% if "today" < sortie.dateHeureDebut|date_modify("+ 1 month")  %}#}
-                    {#  {% endif %}#}
+            {% endif %}
             </tr>
         {% endfor %}
         </tbody>

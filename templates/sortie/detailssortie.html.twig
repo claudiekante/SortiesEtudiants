@@ -2,11 +2,11 @@
 {% block body %}
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-{{ form_start(motifAnnulationForm) }}
+         {{ form_start(motifAnnulationForm) }}
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Nouveau lieu</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Annulation sortie</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -17,7 +17,7 @@
 
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                     <button type="submit" class="btn btn-outline-warning" onclick=window.location.href="{{ path('app_sortie_modifiersortie', {'id': sortie.id}) }}">Valider</button>
-                    {{ form_end(motifAnnulationForm) }}
+                   {{ form_end(motifAnnulationForm) }}
                 </div>
                 <div class="modal-footer">
                 </div>
@@ -45,15 +45,17 @@
     <p>Latitude : {{ sortie.lieu.latitude }}</p>
     <p>Longitude : {{ sortie.lieu.longitude }}</p>
     <br>
+{#   <p><a type="button" class="btn btn-outline-warning"#}
+{#          href="{{ path('app_sortie_participersortie', {'id': sortie.id}) }}">participer à la sortie</a></p>#}
 
     <!--bouton Modal-->
-    {% if sortie.organisateur.id == app.user.id and  sortie.etat.libelle == 'Annulée'%}
+    {% if sortie.organisateur.id == app.user.id and  sortie.etat.libelle != 'Annulée'%}
     <button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#exampleModal">
         Annuler une sortie
     </button>
-    {% endif %}
+  {% endif %}
     <!--bouton Modal -->
-
+{{ sortie.organisateur.id }}
  {#codice Ales#}
     {% if sortie.dateLimitInscription < "today"%}
        <p class="alert alert-danger">La date limite d'inscription pour cette activitée a été dépassé</p>
