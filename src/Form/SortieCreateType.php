@@ -59,20 +59,7 @@ class SortieCreateType extends AbstractType
             ->add('infosSortie', TextareaType::class,[
                 'label'=> 'Description *'
             ])
-           // ->add('etat', EntityType::class,[
-              // 'label'=> 'Etat *',
-              // 'class'=> Etat::class,
-             //   'query_builder'=> function (EtatRepository $etatRepository) {
-              // return $etatRepository->createQueryBuilder('e')
-            //  ->select('e')
-              //     ->andWhere('e.libelle = :libelle')
-              // ->orWhere('e.libelle = :libelle2')
-             // ->setParameter('libelle','Ouverte');
-                        //->setParameter('libelle2','Créée');
-             //   },
-               // 'choice_label'=>'libelle',
-             //   'placeholder'=>'--choisir un état--'
-        //  ])
+
             ->add('lieu', EntityType::class,[
                 'label'=> 'Lieu *',
                 'class'=> Lieu::class,

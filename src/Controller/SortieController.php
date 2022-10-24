@@ -43,12 +43,16 @@ class SortieController extends AbstractController
      */
     public function creerSortie(Request $request, EtatRepository $etatRepository, UtilisateurRepository $utilisateurRepository, EntityManagerInterface $entityManager): Response
     {
-        $utilisateurCourant = $utilisateurRepository->find($this->getUser());
-
-        $etatCreee = $etatRepository->findByLibelle('Ouverte');
+       $choixUtilisateur = $request->request->get('createSortie');
+        if ($choixUtilisateur == 'Ouverte'){
+            $etatCreee = $etatRepository->findByLibelle('Ouverte');
+        }
+        if($choixUtilisateur == 'Créée'){
+            $etatCreee = $etatRepository->findByLibelle('Créée');
+        }
 
         $sortie = new Sortie();
-
+        $utilisateurCourant = $utilisateurRepository->find($this->getUser());
         $sortieForm = $this->createForm(SortieCreateType::class, $sortie);
 
         $sortieForm->handleRequest($request);
@@ -85,9 +89,6 @@ class SortieController extends AbstractController
         ]);
     }
 
-
-
-
     /**
      * @Route ("detailssortie/{id}", name="sortie_detailssortie", methods={"GET"}, requirements={"id"="\d+"})
      */
@@ -107,14 +108,23 @@ class SortieController extends AbstractController
     /**
      * @Route("/modifier/{id}"), name="modifierSortie"
      */
-    public function modifierSortie(int $id, Request $request, SortieRepository $sortieRepository, EntityManagerInterface $em): Response
+    public function modifierSortie(int $id, EtatRepository $etatRepository, Request $request, SortieRepository $sortieRepository, EntityManagerInterface $em): Response
     {
+        $choixUtilisateur = $request->request->get('createSortie');
+        if ($choixUtilisateur == 'Ouverte'){
+            $etatCreee = $etatRepository->findByLibelle('Ouverte');
+        }
+        if($choixUtilisateur == 'Créée'){
+            $etatCreee = $etatRepository->findByLibelle('Créée');
+        }
+
         $sortie = $sortieRepository->find($id);
         $form = $this->createForm(SortieCreateType::class, $sortie);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $sortie = $form->getData();
+            $sortie->setEtat($etatCreee);
             $em->persist($sortie);
             $em->flush();
 
@@ -128,10 +138,7 @@ class SortieController extends AbstractController
             'form' => $form->createView(),
             'sortie' => $sortie,
         ]);
-
-
     }
-
 
 //        codice ales
 

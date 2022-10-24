@@ -60,7 +60,8 @@ class EtatService
                if (($sortieUpdate->getParticipant()->count() < $sortieUpdate->getNbInscriptionsMax()
                    && $sortieUpdate->getDateLimitInscription()->getTimestamp() >= $now->getTimestamp())
                    && $sortieUpdate->getEtat()->getLibelle() != 'Annulée'
-                   && $sortieUpdate->getEtat()->getLibelle() != 'Ouverte') {
+                   && $sortieUpdate->getEtat()->getLibelle() != 'Ouverte'
+                   && $sortieUpdate->getEtat()->getLibelle() != 'Créée') {
 
                    $etat = $etatRepository->findByLibelle('Ouverte');
                    $sortieUpdate->setEtat($etat);
