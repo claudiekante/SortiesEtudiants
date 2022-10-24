@@ -52,6 +52,21 @@ class SortieRepository extends ServiceEntityRepository
         return $query;
     } // -- listSortie()
 
+    public function findOneSortie($id) {
+        $query = $this->createQueryBuilder('s')
+            ->select('s','c','l','v','o','p')
+            ->innerJoin('s.Organisateur','o')
+            ->innerJoin('s.campus','c')
+            ->innerJoin('s.lieu', 'l')
+            ->innerJoin('l.ville', 'v')
+            ->innerJoin('s.participant','p')
+            ->andWhere('s.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
+        return $query;
+    }
+
     public function search($id, $mots = null , $campus = null, $organisateur = false,
                            $inscrit = false, $pasInscrit = false, $dejaPasse = false,
                            $dateHeureDebut = null, $dateLimiteInscription = null

@@ -103,6 +103,11 @@ class AppFixtures extends Fixture
         $etats[] = $etat6;
         $manager->persist($etat6);
 
+        $etat7 = new Etat();
+        $etat7->setLibelle("Archivée");
+        $etats[] = $etat7;
+        $manager->persist($etat7);
+
 
 
         $roles = ["ROLE_USER", "ROLE_PARTICIPANT", "ROLE_ORGANISATEUR"];
