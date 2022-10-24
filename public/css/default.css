@@ -126,6 +126,7 @@ nav p {
 
 @media all and (max-width: 720px) {
 
+
     div.responsive_nav {
         width: 100%;
         display: flex;
@@ -171,6 +172,10 @@ nav p {
         margin: 15px;
     }
 
+    /*pour cacher les élements*/
+    .ghost {
+        display: none;
+    }
 
 }
 
@@ -242,4 +247,10 @@ footer {
 
 footer p {
     margin : 5px;
+}
+
+@media all and (min-width: 720px) and (max-width: 8000px){
+    .ghost2 {
+        display:none;
+    }
 }
