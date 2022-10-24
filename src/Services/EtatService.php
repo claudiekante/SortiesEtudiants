@@ -47,7 +47,7 @@ class EtatService
                }
            } else {
                if (($sortieUpdate->getParticipant()->count() === $sortieUpdate->getNbInscriptionsMax()
-                   || $sortieUpdate->getDateLimitInscription()->getTimestamp() < $now->getTimestamp())
+                   || $sortieUpdate->getDateLimitInscription()->getTimestamp()+86400 < $now->getTimestamp())
                    && $sortieUpdate->getEtat()->getLibelle() != 'Annulée'
                && $sortieUpdate->getEtat()->getLibelle() != 'Clôturée') {
 
@@ -58,7 +58,7 @@ class EtatService
                }
 
                if (($sortieUpdate->getParticipant()->count() < $sortieUpdate->getNbInscriptionsMax()
-                   && $sortieUpdate->getDateLimitInscription()->getTimestamp() >= $now->getTimestamp())
+                   && $sortieUpdate->getDateLimitInscription()->getTimestamp()+86400 >= $now->getTimestamp())
                    && $sortieUpdate->getEtat()->getLibelle() != 'Annulée'
                    && $sortieUpdate->getEtat()->getLibelle() != 'Ouverte'
                    && $sortieUpdate->getEtat()->getLibelle() != 'Créée') {

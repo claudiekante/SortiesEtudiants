@@ -65,7 +65,7 @@ class Sortie
 
     /**
      * @ORM\ManyToOne(targetEntity=Campus::class, inversedBy="sortie")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $campus;
 
@@ -88,7 +88,7 @@ class Sortie
 
     /**
      * @ORM\ManyToOne(targetEntity=Utilisateur::class, inversedBy="sortieOrganisee")
-     *
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $Organisateur;
 

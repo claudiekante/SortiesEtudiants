@@ -64,17 +64,22 @@
         {% if sortie.organisateur.id != app.user.id %}
             {% if sortie.dateLimitInscription < "today" or (sortie.participant.count < sortie.nbInscriptionsMax) %}
 
-                {% if app.user in sortie.participant  %}
+                {% if app.user in sortie.participant %}
 
                     <p><a type="button" class="btn btn-outline-warning"
-                          href="{{ path('app_sortie_nonparticipersortie', {'id': sortie.id}) }}">se désinscrire de la sortie</a></p>
+                          href="{{ path('app_sortie_nonparticipersortie', {'id': sortie.id}) }}">se désinscrire de la
+                            sortie</a></p>
 
                 {% else %}
 
-                <p><a type="button" class="btn btn-outline-warning"
-                      href="{{ path('app_sortie_participersortie', {'id': sortie.id}) }}">participer à la sortie</a></p>
+                    <p><a type="button" class="btn btn-outline-warning"
+                          href="{{ path('app_sortie_participersortie', {'id': sortie.id}) }}">participer à la sortie</a>
+                    </p>
 
                         {% endif %}
+                {% endif %}
+
+
             {% endif %}
         {% endif %}
     {% endif %}

@@ -35,6 +35,7 @@
     <button  type="submit" class="btn btn-outline-warning">Rechercher</button>
     {{ form_end(searchForm) }}
 
+<span class="ghost">
     <div class="custom-table">
     <table class="table table-striped">
         <thead>
@@ -71,6 +72,69 @@
     </table>
     </div>
 
+    <p></p>
+    <p></p>
     <button  type="button" class="btn btn-outline-warning" onclick="window.location.href ='{{ path('creer') }}'">Creer une sortie</button>
+    </span>
+    <p></p>
+    <p></p>
+    <span class="ghost2">
+    {% if (app.user) %}
+
+    <p>Le tableau ci-dessous, avec seulement les sorties presentes dans mon campus,
+        s'affiche seulement quand l'écrean est petit (et la navbar change).
+        En même temps, le bouton créer une sortie disparaît</p>
+
+    <div class="custom-table">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Campus</th>
+                <th scope="col">Nom sortie</th>
+                <th scope="col">Date sortie</th>
+                <th scope="col">Clôture</th>
+                <th scope="col">Inscrits/Places</th>
+                <th scope="col">Etat</th>
+                <th scope="col">Inscrit</th>
+                <th scope="col">Organisateur</th>
+                <th scope="col">Actions</th>
+
+            </tr>
+            </thead>
+            <tbody>
+
+{#           exemple de code pour enchainer les filtres#}
+{#            {% for sortie in sorties|filter(sortie => sortie.campus.nom == app.user.campus.nom) | filter(sortie => app.user in sortie.participant)  %}#}
+
+
+            {% for sortie in sorties|filter(sortie => sortie.campus.nom == app.user.campus.nom) %}
+                <tr>
+                    <td>{{ sortie.campus.nom }}</td>
+                    <td>{{ sortie.nom }}</td>
+                    <td> {{ sortie.dateHeureDebut | date('d/m/Y à H:i')}}</td>
+                    <td> {{ sortie.dateLimitInscription | date('d/m/Y')}}</td>
+                    <td> {{ sortie.participant.count }} / {{ sortie.nbInscriptionsMax }}</td>
+                    <td> {{ sortie.etat.libelle }}</td>
+                    {% if app.user in sortie.participant %}
+                        <td> X </td>
+                    {% else %}
+                        <td><p> </p></td>
+                    {% endif %}
+                    <td><a href="{{ path('utilisateur_profilid', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur.pseudo }}</a></td>
+                    <td> <a href="{{ path('sortie_detailssortie', {'id': sortie.id}) }}">Afficher</a></td>
+
+                      {% if "today" < sortie.dateHeureDebut|date_modify("+ 1 month")  %}
+                      {% endif %}
+                </tr>
+
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% else %}
+    <p>tu n'est pas connecté</p>
+    {% endif %}
+</span>
 
 {% endblock %}

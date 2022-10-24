@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Image;
 
 class ProfilType extends AbstractType
 {
@@ -46,10 +47,12 @@ class ProfilType extends AbstractType
 //                ],
 //            ])
 
-            ->add('avatar', FileType::class, [
-                'mapped' => false,
+            ->add('avatar', FileType::class,
+                [ 'mapped' => false,
                 'required' => false,
-                'label'=>'Photo du profil'
+                'label'=>'Photo du profil',
+                'constraints' => [ new Image( ["mimeTypesMessage" => "Le format de fichier n'est pas autorisé."])
+                    ]
             ])
         ;
     }

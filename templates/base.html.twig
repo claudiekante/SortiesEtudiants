@@ -18,6 +18,7 @@
 
     {% block javascripts %}
         <script src="{{ asset('script/default.js') }}" defer></script>
+        <script defer>const url = "{{ app.request.basePath }}";</script>
     {% endblock %}
 </head>
 
