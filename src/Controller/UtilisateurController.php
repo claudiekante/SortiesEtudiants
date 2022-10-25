@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+use App\Form\PassewordType;
 use App\Form\ProfilType;
 use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -22,8 +23,8 @@ class UtilisateurController extends AbstractController
     public function profil(Request $request, UtilisateurRepository $utilisateurRepository, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher): Response {
         $utilisateurCourant = $utilisateurRepository->find($this->getUser());
         $form = $this->createForm(ProfilType::class, $utilisateurCourant);
-        $form->handleRequest($request);
 
+        $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
 
@@ -52,7 +53,9 @@ class UtilisateurController extends AbstractController
         }
 
         return $this->renderForm('utilisateur/profil.html.twig', [
-            'form' => $form
+            'form' => $form,
+
+
         ]);
     }
 
@@ -65,33 +68,9 @@ class UtilisateurController extends AbstractController
 
         return $this->render('utilisateur/profilid.html.twig', [
             'profil' => $profil,
+
         ]);
     }
 
-    /**
-     * @Route
-     */
-    public function ajoutUtilisateurByfichierCsv (KernelInterface $kernel):Response
-    {
-        $application = new Application($kernel);
-        $application->setAutoExit(false);
 
-        $input = new ArrayInput([
-            'command' => 'app:create-users-from-file',
-            // (optional) define the value of command arguments
-            'fooArgument' => 'barValue',
-            // (optional) pass options to the command
-            '--bar' => 'fooValue',
-        ]);
-
-        // You can use NullOutput() if you don't need the output
-        $output = new BufferedOutput();
-        $application->run($input, $output);
-
-        // return the output, don't use if you used NullOutput()
-        $content = $output->fetch();
-
-        // return new Response(""), if you used NullOutput()
-        return new Response($content);
-    }
 }

@@ -4,8 +4,11 @@
 
 
 {%  block body %}
+    {% if not app.user %}
+        <p class="alert alert-warning" style="text-align: center">Pour participer et créer de nouvelles sorties, veuillez vous connecter !</p>
+    {% endif %}
 
-{#    code à utiliser pour afficher l'image de l'user dans le site#}
+    {#    code à utiliser pour afficher l'image de l'user dans le site#}
 {#    <p>test pour affichage de l'image utilisateur</p>#}
 {#    {% if (app.user) %}#}
 {#        {% if(app.user.avatar) %}#}
@@ -34,8 +37,8 @@
     {{ form_widget(searchForm) }}
     <button  type="submit" class="btn btn-outline-warning">Rechercher</button>
     {{ form_end(searchForm) }}
-
-<span class="ghost">
+    <br>
+    <span class="ghost">
     <div class="custom-table">
     <table class="table table-striped">
         <thead>
@@ -51,7 +54,9 @@
         </tr>
         </thead>
         <tbody>
+        <!--tableau affichage connectée-->
         {% for sortie in sorties %}
+            {% if app.user and sortie.etat.libelle == "Créée" and sortie.organisateur.id == app.user.id%}
             <tr>
                 <td>{{ sortie.nom }}</td>
                 <td> {{ sortie.dateHeureDebut | date('d/m/Y à H:i')}}</td>
@@ -62,22 +67,55 @@
                     <td> X </td>
                       {% else %}
                     <td><p> </p></td>
-                 {% endif %}
+                {% endif %}
                 <td><a href="{{ path('utilisateur_profilid', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur.pseudo }}</a></td>
+                {% if app.user %}
                 <td> <a href="{{ path('sortie_detailssortie', {'id': sortie.id}) }}">Afficher</a></td>
-
+                    {% else %}
+                    <td><p> </p></td>
+                {% endif %}
             </tr>
+            {% endif %}
+        {% endfor %}
+        <!--tableau affichage utilisateur déconnecté-->
+        {% for sortie in sorties %}
+         {% if  sortie.etat.libelle == "Ouverte"
+             or sortie.etat.libelle == "Passée"
+             or sortie.etat.libelle == "Annulée"
+             or sortie.etat.libelle == "Activité en cours"
+             or sortie.etat.libelle == "Clôturée"%}
+                 <tr>
+                <td>{{ sortie.nom }}</td>
+                <td> {{ sortie.dateHeureDebut | date('d/m/Y à H:i')}}</td>
+                <td> {{ sortie.dateLimitInscription | date('d/m/Y')}}</td>
+                <td> {{ sortie.participant.count }} / {{ sortie.nbInscriptionsMax }}</td>
+                <td> {{ sortie.etat.libelle }}</td>
+                {% if app.user in sortie.participant %}
+                    <td> X </td>
+                      {% else %}
+                    <td><p> </p></td>
+                {% endif %}
+                <td><a href="{{ path('utilisateur_profilid', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur.pseudo }}</a></td>
+                {% if app.user %}
+                    <td> <a href="{{ path('sortie_detailssortie', {'id': sortie.id}) }}">Afficher</a></td>
+                    {% else %}
+                    <td><p> </p></td>
+                {% endif %}
+            </tr>
+         {% endif %}
         {% endfor %}
         </tbody>
     </table>
     </div>
-
-    <p></p>
-    <p></p>
+    <br>
+        {% if app.user %}
     <button  type="button" class="btn btn-outline-warning" onclick="window.location.href ='{{ path('creer') }}'">Creer une sortie</button>
+        {% endif %}
     </span>
     <p></p>
     <p></p>
+
+
     <span class="ghost2">
     {% if (app.user) %}
 

@@ -14,7 +14,6 @@
                 <div class="modal-body">
                     <p>Etes-vous sûr de vouloir annuler cette sortie ? </p>
                     {{ form_widget(motifAnnulationForm)}}
-
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                     <button type="submit" class="btn btn-outline-warning" onclick=window.location.href="{{ path('app_sortie_modifiersortie', {'id': sortie.id}) }}">Valider</button>
                    {{ form_end(motifAnnulationForm) }}
@@ -24,6 +23,7 @@
             </div>
         </div>
     </div>
+
     <!-- Modal -->
 
     <h4>Détails de la sortie {{ sortie.nom }}</h4>
@@ -45,8 +45,6 @@
     <p>Latitude : {{ sortie.lieu.latitude }}</p>
     <p>Longitude : {{ sortie.lieu.longitude }}</p>
     <br>
-{#   <p><a type="button" class="btn btn-outline-warning"#}
-{#          href="{{ path('app_sortie_participersortie', {'id': sortie.id}) }}">participer à la sortie</a></p>#}
 
     <!--bouton Modal-->
     {% if sortie.organisateur.id == app.user.id and  sortie.etat.libelle != 'Annulée'%}
@@ -55,7 +53,7 @@
     </button>
   {% endif %}
     <!--bouton Modal -->
-{{ sortie.organisateur.id }}
+
  {#codice Ales#}
     {% if sortie.dateLimitInscription < "today"%}
        <p class="alert alert-danger">La date limite d'inscription pour cette activitée a été dépassé</p>
@@ -88,12 +86,11 @@
     {% if  sortie.participant.count == sortie.nbInscriptionsMax%}
         <p class="alert alert-danger">Plus de places disponibles actuellement pour cette sortie</p>
     {% endif %}
-
     <br>
     {% if is_granted("ROLE_ADMIN") or sortie.organisateur.id == app.user.id %}
         <p><a type="bouton" class="btn btn-outline-warning" href="{{ path('app_sortie_modifiersortie', {'id': sortie.id}) }}">Modifier la sortie</a></p>
-        <!--<p><a type="bouton" class="btn btn-outline-warning" href="{#  {{ path('app_sortie_supprimersortie', {'id': sortie.id}) }}#}">Annuler la sortie</a></p>-->
     {% endif %}
+
     <h5>Liste des participants inscrits</h5>
 <div class="custom-table">
     <table class="table table-striped">
@@ -113,7 +110,6 @@
         </tbody>
     </table>
 </div>
-
 
 {% endblock %}
 

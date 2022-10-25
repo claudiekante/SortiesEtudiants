@@ -82,31 +82,7 @@ class AdminController extends AbstractController
         );
         return $this->redirectToRoute('admin_liste_campus');
     }
-    /**
-     * @Route
-     */
-    public function ajoutUtilisateurByfichierCsv (KernelInterface $kernel):Response
-    {
-        $application = new Application($kernel);
-        $application->setAutoExit(false);
 
-        $input = new ArrayInput([
-            'command' => 'app:create-users-from-file',
-            // (optional) define the value of command arguments
-            'fooArgument' => 'barValue',
-            // (optional) pass options to the command
-            '--bar' => 'fooValue',
-        ]);
-        // You can use NullOutput() if you don't need the output
-        $output = new BufferedOutput();
-        $application->run($input, $output);
-
-        // return the output, don't use if you used NullOutput()
-        $content = $output->fetch();
-
-        // return new Response(""), if you used NullOutput()
-        return new Response($content);
-    }
         /**
          * @Route("/modifycampus/{id}", name="modifierCampus", methods={"GET", "POST"}, requirements={"id"="\d+"})
          */
@@ -335,6 +311,83 @@ class AdminController extends AbstractController
             );
             return $this->redirectToRoute('admin_liste_utilisateurs');
         }
+
+    /**
+     * @Route("/import-csv", name="app_import_csv", methods={"GET"})
+     */
+    public function importCsv(EntityManagerInterface $em): Response
+    {
+        // Pour la phase de développement, on peut vider la table...
+        // ... à chaque fois avec l'instruction SQL 'TRUNCATE'
+        // cf. https://code2dev.go.yo.fr/cours/symfony/doctrine_faq.php#h2_6
+        $connection = $em->getConnection();
+        $platform = $connection->getDatabasePlatform();
+       // $connection->executeQuery($platform->getTruncateTableSQL('utilisateur'));
+
+        // Chemin vers le fichier
+        // $this->getParameter('kernel.project_dir') récupère le chemin racine du projet (genre 'c:/wamp/www/projet')
+        $sFile = $this->getParameter('kernel.project_dir').'/public/data/listeUsers.csv';
+
+        // On déclare un tableau qui stockera les nouveaux participants pour les afficher
+        $aNewParticipants = [];
+
+        // On ouvre le fichier en mode lecture ('r')
+        // $handle représente le fichier = une ressource (une sorte d'objet avec les métadonnées du fichier)
+        // On teste que cette ressource est bien présente (!== false)
+        if (($handle = fopen($sFile, "r")) !== FALSE)
+        {
+            // On parcourt le fichier ligne par ligne
+            // fgetcsv() découpe chaque ligne par rapport au séparateur (';')
+            // et met retourne les données dans un tableau, ici $aLine
+            // les indices du tableau coorespondent à la position des valeurs/colonnes dans le fichier CSV
+            while ( ($aLine = fgetcsv($handle, 1024, ";") ) !== FALSE)
+            {
+                // Pour chaque nouvelle ligne, on crée un objet Participant
+                $participant = new Utilisateur();
+
+                // On assigne telle colonne comme valeur de telle propriété (vérifier quelle valeur correspond à quelle colonne) :
+                $participant->setEmail($aLine[0]);
+
+                // Dans le fichier les rôles ont bien des crochets
+                // mais la lecture du fichier les retourne comme chaînes
+                // la fonction json_decode() nous aide à obtenir un tableau
+                 //$aRoles = json_decode($aLine[1], TRUE);
+               // $participant->setRoles($aRoles);
+                $participant->setRoles(["ROLE_USER"]);
+                $participant->setPassword($aLine[1]);
+                $participant->setNom($aLine[2]);
+                $participant->setPrenom($aLine[3]);
+                $participant->setActif($aLine[4]);
+                $participant->setAdministrateur(true);
+                $participant->setPseudo($aLine[5]);
+                $participant->setTelephone($aLine[6]);
+                // etc. pour chaque colonne/setter (à adapter à votre entité/fichier/données attendues)
+
+                // On persiste l'objet courant
+                $em->persist($participant);
+
+                // Comme on souhaite afficher les nouveaux participants dans la vue,
+                // on est obligé de faire le flush ici, ainsi on peut récupérer l'id créé
+                $em->flush();
+
+                // On met le nouveau participant dans le tableau à transmettre à la vue
+                $aNewParticipants[] = $participant;
+
+            }
+
+            // On ferme le fichier (= supprime la ressource en mémoire)  s
+            fclose($handle);
+
+            $this->addFlash(
+                'success',
+                'Utilisateur modifié avec succès');
+        }
+
+        // On appelle la vue en lui passant le tableau des nouveaux participants
+        return $this->render('admin/utilisateurs.html.twig', ['aNewParticipants' => $aNewParticipants]);
+    }
+
+
 
 
 
