@@ -23,6 +23,6 @@ class UserChecker implements \Symfony\Component\Security\Core\User\UserCheckerIn
      */
     public function checkPostAuth(UserInterface $user)
     {
-        // TODO: Implement checkPostAuth() method.
+
     }
 }
