@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h4>Inscrire un utilisateur</h4>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button type="submit">Inscrire</button>
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block title %}
+Inscrire un utilisateur | {{ parent() }}
+{% endblock %}
+

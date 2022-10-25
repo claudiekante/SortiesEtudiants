@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Campus;
+use App\Entity\Utilisateur;
 use App\Entity\Ville;
 use App\Form\CampusType;
+use App\Form\RegistrationFormType;
 use App\Form\VilleType;
 use App\Repository\CampusRepository;
 use App\Repository\UtilisateurRepository;
@@ -13,6 +15,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -180,11 +183,103 @@ class AdminController extends AbstractController
      */
     public function listeUtilisateurs(EntityManagerInterface $entityManager, Request $request, UtilisateurRepository $utilisateurRepository): Response {
 
-        $listeUtilisateurs = $utilisateurRepository->findAll();
+        $listeUtilisateurs = $utilisateurRepository->findAllUsers();
 
         return $this->render('admin/utilisateurs.html.twig', [
             'listeUtilisateurs' => $listeUtilisateurs
         ]);
+    }
+
+    /**
+     * @Route("/inscrireUtilisateur", name="inscrire_utilisateur", methods={"GET", "POST"})
+     */
+    public function inscrireUtilisateur(UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, Request $request, UtilisateurRepository $utilisateurRepository): Response {
+
+        $user = new Utilisateur();
+        $user->setAdministrateur(false);
+        $user->setActif(true);
+
+        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            //          ligne pour récupérer les données de l'image
+            $file=$form->get('avatar')->getData();
+
+//             encode the plain password
+            $user->setPassword(
+                $userPasswordHasher->hashPassword(
+                    $user,
+                    $form->get('plainPassword')->getData()
+                )
+            );
+
+            if($user->isAdministrateur()) {
+                $user->setRoles(["ROLE_ADMIN"]);
+            }
+
+            $entityManager->persist($user);
+            $entityManager->flush();
+            // do anything else you need here, like send an email
+
+            //ligne pour transferer l'image et la renommer en bdd
+            if ($file){
+                $newFilename = $user->getPseudo()."-".$user->getId().".".$file->guessExtension();
+                $file->move($this->getParameter('upload_champ_entite_dir'), $newFilename);
+                $user->setAvatar($newFilename);
+            }
+
+            //il faut repeter le flush
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            $this->addFlash(
+                'success',
+                'L\'utilisateur a été créé avec succès'
+            );
+
+            return $this->redirectToRoute('admin_liste_utilisateurs');
+
+        }
+        return $this->render('admin/inscrireutilisateur.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/toggleUtilisateur/{id}", name="toggleUtilisateur", methods={"GET"}, requirements={"id"="\d+"})
+     */
+    public function toggleUtilisateur(int $id, EntityManagerInterface $entityManager, Request $request, UtilisateurRepository $utilisateurRepository): Response {
+
+        $utilisateur = $utilisateurRepository->find($id);
+        $utilisateur->isActif() ? $utilisateur->setActif(false) : $utilisateur->setActif(true);
+
+        $entityManager->persist($utilisateur);
+        $entityManager->flush();
+
+        $this->addFlash(
+            'success',
+            'Utilisateur modifié avec succès'
+        );
+
+        return $this->redirectToRoute('admin_liste_utilisateurs');
+    }
+
+    /**
+     * @Route("/deleteutilisateur/{id}", name="deleteUtilisateur", methods={"GET"}, requirements={"id"="\d+"})
+     */
+    public function supprimerUtilisateur(int $id, UtilisateurRepository $utilisateurRepository, EntityManagerInterface $entityManager): Response {
+
+        $utilisater = $utilisateurRepository->find($id);
+        $entityManager->remove($utilisater);
+        $entityManager->flush();
+
+        $this->addFlash(
+            'success',
+            'L\'utilisateur a bien été supprimé'
+        );
+        return $this->redirectToRoute('admin_liste_utilisateurs');
     }
 
 }
