@@ -44,7 +44,6 @@ class MainController extends AbstractController
 
 
             return $this->render('main/accueil.html.twig', [
-                'utilisateurCourant' => $utilisateurCourant,
                 "sorties" => $sorties,
                 "searchForm" => $searchForm->createView(),
             ]);
