@@ -7,6 +7,7 @@ use App\Entity\Ville;
 use App\Form\CampusType;
 use App\Form\VilleType;
 use App\Repository\CampusRepository;
+use App\Repository\UtilisateurRepository;
 use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -172,6 +173,18 @@ class AdminController extends AbstractController
             'modifierVilleForm' => $modifierVilleForm
         ]);
 
+    }
+
+    /**
+     * @Route("/listeutilisateurs", name="liste_utilisateurs", methods={"GET"})
+     */
+    public function listeUtilisateurs(EntityManagerInterface $entityManager, Request $request, UtilisateurRepository $utilisateurRepository): Response {
+
+        $listeUtilisateurs = $utilisateurRepository->findAll();
+
+        return $this->render('admin/utilisateurs.html.twig', [
+            'listeUtilisateurs' => $listeUtilisateurs
+        ]);
     }
 
 }
