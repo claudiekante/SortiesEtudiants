@@ -56,6 +56,16 @@ class UtilisateurRepository extends ServiceEntityRepository implements PasswordU
         $this->add($user, true);
     }
 
+    public function findAllUsers() {
+        $query = $this
+            ->createQueryBuilder('u')
+            ->select('u','c')
+            ->innerJoin('u.campus','c')
+            ->getQuery()
+            ->getResult();
+        return $query;
+    }
+
 //    /**
 //     * @return Utilisateur[] Returns an array of Utilisateur objects
 //     */
