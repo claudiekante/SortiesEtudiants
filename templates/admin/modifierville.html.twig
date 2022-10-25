@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h4>Modifier la ville</h4>
+
+    {{ form_start(modifierVilleForm) }}
+    {{ form_widget(modifierVilleForm) }}
+    <button type="submit">Modifier</button>
+    {{ form_end(modifierVilleForm) }}
+
+    <a href="{{ path('admin_liste_villes') }}"><button type="button">Annuler</button></a>
+
+{% endblock %}
+
+{% block title %}
+    Modifier Ville | {{ parent() }}
+{% endblock %}
