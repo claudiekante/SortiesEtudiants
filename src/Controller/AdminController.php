@@ -217,6 +217,8 @@ class AdminController extends AbstractController
 
             if($user->isAdministrateur()) {
                 $user->setRoles(["ROLE_ADMIN"]);
+            } else {
+                $user->setRoles(["ROLE_USER"]);
             }
 
             $entityManager->persist($user);
@@ -253,7 +255,15 @@ class AdminController extends AbstractController
     public function toggleUtilisateur(int $id, EntityManagerInterface $entityManager, Request $request, UtilisateurRepository $utilisateurRepository): Response {
 
         $utilisateur = $utilisateurRepository->find($id);
-        $utilisateur->isActif() ? $utilisateur->setActif(false) : $utilisateur->setActif(true);
+
+        if($utilisateur->isActif()) {
+            $utilisateur->setActif(false);
+            $utilisateur->setRoles(['INACTIF']);
+        } else {
+            $utilisateur->setActif(true);
+            $utilisateur->setRoles(['ROLE_USER']);
+        }
+
 
         $entityManager->persist($utilisateur);
         $entityManager->flush();
