@@ -88,7 +88,8 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
             ->add('administrateur', CheckboxType::class, [
-                'label'=>'Cet utilisateur est administrateur*'
+                'label'=>'Cet utilisateur est administrateur*',
+                'required'=>false
             ])
         ;
     }
