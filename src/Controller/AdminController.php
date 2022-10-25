@@ -31,6 +31,7 @@ class AdminController extends AbstractController
      * @Route("/listeCampus", name="liste_campus", methods={"GET", "POST"})
      */
     public function listeCampus(EntityManagerInterface $entityManager, Request $request, CampusRepository $campusRepository): Response {
+
         $listeCampus = $campusRepository->findAll();
 
         $campus = new Campus();
@@ -56,7 +57,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/deletecampus/{id}"), name="supprimerCampus", methods={"GET"}, requirements={"id"="\d+"})
+     * @Route("/deletecampus/{id}", name="supprimerCampus", methods={"GET"}, requirements={"id"="\d+"})
      */
     public function supprimerCampus(int $id, CampusRepository $campusRepository, EntityManagerInterface $entityManager): Response {
 
@@ -69,6 +70,33 @@ class AdminController extends AbstractController
             'Le Campus a bien été supprimé'
         );
         return $this->redirectToRoute('admin_liste_campus');
+    }
+
+    /**
+     * @Route("/modifycampus/{id}", name="modifierCampus", methods={"GET", "POST"}, requirements={"id"="\d+"})
+     */
+    public function modifierCampus(int $id, Request $request, CampusRepository $campusRepository, EntityManagerInterface $entityManager): Response {
+
+        $campus = $campusRepository->find($id);
+        $modifierCampusForm = $this->createForm(CampusType::class, $campus);
+        $modifierCampusForm->handleRequest($request);
+
+        if($modifierCampusForm->isSubmitted() && $modifierCampusForm->isValid()) {
+            $entityManager->persist($campus);
+            $entityManager->flush();
+
+            $this->addFlash(
+                'success',
+                'Le Campus a bien été modifié'
+            );
+
+            return $this->redirectToRoute('admin_liste_campus');
+        }
+
+        return $this->renderForm('admin/modifiercampus.html.twig', [
+            'modifierCampusForm' => $modifierCampusForm
+        ]);
+
     }
 
 

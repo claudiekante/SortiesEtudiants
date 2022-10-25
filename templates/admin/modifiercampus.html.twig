@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h4>Modifier le campus</h4>
+
+    {{ form_start(modifierCampusForm) }}
+    {{ form_widget(modifierCampusForm) }}
+     <button type="submit">Modifier</button>
+    {{ form_end(modifierCampusForm) }}
+
+    <a href="{{ path('admin_liste_campus') }}"><button type="button">Annuler</button></a>
+
+{% endblock %}
+
+{% block title %}
+Modifier Campus | {{ parent() }}
+{% endblock %}
+
