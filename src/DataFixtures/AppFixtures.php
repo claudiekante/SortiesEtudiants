@@ -149,6 +149,7 @@ class AppFixtures extends Fixture
                 $utilisateur->setCampus($campus);
                 $utilisateur->setActif(true);
                 $utilisateur->setAdministrateur(false);
+                $utilisateur->setRoles(["ROLE_USER"]);
                 $utilisateur->setPassword($this->hasher->hashPassword($utilisateur, 'password'));
 
                 $tabParticipants[] = $utilisateur;

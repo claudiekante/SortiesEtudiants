@@ -24,7 +24,9 @@ security:
                 # target: app_any_route
             remember_me:
                 secret: '%kernel.secret%' # required
-                lifetime: 6048000 # 10 semaines en secondes
+                lifetime: 604800 # 1 week in seconds
+            user_checker: App\Security\UserChecker
+            access_denied_handler : App\Security\AccessDeniedHandler
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall

@@ -36,7 +36,7 @@ class RegistrationFormType extends AbstractType
                 'label'=>'Campus*',
                 'class' => Campus::class,
                 'choice_label' =>'nom',
-                'placeholder'=>'--choisi ton campus--'
+                'placeholder'=>'--Choisir le campus--'
             ])
             ->add('telephone', TextType::class, [
                 'label'=>'Telephone*',
@@ -86,6 +86,10 @@ class RegistrationFormType extends AbstractType
                     ]
                     )
                 ],
+            ])
+            ->add('administrateur', CheckboxType::class, [
+                'label'=>'Cet utilisateur est administrateur*',
+                'required'=>false
             ])
         ;
     }

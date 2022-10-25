@@ -26,7 +26,11 @@
                     <td>{{ utilisateur.prenom }}</td>
                     <td>{{ utilisateur.email }}</td>
                     <td>{{ utilisateur.campus.nom }}</td>
-                    <td><a href="">{{ utilisateur.actif ? "Rendre inactif" : "Réactiver" }}</a> - <a href="">Supprimer</a></td>
+                    {% if utilisateur.administrateur == false %}
+                    <td><a href="{{ path('admin_toggleUtilisateur', {'id': utilisateur.id}) }}">{{ utilisateur.actif ? "Rendre inactif" : "Réactiver" }}</a> - <a href="{{ path('admin_deleteUtilisateur', {'id' : utilisateur.id}) }}">Supprimer</a></td>
+                    {% else %}
+                        <td>Administrateur</td>
+                    {% endif %}
                 </tr>
             {% endfor %}
 
@@ -34,7 +38,7 @@
 
         </table>
 
-        <button type="button">Inscrire un Utilisateur</button>
+        <a href="{{ path('admin_inscrire_utilisateur') }}"><button type="button">Inscrire un Utilisateur</button></a>
         <button type="button">Inscrire Utilisateur via .CSV</button>
     </div>
 {% endblock %}

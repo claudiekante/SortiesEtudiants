@@ -2,7 +2,7 @@
 {% block body %}
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-         {{ form_start(motifAnnulationForm) }}
+        {{ form_start(motifAnnulationForm) }}
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -17,7 +17,7 @@
 
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                     <button type="submit" class="btn btn-outline-warning" onclick=window.location.href="{{ path('app_sortie_modifiersortie', {'id': sortie.id}) }}">Valider</button>
-                   {{ form_end(motifAnnulationForm) }}
+                    {{ form_end(motifAnnulationForm) }}
                 </div>
                 <div class="modal-footer">
                 </div>
@@ -29,7 +29,7 @@
     <h4>Détails de la sortie {{ sortie.nom }}</h4>
     {%if sortie.etat.libelle == 'Annulée'%}
         <p class="alert alert-danger">Sortie Annulée : {{ sortie.motifAnnulation }}</p>
-        {% else %}
+    {% else %}
         <p>  </p>
     {% endif %}
     <p>Organisée par :<a href="{{ path('utilisateur_profilid', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur.pseudo }}</a></p>
@@ -45,20 +45,20 @@
     <p>Latitude : {{ sortie.lieu.latitude }}</p>
     <p>Longitude : {{ sortie.lieu.longitude }}</p>
     <br>
-{#   <p><a type="button" class="btn btn-outline-warning"#}
-{#          href="{{ path('app_sortie_participersortie', {'id': sortie.id}) }}">participer à la sortie</a></p>#}
+    {#   <p><a type="button" class="btn btn-outline-warning"#}
+    {#          href="{{ path('app_sortie_participersortie', {'id': sortie.id}) }}">participer à la sortie</a></p>#}
 
     <!--bouton Modal-->
     {% if sortie.organisateur.id == app.user.id and  sortie.etat.libelle != 'Annulée'%}
-    <button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#exampleModal">
-        Annuler une sortie
-    </button>
-  {% endif %}
+        <button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#exampleModal">
+            Annuler une sortie
+        </button>
+    {% endif %}
     <!--bouton Modal -->
-{{ sortie.organisateur.id }}
- {#codice Ales#}
+    {{ sortie.organisateur.id }}
+    {#codice Ales#}
     {% if sortie.dateLimitInscription < "today"%}
-       <p class="alert alert-danger">La date limite d'inscription pour cette activitée a été dépassé</p>
+        <p class="alert alert-danger">La date limite d'inscription pour cette activitée a été dépassé</p>
     {% endif %}
     {% if sortie.etat.libelle == 'Ouverte' %}
         {% if sortie.organisateur.id != app.user.id %}
@@ -77,10 +77,10 @@
                     </p>
 
 
-
+                {% endif %}
             {% endif %}
         {% endif %}
-{#    {% endif %}#}
+    {% endif %}
 
 
     {#    codice Ales#}
@@ -95,24 +95,24 @@
         <!--<p><a type="bouton" class="btn btn-outline-warning" href="{#  {{ path('app_sortie_supprimersortie', {'id': sortie.id}) }}#}">Annuler la sortie</a></p>-->
     {% endif %}
     <h5>Liste des participants inscrits</h5>
-<div class="custom-table">
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th scope="col">Pseudo</th>
-            <th scope="col">Nom</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for participant in sortie.participant %}
-        <tr>
-            <td><a href="{{ path('utilisateur_profilid', {'id': participant.id}) }}">{{participant.pseudo}}</a></td>
-            <td>{{ participant.prenom }} {{ participant.nom | upper }}</td>
-        </tr>
-        {% endfor  %}
-        </tbody>
-    </table>
-</div>
+    <div class="custom-table">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Pseudo</th>
+                <th scope="col">Nom</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for participant in sortie.participant %}
+                <tr>
+                    <td><a href="{{ path('utilisateur_profilid', {'id': participant.id}) }}">{{participant.pseudo}}</a></td>
+                    <td>{{ participant.prenom }} {{ participant.nom | upper }}</td>
+                </tr>
+            {% endfor  %}
+            </tbody>
+        </table>
+    </div>
 
 
 {% endblock %}
