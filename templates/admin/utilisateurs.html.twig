@@ -39,7 +39,7 @@
         </table>
 
         <a href="{{ path('admin_inscrire_utilisateur') }}"><button type="button">Inscrire un Utilisateur</button></a>
-        <button type="button">Inscrire Utilisateur via .CSV</button>
+        <button type="button" onclick=window.location.href="{{ path('admin_app_import_csv')}}">Inscrire Utilisateur via .CSV</button>
     </div>
 {% endblock %}
 

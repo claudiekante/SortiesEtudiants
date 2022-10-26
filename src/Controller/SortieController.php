@@ -2,17 +2,17 @@
 
 namespace App\Controller;
 
-use App\Entity\Etat;
+//use App\Entity\Etat;
 use App\Entity\Lieu;
 use App\Entity\Sortie;
 use App\Form\LieuType;
 use App\Form\MotifAnnulationType;
-use App\Form\RegistrationFormType;
+//use App\Form\RegistrationFormType;
 use App\Form\SortieCreateType;
 use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
 use App\Repository\UtilisateurRepository;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+//use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -94,12 +94,11 @@ class SortieController extends AbstractController
      * @Route ("detailssortie/{id}", name="sortie_detailssortie", requirements={"id"="\d+"})
      */
 
-    public function detailsSortie(SortieRepository $sortieRepository,Request $request,EtatRepository $etatRepository,int $id, UtilisateurRepository $utilisateurRepository, EntityManagerInterface $em): Response
+    public function detailsSortie(SortieRepository $sortieRepository, Request $request,EtatRepository $etatRepository,int $id, UtilisateurRepository $utilisateurRepository, EntityManagerInterface $em): Response
     {
         $utilisateurCourant = $utilisateurRepository->find($this->getUser());
         $sortie = $sortieRepository->findOneSortie($id);
         $etatCreee = $etatRepository->findByLibelle('Annulée');
-      //  $sortie->setEtat($etatCreee);
         $motifAnnulationForm = $this->createForm(MotifAnnulationType::class, $sortie);
         $motifAnnulationForm->handleRequest($request);
 
@@ -107,19 +106,17 @@ class SortieController extends AbstractController
             $sortie->setEtat($etatCreee);
             $em->persist($sortie);
             $em->flush();
-
             $this->addFlash(
                 'success',
                 'La sortie a bien été annulée'
             );
             return $this->redirectToRoute('main_accueil');
         }
-
         return $this->render('sortie/detailssortie.html.twig', [
+
             'sortie' => $sortie,
             'utilisateurCourant' => $utilisateurCourant,
             'motifAnnulationForm' => $motifAnnulationForm->createView(),
-
         ]);
     }
 
@@ -227,34 +224,6 @@ class SortieController extends AbstractController
 //
 //
 //    }
-
-  //  /**
-    // * @Route("/supprimerSortie/{id}"), name="supprimerSortie"
-   //  */
- //   public function supprimerSortie(int $id, EtatRepository $etatRepository, Request $request, SortieRepository $sortieRepository, EntityManagerInterface $em): Response
-   // {
-    ///    $etatCreee = $etatRepository->findByLibelle('Annulée');
-      //  $sortie->setEtat($etatCreee);
-       // $motifAnnulationForm = $this->createForm(MotifAnnulationType::class, $sortie);
-       // $motifAnnulationForm->handleRequest($request);
-
-     //   if ($motifAnnulationForm->isSubmitted() && $motifAnnulationForm->isValid()) {
-      //      $sortie->setEtat($etatCreee);
-       //     $em->persist($sortie);
-        //    $em->flush();
-
-       //     $this->addFlash(
-         //       'success',
-        //        'La sortie a bien été annulée'
-        //    );
-         //   return $this->redirectToRoute('main_accueil');
-     //   }/
-       // return $this->renderForm('sortie/detailssortie.html.twig', [
-      //  'motifAnnulationForm' => $motifAnnulationForm->createView(),
-      //  'sortie' => $sortie,
-       // ]);
-  //  }
-
 
 
 }
