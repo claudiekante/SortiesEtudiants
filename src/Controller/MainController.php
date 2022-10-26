@@ -34,6 +34,7 @@ class MainController extends AbstractController
 
             $mots = $searchForm->get('search')->getData();
             $campus = $searchForm->get('campus')->getData();
+            $ouvertes = $searchForm->get('ouvertes')->getData();
             $organisateur = $searchForm->get('organisateur')->getData();
             $inscrit = $searchForm->get('inscrit')->getData();
             $pasInscrit = $searchForm->get('pasInscrit')->getData();
@@ -41,7 +42,7 @@ class MainController extends AbstractController
             $dateDebut = $searchForm->get('dateDebut')->getData();
             $dateFin = $searchForm->get('dateFin')->getData();
 
-            $sorties = $sortieRepository->search($utilisateurCourant->getId(), $mots, $campus, $organisateur,  $inscrit, $pasInscrit, $dejaPassee, $dateDebut, $dateFin);
+            $sorties = $sortieRepository->search($utilisateurCourant->getId(), $mots, $campus, $ouvertes, $organisateur,  $inscrit, $pasInscrit, $dejaPassee, $dateDebut, $dateFin);
 
 
             return $this->render('main/accueil.html.twig', [
