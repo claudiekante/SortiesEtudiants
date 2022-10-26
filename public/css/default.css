@@ -330,3 +330,17 @@ main {
         display:none;
     }
 }
+
+.descriptionSortie{
+    text-align: center;
+    margin-right: 10%;
+    margin-left: 10%;
+    margin-top : 3%;
+}
+
+.containerLieu{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5%;
+}

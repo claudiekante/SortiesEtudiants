@@ -315,13 +315,14 @@ class AdminController extends AbstractController
     /**
      * @Route("/import-csv", name="app_import_csv", methods={"GET"})
      */
-    public function importCsv(EntityManagerInterface $em): Response
+    public function importCsv(EntityManagerInterface $em, CampusRepository $campusRepository): Response
     {
         // Pour la phase de développement, on peut vider la table...
         // ... à chaque fois avec l'instruction SQL 'TRUNCATE'
         // cf. https://code2dev.go.yo.fr/cours/symfony/doctrine_faq.php#h2_6
         $connection = $em->getConnection();
         $platform = $connection->getDatabasePlatform();
+
        // $connection->executeQuery($platform->getTruncateTableSQL('utilisateur'));
 
         // Chemin vers le fichier
@@ -361,6 +362,7 @@ class AdminController extends AbstractController
                 $participant->setAdministrateur(true);
                 $participant->setPseudo($aLine[5]);
                 $participant->setTelephone($aLine[6]);
+                $participant->setCampus();
                 // etc. pour chaque colonne/setter (à adapter à votre entité/fichier/données attendues)
 
                 // On persiste l'objet courant
