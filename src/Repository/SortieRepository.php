@@ -47,6 +47,7 @@ class SortieRepository extends ServiceEntityRepository
             ->leftJoin('s.Organisateur', 'o')
             ->leftJoin('s.etat', 'e')
             ->leftJoin('s.participant','p')
+            ->orderBy('s.dateHeureDebut','ASC')
             ->getQuery()
             ->getResult();
         return $query;
@@ -67,7 +68,7 @@ class SortieRepository extends ServiceEntityRepository
         return $query;
     }
 
-    public function search($id, $mots = null , $campus = null, $organisateur = false,
+    public function search($id, $mots = null , $campus = null, $ouvertes = false, $organisateur = false,
                            $inscrit = false, $pasInscrit = false, $dejaPasse = false,
                            $dateHeureDebut = null, $dateLimiteInscription = null
     )
@@ -82,6 +83,12 @@ class SortieRepository extends ServiceEntityRepository
         {
             $query->leftJoin('s.campus', 'c');
             $query->andWhere('c.id = :campus')->setParameter('campus', $campus);
+        }
+
+        if($ouvertes) {
+            $query->leftJoin('s.etat','e');
+            $query->andWhere('e.libelle = :ouverte ');
+            $query->setParameter('ouverte','Ouverte');
         }
 
         if ($organisateur)
@@ -114,16 +121,15 @@ class SortieRepository extends ServiceEntityRepository
         if ($dateHeureDebut != null)
         {
             $query->andWhere('s.dateHeureDebut > :dateHeureDebut')->setParameter('dateHeureDebut',  $dateHeureDebut);
-            $query->orderBy('s.dateHeureDebut', 'ASC');
         }
 
         if ($dateLimiteInscription != null)
         {
             $query->andWhere('s.dateHeureDebut < :dateLimite')
                 ->setParameter('dateLimite', $dateLimiteInscription);
-            $query->orderBy('s.dateHeureDebut', 'ASC');
         }
 
+        $query->orderBy('s.dateHeureDebut','ASC');
         return $query->getQuery()->getResult();
     } // -- search()
 
