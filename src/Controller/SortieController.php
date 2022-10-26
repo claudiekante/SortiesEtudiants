@@ -61,6 +61,8 @@ class SortieController extends AbstractController
         $lieuForm = $this->createForm(LieuType::class, $lieu);
         $lieuForm->handleRequest($request);
 
+        
+
         if ($lieuForm->isSubmitted() && $lieuForm->isValid()) {
             $entityManager->persist($lieu);
             $entityManager->flush();
@@ -99,10 +101,21 @@ class SortieController extends AbstractController
         $utilisateurCourant = $utilisateurRepository->find($this->getUser());
         $sortie = $sortieRepository->findOneSortie($id);
         $etatCreee = $etatRepository->findByLibelle('Annulée');
+        //$etatEchecAnnulation = $etatRepository->findByLibelle('Ouverte');
         $motifAnnulationForm = $this->createForm(MotifAnnulationType::class, $sortie);
         $motifAnnulationForm->handleRequest($request);
 
-        if ($motifAnnulationForm->isSubmitted() && $motifAnnulationForm->isValid()) {
+//       if ($motifAnnulationForm->isSubmitted() && $motifAnnulationForm->isValid(fe)){
+//            $sortie->setEtat($etatEchecAnnulation);
+//           $this->addFlash(
+//                'success',
+//                'attention la sortie n\'a pas été annulée, car un motif est obligatoire'
+//            );
+//            return $this->redirectToRoute('main_accueil');
+//        }
+
+       if ($motifAnnulationForm->isSubmitted() && $motifAnnulationForm->isValid()) {
+
             $sortie->setEtat($etatCreee);
             $em->persist($sortie);
             $em->flush();
