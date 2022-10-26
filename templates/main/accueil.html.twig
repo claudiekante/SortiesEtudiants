@@ -32,28 +32,42 @@
 {#        {% endif %}#}
 {#    {% endif %}#}
 {#    <p></p>#}
+    {% if app.user %}
+        <button  type="button" class="btn btn-outline-warning" onclick="window.location.href ='{{ path('creer') }}'">Creer une sortie</button>
+    {% endif %}
+    <div class="row">
+    <div class="col d-flex justify-content-center">
 
+    <div class="card" style="width: 70rem;">
+    <div class="card-body">
+        <p class="titreCarte">Rechercher une sortie</p>
     {{ form_start(searchForm) }}
     {{ form_widget(searchForm) }}
     <button  type="submit" class="btn btn-outline-warning">Rechercher</button>
     {{ form_end(searchForm) }}
+    </div>
+    </div>
+    </div>
+    </div>
     <br>
     <span class="ghost">
-    <div class="custom-table">
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th scope="col">Nom sortie</th>
-            <th scope="col">Date sortie</th>
-            <th scope="col">Clôture</th>
-            <th scope="col">Inscrits/Places</th>
-            <th scope="col">Etat</th>
-            <th scope="col">Inscrit</th>
-            <th scope="col">Organisateur</th>
-            <th scope="col">Actions</th>
-        </tr>
-        </thead>
-        <tbody>
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-xl-10">
+            <div class="custom-table border">
+             <table class="table table-striped border">
+             <thead>
+                <tr>
+                    <th scope="col">Nom sortie</th>
+                    <th scope="col">Date sortie</th>
+                    <th scope="col">fin inscript.</th>
+                    <th scope="col">Inscrits/Places</th>
+                    <th scope="col">Etat</th>
+                    <th scope="col">Inscrit</th>
+                    <th scope="col">Organisateur</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+                 <tbody>
         <!--tableau affichage connectée-->
         {% for sortie in sorties %}
             {% if app.user and sortie.etat.libelle == "Créée" and sortie.organisateur.id == app.user.id%}
@@ -107,10 +121,10 @@
         </tbody>
     </table>
     </div>
+            </div>
+        </div>
     <br>
-        {% if app.user %}
-    <button  type="button" class="btn btn-outline-warning" onclick="window.location.href ='{{ path('creer') }}'">Creer une sortie</button>
-        {% endif %}
+
     </span>
     <p></p>
     <p></p>
@@ -123,7 +137,7 @@
         s'affiche seulement quand l'écrean est petit (et la navbar change).
         En même temps, le bouton créer une sortie disparaît</p>
 
-    <div class="custom-table">
+    <div class="custom-table ">
         <table class="table table-striped">
             <thead>
             <tr>

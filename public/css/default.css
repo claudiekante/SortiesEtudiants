@@ -7,7 +7,7 @@
     box-sizing: border-box;
 }
 body{
-background-color: #c99afc;
+background-color: lightgrey;
 }
 
 /*body { height: 800px; }*/
@@ -316,7 +316,7 @@ footer p {
 main {
     position:relative;
     /*height: 800px;*/
-    background-color: #e71212;
+    background-color: lightgrey;
     min-height:100%;
 
 }
@@ -346,6 +346,10 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 5%;
+    margin-top: 3%;
 }
 
+.titreCarte{
+    text-align: center;
+    font-size: 30px;
+}
