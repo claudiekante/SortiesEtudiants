@@ -39,23 +39,23 @@ class ListeSortieType extends AbstractType
                 'required' => false
             ])
             ->add('ouvertes', CheckboxType::class, [
-                'label'=>'Sorties ouvertes',
+                'label'=>'Futures',
                 'required'=>false
             ])
             ->add('organisateur', CheckboxType::class, [
-                'label' => 'Sorties dont je suis l\'organisateur/trice',
+                'label' => 'C\'est moi qui l\'organise',
                 'required' => false
             ])
             ->add('inscrit', CheckboxType::class, [
-                'label' => 'Sorties auxquelles je suis inscrit(e)',
+                'label' => 'J\'y participe',
                 'required' => false
             ])
             ->add('pasInscrit', CheckboxType::class, [
-                'label' => 'Sorties auxquelles je ne suis pas inscrit(e)',
+                'label' => 'J\'y participe pas',
                 'required' => false
             ])
             ->add('dejaPassee', CheckboxType::class, [
-                'label' => 'Sorties passées',
+                'label' => 'Passées',
                 'required' => false
             ]);
 

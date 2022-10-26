@@ -3,49 +3,192 @@
 {% block title %} {{ parent() }} | Accueil | {{ parent() }} {% endblock %}
 
 
-{%  block body %}
-    {% if not app.user %}
-        <p class="alert alert-warning" style="text-align: center">Pour participer et créer de nouvelles sorties, veuillez vous connecter !</p>
-    {% endif %}
+{% block body %}
 
-    {#    code à utiliser pour afficher l'image de l'user dans le site#}
-{#    <p>test pour affichage de l'image utilisateur</p>#}
-{#    {% if (app.user) %}#}
-{#        {% if(app.user.avatar) %}#}
-{#            <p>Ceci est une image qui pourrait accompagner les sorties</p>#}
-{#            <div class="avatarpage"#}
-{#                 style="background-image: url('{{ asset('img/' ~ app.user.avatar) }}');">#}
-{#            </div>#}
-{#            <p>Ceci est une image qui pourrait aller dans la navbar</p>#}
-{#            <div class="avatarnav"#}
-{#                 style="background-image: url('{{ asset('img/' ~ app.user.avatar) }}');">#}
-{#            </div>#}
-{#        {% else %}#}
-{#            <p>Ceci est l'image qui s'affiche si la personne n'as pas chargé sa photo</p>#}
-{#            <div class="avatarpage"#}
-{#                 style="background-image: url('{{ asset('img/emoticons.jpg') }}');">#}
-{#            </div>#}
-{#            <p>voici sa version pour la nav bar</p>#}
-{#            <div class="avatarnav"#}
-{#                 style="background-image: url('{{ asset('img/emoticons.jpg') }}');">#}
-{#            </div>#}
-{#        {% endif %}#}
-{#    {% endif %}#}
-{#    <p></p>#}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
 
-    {{ form_start(searchForm) }}
-    {{ form_widget(searchForm) }}
-    <button  type="submit" class="btn btn-outline-warning">Rechercher</button>
-    {{ form_end(searchForm) }}
+                <div class="card">
+                    <div class="card-body">
+
+
+                        <h5 class="card-title">
+                            {% if (app.user) %}
+                                <div class="d-flex justify-content-center text-center">
+
+                                    {% if(app.user.avatar) %}
+                                        <div class="avatarpage"
+                                             style="background-image: url('{{ asset('img/' ~ app.user.avatar) }}');">
+                                        </div>
+
+                                    {% else %}
+                                        <div class="avatarpage"
+                                             style="background-image: url('{{ asset('img/emoticons.jpg') }}');">
+                                        </div>
+                                    {% endif %}
+
+                                    <p></p>
+
+                                </div>
+                                <p class="text-center">bonjour {{ app.user.pseudo }} </p>
+                            {% endif %}
+
+
+                            Bienvenue sur sortir.com, le site pour les activités extrascolaire des étudiants ENI.
+                        </h5>
+
+                        {% if app.user %}
+                            <span class="ghost">
+                        <p class="card-text">
+                            Recherche et inscrive-toi aux activités qui t'intéressent, ou clique ci-dessous pour en proposer une :</p>
+                            <button type="button" class="btn btn-warning btn-sm"
+                                    onclick="window.location.href ='{{ path('creer') }}'">Proposer une sortie</button>
+                          </span>
+
+                            <span class="ghost2">
+                        <p class="card-text">
+                            Recherche et inscrive-toi aux activités qui t'intéressent.</p>
+                          </span>
+
+                        {% else %}
+                            <span class="ghost">
+                        <p class="card-text">
+                            Connecte-toi pour rechercher et t'inscrire aux activités qui t'intéressent, ou pour en proposer des nouvelles. </p>
+                        </span>
+                            <span class="ghost2">
+                        <p class="card-text">
+                            Connecte-toi pour rechercher et t'inscrire aux activités qui t'intéressent. </p>
+                        </span>
+                        {% endif %}
+
+
+                    </div>
+                </div>
+            </div>
+
+            {#                    <span class="ghost"> #}
+
+            <div class="col-sm-8">
+                <span class="ghost">
+                <div class="card ">
+                    <h5 class="card-header">Cherche entre les sorties</h5>
+                    <div class="card-body">
+
+
+                        {{ form_start(searchForm) }}
+                        <table>
+                            <tr>
+                                <td>
+                                    {{ form_row(searchForm.search) }}
+                                </td>
+                                <td></td>
+                                <td>
+                                    {{ form_row(searchForm.campus) }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {{ form_row(searchForm.dateDebut) }}
+                                </td>
+                                <td></td>
+                                <td>
+                                    {{ form_row(searchForm.dateFin) }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {{ form_row(searchForm.ouvertes) }}
+                                </td>
+                                <td></td>
+                                <td>
+                                    {{ form_row(searchForm.dejaPassee) }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {{ form_row(searchForm.inscrit) }}
+                                </td>
+                                <td>&nbsp; &nbsp; &nbsp;</td>
+                                <td>
+                                    {{ form_row(searchForm.pasInscrit) }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    {{ form_row(searchForm.organisateur) }}
+                                </td>
+
+                                <td>
+                                    <button type="submit" class="btn btn-warning btn-sm">Rechercher</button>
+                                </td>
+                            </tr>
+                        </table>
+
+
+                        {{ form_end(searchForm) }}
+
+
+                    </div>
+                </div>
+            </div>
+            </span>
+        </div>
+        {#        </span> #}
+    </div>
+
+
+
+    {#    code à utiliser pour afficher l'image de l'user dans le site #}
+    {#    <p>test pour affichage de l'image utilisateur</p> #}
+    {#    {% if (app.user) %} #}
+    {#        {% if(app.user.avatar) %} #}
+    {#            <p>Ceci est une image qui pourrait accompagner les sorties</p> #}
+    {#            <div class="avatarpage" #}
+    {#                 style="background-image: url('{{ asset('img/' ~ app.user.avatar) }}');"> #}
+    {#            </div> #}
+    {#            <p>Ceci est une image qui pourrait aller dans la navbar</p> #}
+    {#            <div class="avatarnav" #}
+    {#                 style="background-image: url('{{ asset('img/' ~ app.user.avatar) }}');"> #}
+    {#            </div> #}
+    {#        {% else %} #}
+    {#            <p>Ceci est l'image qui s'affiche si la personne n'as pas chargé sa photo</p> #}
+    {#            <div class="avatarpage" #}
+    {#                 style="background-image: url('{{ asset('img/emoticons.jpg') }}');"> #}
+    {#            </div> #}
+    {#            <p>voici sa version pour la nav bar</p> #}
+    {#            <div class="avatarnav" #}
+    {#                 style="background-image: url('{{ asset('img/emoticons.jpg') }}');"> #}
+    {#            </div> #}
+    {#        {% endif %} #}
+    {#    {% endif %} #}
+    {#    <p></p> #}
+
+
+    {# <span class="ghost2"> #}
+    {#    {{ form_start(searchForm) }} #}
+    {#    {{ form_widget(searchForm) }} #}
+    {#    <button  type="submit" class="btn btn-outline-warning">Rechercher</button> #}
+    {#    {{ form_end(searchForm) }} #}
+    {# </span> #}
+
     <br>
     <span class="ghost">
+
+            <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                      <h5 class="card-header">Voici toutes les sorties organisées</h5>
+                    <div class="card-body">
+
     <div class="custom-table">
     <table class="table table-striped">
         <thead>
         <tr>
             <th scope="col">Nom sortie</th>
-            <th scope="col">Date sortie</th>
-            <th scope="col">Clôture</th>
+            <th scope="col">Date</th>
+            <th scope="col">Fin des inscriptions</th>
             <th scope="col">Inscrits/Places</th>
             <th scope="col">Etat</th>
             <th scope="col">Inscrit</th>
@@ -56,11 +199,11 @@
         <tbody>
         <!--tableau affichage connectée-->
         {% for sortie in sorties %}
-            {% if app.user and sortie.etat.libelle == "Créée" and sortie.organisateur.id == app.user.id%}
-            <tr>
+            {% if app.user and sortie.etat.libelle == "Créée" and sortie.organisateur.id == app.user.id %}
+                <tr>
                 <td>{{ sortie.nom }}</td>
-                <td> {{ sortie.dateHeureDebut | date('d/m/Y à H:i')}}</td>
-                <td> {{ sortie.dateLimitInscription | date('d/m/Y')}}</td>
+                <td> {{ sortie.dateHeureDebut | date('d/m/Y à H:i') }}</td>
+                <td> {{ sortie.dateLimitInscription | date('d/m/Y') }}</td>
                 <td> {{ sortie.participant.count }} / {{ sortie.nbInscriptionsMax }}</td>
                 <td> {{ sortie.etat.libelle }}</td>
                 {% if app.user in sortie.participant %}
@@ -70,7 +213,7 @@
                 {% endif %}
                 <td><a href="{{ path('utilisateur_profilid', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur.pseudo }}</a></td>
                 {% if app.user %}
-                <td> <a href="{{ path('sortie_detailssortie', {'id': sortie.id}) }}">Afficher</a></td>
+                    <td> <a href="{{ path('sortie_detailssortie', {'id': sortie.id}) }}">Afficher</a></td>
                     {% else %}
                     <td><p> </p></td>
                 {% endif %}
@@ -79,15 +222,15 @@
         {% endfor %}
         <!--tableau affichage utilisateur déconnecté-->
         {% for sortie in sorties %}
-         {% if  sortie.etat.libelle == "Ouverte"
-             or sortie.etat.libelle == "Passée"
-             or sortie.etat.libelle == "Annulée"
-             or sortie.etat.libelle == "Activité en cours"
-             or sortie.etat.libelle == "Clôturée"%}
-                 <tr>
+            {% if  sortie.etat.libelle == "Ouverte"
+                or sortie.etat.libelle == "Passée"
+                or sortie.etat.libelle == "Annulée"
+                or sortie.etat.libelle == "Activité en cours"
+                or sortie.etat.libelle == "Clôturée" %}
+                <tr>
                 <td>{{ sortie.nom }}</td>
-                <td> {{ sortie.dateHeureDebut | date('d/m/Y à H:i')}}</td>
-                <td> {{ sortie.dateLimitInscription | date('d/m/Y')}}</td>
+                <td> {{ sortie.dateHeureDebut | date('d/m/Y à H:i') }}</td>
+                <td> {{ sortie.dateLimitInscription | date('d/m/Y') }}</td>
                 <td> {{ sortie.participant.count }} / {{ sortie.nbInscriptionsMax }}</td>
                 <td> {{ sortie.etat.libelle }}</td>
                 {% if app.user in sortie.participant %}
@@ -102,15 +245,18 @@
                     <td><p> </p></td>
                 {% endif %}
             </tr>
-         {% endif %}
+            {% endif %}
         {% endfor %}
         </tbody>
     </table>
     </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            </div>
     <br>
-        {% if app.user %}
-    <button  type="button" class="btn btn-outline-warning" onclick="window.location.href ='{{ path('creer') }}'">Creer une sortie</button>
-        {% endif %}
+
     </span>
     <p></p>
     <p></p>
@@ -119,59 +265,88 @@
     <span class="ghost2">
     {% if (app.user) %}
 
-    <p>Le tableau ci-dessous, avec seulement les sorties presentes dans mon campus,
-        s'affiche seulement quand l'écrean est petit (et la navbar change).
-        En même temps, le bouton créer une sortie disparaît</p>
+        <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                      <h5 class="card-header">Voici les sorties sur ton campus</h5>
+                    <div class="card-body">
 
-    <div class="custom-table">
+     <div class="custom-table">
         <table class="table table-striped">
             <thead>
             <tr>
-                <th scope="col">Campus</th>
+{#                <th scope="col">Campus</th> #}
                 <th scope="col">Nom sortie</th>
-                <th scope="col">Date sortie</th>
-                <th scope="col">Clôture</th>
-                <th scope="col">Inscrits/Places</th>
-                <th scope="col">Etat</th>
-                <th scope="col">Inscrit</th>
-                <th scope="col">Organisateur</th>
-                <th scope="col">Actions</th>
+                <th scope="col">Date</th>
+                <th scope="col">Lieu</th>
+{#                <th scope="col">Clôture</th>#}
+                {#                <th scope="col">Inscrits/Places</th>#}
+                {#                <th scope="col">Etat</th>#}
+                {#                <th scope="col">Inscrit</th>#}
+                {#                <th scope="col">Organisateur</th>#}
+                {#                <th scope="col">Actions</th>#}
 
             </tr>
             </thead>
             <tbody>
 
-{#           exemple de code pour enchainer les filtres#}
-{#            {% for sortie in sorties|filter(sortie => sortie.campus.nom == app.user.campus.nom) | filter(sortie => app.user in sortie.participant)  %}#}
+{#           exemple de code pour enchainer les filtres #}
+{#            {% for sortie in sorties|filter(sortie => sortie.campus.nom == app.user.campus.nom) | filter(sortie => app.user in sortie.participant)  %} #}
+{# {% for sortie in sorties|filter(sortie => sortie.campus.nom == app.user.campus.nom)|filter(sortie => sortie.etat.libelle == "Ouverte") %} #}
 
+{% for sortie in sorties|filter(sortie => sortie.campus.nom == app.user.campus.nom) %}
+    {# {% for sortie in sorties|filter(sortie => sortie.etat.libelle == "Ouverte") %} #}
+    <tr>
+{#                    <td>{{ sortie.campus.nom }}</td> #}
+        <td><a href="{{ path('sortie_detailssortie', {'id': sortie.id}) }}">{{ sortie.nom }}</a></td>
+                    <td> {{ sortie.dateHeureDebut | date('d/m/Y à H:i') }}</td>
+                    <td>{{ sortie.lieu.nom }}</td>
+{#                    <td> {{ sortie.dateLimitInscription | date('d/m/Y') }}</td> #}
+        {#                    <td> {{ sortie.participant.count }} / {{ sortie.nbInscriptionsMax }}</td> #}
+        {#                    <td> {{ sortie.etat.libelle }}</td> #}
+        {#                    {% if app.user in sortie.participant %} #}
+        {#                        <td> X </td> #}
+        {#                    {% else %} #}
+        {#                        <td><p> </p></td> #}
+        {#                    {% endif %} #}
+        {#                    <td><a href="{{ path('utilisateur_profilid', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur.pseudo }}</a></td> #}
+        {#                    <td> <a href="{{ path('sortie_detailssortie', {'id': sortie.id}) }}">Afficher</a></td> #}
 
-            {% for sortie in sorties|filter(sortie => sortie.campus.nom == app.user.campus.nom) %}
-                <tr>
-                    <td>{{ sortie.campus.nom }}</td>
-                    <td>{{ sortie.nom }}</td>
-                    <td> {{ sortie.dateHeureDebut | date('d/m/Y à H:i')}}</td>
-                    <td> {{ sortie.dateLimitInscription | date('d/m/Y')}}</td>
-                    <td> {{ sortie.participant.count }} / {{ sortie.nbInscriptionsMax }}</td>
-                    <td> {{ sortie.etat.libelle }}</td>
-                    {% if app.user in sortie.participant %}
-                        <td> X </td>
-                    {% else %}
-                        <td><p> </p></td>
-                    {% endif %}
-                    <td><a href="{{ path('utilisateur_profilid', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur.pseudo }}</a></td>
-                    <td> <a href="{{ path('sortie_detailssortie', {'id': sortie.id}) }}">Afficher</a></td>
-
-                      {% if "today" < sortie.dateHeureDebut|date_modify("+ 1 month")  %}
-                      {% endif %}
+        {#                      {% if "today" < sortie.dateHeureDebut|date_modify("+ 1 month") %} #}
+        {#                      {% endif %} #}
                 </tr>
 
-            {% endfor %}
+{% endfor %}
             </tbody>
         </table>
     </div>
 
+                        </div>
+                </div>
+            </div>
+        </div>
+            </div>
+
+
     {% else %}
-    <p>tu n'est pas connecté</p>
+
+
+        <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                      <h5 class="card-header">Voici les sorties sur ton campus</h5>
+                    <div class="card-body">
+ <p>Pour afficher la liste de sortie, il faut se connecter.</p>
+
+
+                        </div>
+                </div>
+            </div>
+        </div>
+            </div>
+
     {% endif %}
 </span>
 
