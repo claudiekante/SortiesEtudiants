@@ -8,7 +8,7 @@
 }
 
 body {
-    background-color: #EFEFEF;
+    background-color: #e8e8e8;
     color: #281508;
     font-family: 'Rubik', sans-serif;
     margin: 0;
@@ -229,15 +229,51 @@ nav p {
 /*    width: fit-content;*/
 /*    max-width: 50%;}*/
 
+/*main {*/
+/*    position:relative;*/
+/*    background-color: #2539ef;*/
+/*    min-height:100%;*/
+/*}*/
 
-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: white;
-    box-shadow: 0 -3px 5px rgba(0, 0, 0, 0.1);
-    padding : 10px 30px;
-    margin-top : 30px;
+/*footer {*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+
+/*    position: fixed;*/
+/*    bottom: auto;*/
+
+/*    width:100%;*/
+/*    height:100px;*/
+/*    align-items: center;*/
+/*    background-color: #61f10d;*/
+/*    box-shadow: 0 -3px 5px rgba(0, 0, 0, 0.1);*/
+/*    padding : 10px 30px;*/
+/*    margin-top : 30px;*/
+
+/*    !*width:100%;*!*/
+/*    !*height:100px;*!*/
+/*}*/
+
+footer{
+    background-color: #eab873;
+    box-shadow: 0 -3px 5px rgb(234, 184, 115);
+    /*padding : 3px 3px; ne marche pas en prod */
+    /*margin-top : 30px;  ne marche pas en prod */
+}
+
+footer p {
+    margin : 5px;
+}
+
+#textFooter {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+main {
+    /*position:relative;*/
+    background-color: #e8e8e8;
+    /*min-height:100%;*/
 }
 
 /****************
@@ -245,9 +281,8 @@ footer {
 *****************/
 
 
-footer p {
-    margin : 5px;
-}
+
+
 
 @media all and (min-width: 720px) and (max-width: 8000px){
     .ghost2 {

@@ -21,6 +21,7 @@ class MainController extends AbstractController
 
     public function accueil(Request $request, SortieRepository $sortieRepository, UtilisateurRepository $utilisateurRepository, EtatRepository $etatRepository, EtatService $etatService, EntityManagerInterface $entityManager): Response {
 
+
         $etatService->updateEtatSortie($sortieRepository, $etatRepository, $entityManager);
 
         $sorties = $sortieRepository->listSortie();

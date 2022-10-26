@@ -1,6 +1,33 @@
 
-<footer>
 
-<p>&copy; 2022 Copyright</p>
 
-</footer>
+{#<footer>#}
+{#    <div class="sticky-bottom">#}
+{#<p>&copy; div sticky dentro 2022 Copyright</p>#}
+
+{#</div>#}
+
+{#</footer>#}
+
+{#<div class="sticky-bottom">#}
+{#<footer>#}
+
+{#        <p>&copy; div sticky fuori 2022 Copyright</p>#}
+
+{#</footer> </div>#}
+
+
+{#<footer>#}
+{#    <div class="container-fluid footer fixed-bottom text-center ">#}
+{#        <p>&copy; div dentro 2022 Copyright</p>#}
+
+{#    </div>#}
+
+{#</footer>#}
+
+<div class="container-fluid footer fixed-bottom text-center pt-3 pb-3 ">
+    <footer>
+
+        <p id="textFooter">&copy; div fuori 2022 Copyright</p>
+
+    </footer> </div>
