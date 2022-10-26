@@ -318,6 +318,7 @@ main {
     /*height: 800px;*/
     /*background-color: rgba(147, 147, 255, 0.9);*/
     min-height:100%;
+
 }
 
 /****************
@@ -333,3 +334,18 @@ main {
         display:none;
     }
 }
+
+.descriptionSortie{
+    text-align: center;
+    margin-right: 10%;
+    margin-left: 10%;
+    margin-top : 3%;
+}
+
+.containerLieu{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5%;
+}
+
