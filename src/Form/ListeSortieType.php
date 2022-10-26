@@ -38,6 +38,10 @@ class ListeSortieType extends AbstractType
                 'widget'=> 'single_text',
                 'required' => false
             ])
+            ->add('ouvertes', CheckboxType::class, [
+                'label'=>'Sorties ouvertes',
+                'required'=>false
+            ])
             ->add('organisateur', CheckboxType::class, [
                 'label' => 'Sorties dont je suis l\'organisateur/trice',
                 'required' => false

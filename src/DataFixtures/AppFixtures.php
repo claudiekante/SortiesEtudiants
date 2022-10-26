@@ -159,6 +159,7 @@ class AppFixtures extends Fixture
                 for($j=1;$j<=2;$j++) {
                     $sortie = new Sortie();
                     $sortie->setNom($nomsSorties[mt_rand(0, count($nomsSorties)-1)]);
+                    //$sortie->setDateHeureDebut(new \DateTime());
                     $sortie->setDateHeureDebut($faker->dateTimeBetween('-30 days', '+5 months'));
                     $sortie->setDuree($faker->dateTime());
                     $sortie->setDateLimitInscription($faker->dateTimeBetween('-30 days' ,$sortie->getDateHeureDebut()));
