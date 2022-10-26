@@ -21,6 +21,10 @@
     {% endblock %}
 </head>
 <body>
+
+<div id="page-container">
+    <div id="content-wrap">
+
 <header>
 
     {% include ('inc/_nav.html.twig') %}
@@ -28,7 +32,8 @@
 <main>
 
 
-{% for label, messages in app.flashes %}
+
+    {% for label, messages in app.flashes %}
     {% for message in messages %}
         <div class="alert alert-{{ label }}" role="alert">
             {{ message }}
@@ -39,12 +44,15 @@
 {% block body %}{% endblock %}
 
 
+
 </main>
 
-<footer>
-    {% include('inc/_footer.html.twig') %}
-</footer>
-
+    </div>
+    <footer id="footer">{% include('inc/_footer.html.twig') %}</footer>
+</div>
+{#<footer>#}
+{#    {% include('inc/_footer.html.twig') %}#}
+{#</footer>#}
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

@@ -7,6 +7,21 @@
     box-sizing: border-box;
 }
 
+/*body { height: 800px; }*/
+
+/*.container {*/
+/*    min-height: 100%;*/
+/*    height: auto !important;*/
+/*    height: 100%;*/
+/*    margin: 0 auto -100px;*/
+/*}*/
+
+/*.footer, .push {*/
+/*    height: 100px;*/
+/*}
+
+
+
 body {
     background-color: #e8e8e8;
     color: #281508;
@@ -254,15 +269,40 @@ nav p {
 /*    !*height:100px;*!*/
 /*}*/
 
-footer{
-    background-color: #eab873;
-    box-shadow: 0 -3px 5px rgb(234, 184, 115);
-    /*padding : 3px 3px; ne marche pas en prod */
-    /*margin-top : 30px;  ne marche pas en prod */
+/*footer{*/
+/*    background-color: #eab873;*/
+/*    box-shadow: 0 -3px 5px rgb(234, 184, 115);*/
+
+
+/*    !*padding : 3px 3px; ne marche pas en prod *!*/
+/*    !*margin-top : 30px;  ne marche pas en prod *!*/
+/*}*/
+
+#page-container {
+    position: relative;
+    min-height: 100vh;
+}
+
+#content-wrap {
+    padding-bottom: 2.5rem;    /* altezza del footer */
+}
+
+#footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 2.5rem;            /* altezza del footer */
+    background-color: #7429ff;
+
+        box-shadow: 0 -3px 5px rgba(116, 41, 255, 0.9);
+        /*padding : 10px 30px;*/
+        /*margin-top : 30px;*/
 }
 
 footer p {
     margin : 5px;
+    text-align: center;
+    color: #DDDDDD;
 }
 
 #textFooter {
@@ -271,9 +311,10 @@ footer p {
 }
 
 main {
-    /*position:relative;*/
+    position:relative;
+    /*height: 800px;*/
     background-color: #e8e8e8;
-    /*min-height:100%;*/
+    min-height:100%;
 }
 
 /****************
