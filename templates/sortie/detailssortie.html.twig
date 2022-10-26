@@ -15,9 +15,9 @@
                     <p>Etes-vous sûr de vouloir annuler cette sortie ? </p>
                     {{ form_row(motifAnnulationForm.motifAnnulation)}}
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                        {% if motifAnnulationForm.motifAnnulation is > 2%}
+
                     <button type="submit" class="btn btn-outline-warning" onclick=window.location.href="{{ path('app_sortie_modifiersortie', {'id': sortie.id}) }}">Valider</button>
-                        {% endif %}
+
                     {{ form_end(motifAnnulationForm) }}
                 </div>
                 <div class="modal-footer">
