@@ -6,6 +6,9 @@
 *, *::before, *::after {
     box-sizing: border-box;
 }
+body{
+background-color: #c99afc;
+}
 
 /*body { height: 800px; }*/
 
@@ -292,7 +295,7 @@ nav p {
     bottom: 0;
     width: 100%;
     height: 2.5rem;            /* altezza del footer */
-    background-color: #7429ff;
+    background-color: #7329fe;
 
         box-shadow: 0 -3px 5px rgba(116, 41, 255, 0.9);
         /*padding : 10px 30px;*/
@@ -313,7 +316,7 @@ footer p {
 main {
     position:relative;
     /*height: 800px;*/
-    background-color: #e8e8e8;
+    background-color: #e71212;
     min-height:100%;
 }
 
