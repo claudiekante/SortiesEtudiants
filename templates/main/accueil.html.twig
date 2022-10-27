@@ -18,27 +18,25 @@
 
                                     {% if(app.user.avatar) %}
                                         <div class="avatarpage"
-                                             style="background-image: url('{{ asset('img/' ~ app.user.avatar) }}');">
+                                             style="background-image: url('{{ asset('img/' ~ app.user.avatar) }}'); margin-top: 5%">
                                         </div>
 
                                     {% else %}
                                         <div class="avatarpage"
-                                             style="background-image: url('{{ asset('img/emoticons.jpg') }}');">
+                                             style="background-image: url('{{ asset('img/emoticons.jpg') }}');margin-top: 5%">
                                         </div>
                                     {% endif %}
 
                                     <p></p>
 
                                 </div>
-                                <p class="text-center">bonjour {{ app.user.pseudo }} </p>
+                                <p class="text-center">Bonjour {{ app.user.pseudo }} </p>
                             {% endif %}
 
-
+                            <br>
                             Bienvenue sur sortir.com, le site pour les activités extrascolaire des étudiants ENI.
                         </h5>
-                        {% if not app.user %}
-                        <img src="{{ asset('img/logo.png') }}" alt="icone" style="width: 150px; text-align: center">
-                        {% endif %}
+
                         {% if app.user %}
                             <span class="ghost">
                         <p class="card-text">
@@ -55,8 +53,12 @@
 
                         {% else %}
                             <span class="ghost">
+                                <br>
                         <p class="card-text">
                             Connecte-toi pour rechercher et t'inscrire aux activités qui t'intéressent, ou pour en proposer des nouvelles. </p>
+{#                                {% if not app.user %}#}
+                                    <img src="{{ asset('img/logo.png') }}" alt="icone" style="width: 70%; margin-left: 10% ">
+{#                                {% endif %}#}
                         </span>
                             <span class="ghost2">
                         <p class="card-text">
@@ -126,6 +128,7 @@
                                 </td>
 
                             </tr>
+
                         </table>
 
 
