@@ -4,9 +4,44 @@
 
 {% block body %}
 
-    <a href="{{ path('admin_liste_villes') }}"><button type="button">Gérer les villes</button></a>
-    <a href="{{ path('admin_liste_campus') }}"><button type="button">Gérer les campus</button></a>
-    <a href="{{ path('admin_liste_utilisateurs') }}"><button type="button">Gérer les utilisateurs</button></a>
 
+    <section class="page-section" id="services">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">Espace de conrôle de l'administrateur</h2>
+<br>
+                <br>
+            </div>
+            <div class="row text-center">
+                <div class="col-md-4">
+                        <span class="fa-stack fa-4x">
+                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                            <i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>
+                        </span>
+                    <h4 class="my-3">Gestion des villes</h4>
+                    <p class="text-muted">Gestion des villes disponibles <br>dans la liste des lieux lors<br> de la création d'une sortie</p>
+                    <a href="{{ path('admin_liste_villes') }}"><button type="button" class="btn btn-warning ">Gérer les villes</button></a>
+                </div>
+                <div class="col-md-4">
+                        <span class="fa-stack fa-4x">
+                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                            <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
+                        </span>
+                    <h4 class="my-3">Gestion des campus</h4>
+                    <p class="text-muted">Gestion des campus existants et permettant l'accès à la plateforme de l'ensemble de ses élèves</p>
+                    <a href="{{ path('admin_liste_campus') }}"><button type="button" class="btn btn-warning">Gérer les campus</button></a>
+                </div>
+                <div class="col-md-4">
+                        <span class="fa-stack fa-4x">
+                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                            <i class="fas fa-lock fa-stack-1x fa-inverse"></i>
+                        </span>
+                    <h4 class="my-3">Gestion des utilisateurs</h4>
+                    <p class="text-muted">Gestion de la liste des utilisateurs présents sur la plateforme. Modification, actif/inactif </p>
+                    <a href="{{ path('admin_liste_utilisateurs') }}"><button type="button" class="btn btn-warning ">Gérer les utilisateurs</button></a>
+                </div>
+            </div>
+        </div>
+    </section>
 
 {% endblock %}

@@ -2,39 +2,59 @@
 
 {% block body %}
 
-    <h4>Gestion des villes</h4>
 
-    <div class="custom-table">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th scope="col">Nom</th>
-                <th scope="col">Code Postal</th>
-                <th scope="col">Actions</th>
-            </tr>
-            </thead>
-
-            <tbody>
-            {% for ville in listeVilles %}
-
-                <tr>
-                    <td>{{ ville.nom }}</td>
-                    <td>{{ ville.codePostal }}</td>
-                    <td><a href="{{ path('admin_modifierVille', {'id': ville.id}) }}">Modifier</a> - <a href="{{ path('admin_deleteVille', {'id': ville.id}) }}">Supprimer</a></td>
-                </tr>
-            {% endfor %}
-
-            <tr>
-                {{ form_start(nouvelleVilleForm) }}
-                <td>{{ form_row(nouvelleVilleForm.nom) }}</td>
-                <td>{{ form_row(nouvelleVilleForm.codePostal) }}</td>
-                <td><button type="submit">Ajouter</button></td>
-                {{ form_end(nouvelleVilleForm) }}
-            </tr>
-            </tbody>
-
-        </table>
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">Espace de gestion des villes des sorties</h2>
+            <br>
+            <br>
+        </div>
     </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <h5 class="card-header">Listes des villes</h5>
+                    <div class="card-body">
+                        <div class="custom-table">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Nom</th>
+                                    <th scope="col">Code Postal</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for ville in listeVilles %}
+
+                                    <tr>
+                                        <td>{{ ville.nom }}</td>
+                                        <td>{{ ville.codePostal }}</td>
+                                        <td><a href="{{ path('admin_modifierVille', {'id': ville.id}) }}">Modifier</a> - <a href="{{ path('admin_deleteVille', {'id': ville.id}) }}">Supprimer</a></td>
+                                    </tr>
+                                {% endfor %}
+
+                                <tr>
+                                    {{ form_start(nouvelleVilleForm) }}
+                                    <td>{{ form_row(nouvelleVilleForm.nom) }}</td>
+                                    <td>{{ form_row(nouvelleVilleForm.codePostal) }}</td>
+                                    <td><button type="submit" class="btn btn-warning ">Ajouter</button></td>
+                                    {{ form_end(nouvelleVilleForm) }}
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+    </div>
+
 {% endblock %}
 
 {% block title %}

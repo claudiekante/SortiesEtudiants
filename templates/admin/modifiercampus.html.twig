@@ -1,15 +1,36 @@
 {% extends 'base.html.twig' %}
-
 {% block body %}
-    <h4>Modifier le campus</h4>
+    <div class="container">
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+                <p></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center">
+                <p></p>
+                <h1 class="h3 mb-3 font-weight-normal">Modifier le nom du campus</h1>
+            </div>
+        </div>
 
-    {{ form_start(modifierCampusForm) }}
-    {{ form_widget(modifierCampusForm) }}
-     <button type="submit">Modifier</button>
-    {{ form_end(modifierCampusForm) }}
 
-    <a href="{{ path('admin_liste_campus') }}"><button type="button">Annuler</button></a>
+        <div class="row">
+            <div class="col d-flex justify-content-center">
 
+                <div class="card" style="width: 28rem;">
+                    <div class="card-body">
+
+
+                        {{ form_start(modifierCampusForm) }}
+                        {{ form_widget(modifierCampusForm) }}
+                        <a href="{{ path('admin_liste_campus') }}"><button type="button" class="btn btn-warning btn-sm">Annuler</button></a>
+                        <button type="submit" class="btn btn-warning ">Modifier</button>
+                        {{ form_end(modifierCampusForm) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block title %}
