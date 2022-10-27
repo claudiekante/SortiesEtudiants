@@ -81,10 +81,7 @@
 
 {#codice Ales#}
 
-
-
             </div>
-
             <div class="row gx-4 gx-lg-5">
                 <div class="col-lg-3 col-md-6 text-center">
                     <div class="mt-5">
@@ -118,11 +115,8 @@
             </div>
         </div>
     </section>
-
-
             <p class="descriptionSortie" style="font-size: 30px">Description de la sortie</p>
             <p class="descriptionSortie">{{ sortie.infosSortie }}</p>
-
 <div class="containerLieu">
     <div class="card bg-light mb-3" style="max-width: 18rem;">
         <div class="card-header" style="text-align: center">Adresse de la sortie</div>
@@ -144,8 +138,6 @@
                 <div class="card">
                     <h5 class="card-header">Liste des participants inscrits</h5>
                     <div class="card-body">
-
-
                         <div class="custom-table">
                             <table class="table table-striped">
                                 <thead>
@@ -155,17 +147,12 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-
-
-
-
                         {% for participant in sortie.participant %}
                             <tr>
                                 <td><a href="{{ path('utilisateur_profilid', {'id': participant.id}) }}">{{participant.pseudo}}</a></td>
                                 <td>{{ participant.prenom }} {{ participant.nom | upper }}</td>
                             </tr>
                         {% endfor  %}
-
                                 </tbody>
                             </table>
                         </div>
@@ -175,26 +162,8 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </div>
-
-
     <br>
-
 <div class="row justify-content-center">
     <div style="margin-bottom: 50px; margin-left: 100%">
         {% if sortie.organisateur.id == app.user.id  and  sortie.etat.libelle != 'Annulée' and sortie.etat.libelle != 'Passée'%}

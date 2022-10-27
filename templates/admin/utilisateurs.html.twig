@@ -1,46 +1,59 @@
 {% extends 'base.html.twig' %}
-
 {% block body %}
-
-    <h4>Gestion des utilisateurs</h4>
-
-    <div class="custom-table">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th scope="col">Pseudo</th>
-                <th scope="col">Nom</th>
-                <th scope="col">Prenom</th>
-                <th scope="col">Email</th>
-                <th scope="col">Campus</th>
-                <th scope="col">Actions</th>
-            </tr>
-            </thead>
-
-            <tbody>
-            {% for utilisateur in listeUtilisateurs %}
-
-                <tr>
-                    <td>{{ utilisateur.pseudo }}</td>
-                    <td>{{ utilisateur.nom }}</td>
-                    <td>{{ utilisateur.prenom }}</td>
-                    <td>{{ utilisateur.email }}</td>
-                    <td>{{ utilisateur.campus.nom }}</td>
-                    {% if utilisateur.administrateur == false %}
-                    <td><a href="{{ path('admin_toggleUtilisateur', {'id': utilisateur.id}) }}">{{ utilisateur.actif ? "Rendre inactif" : "Réactiver" }}</a> - <a href="{{ path('admin_deleteUtilisateur', {'id' : utilisateur.id}) }}">Supprimer</a></td>
-                    {% else %}
-                        <td>Administrateur</td>
-                    {% endif %}
-                </tr>
-            {% endfor %}
-
-            </tbody>
-
-        </table>
-
-        <a href="{{ path('admin_inscrire_utilisateur') }}"><button type="button">Inscrire un Utilisateur</button></a>
-        <button type="button" onclick=window.location.href="{{ path('admin_app_import_csv')}}">Inscrire Utilisateur via .CSV</button>
+<div class="container">
+    <div class="text-center">
+        <h2 class="section-heading text-uppercase">Espace de gestion des utilisateurs</h2>
+        <br>
+        <br>
     </div>
+</div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <h5 class="card-header">Liste de utilisateurs et administrateurs</h5>
+                    <div class="card-body">
+                        <div class="custom-table">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Pseudo</th>
+                                    <th scope="col">Nom</th>
+                                    <th scope="col">Prenom</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Campus</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for utilisateur in listeUtilisateurs %}
+
+                                    <tr>
+                                        <td>{{ utilisateur.pseudo }}</td>
+                                        <td>{{ utilisateur.nom }}</td>
+                                        <td>{{ utilisateur.prenom }}</td>
+                                        <td>{{ utilisateur.email }}</td>
+                                        <td>{{ utilisateur.campus.nom }}</td>
+                                        {% if utilisateur.administrateur == false %}
+                                            <td><a href="{{ path('admin_toggleUtilisateur', {'id': utilisateur.id}) }}">{{ utilisateur.actif ? "Rendre inactif" : "Réactiver" }}</a> - <a href="{{ path('admin_deleteUtilisateur', {'id' : utilisateur.id}) }}">Supprimer</a></td>
+                                        {% else %}
+                                            <td>Administrateur</td>
+                                        {% endif %}
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+    </div>
+
 {% endblock %}
 
 {% block title %}
