@@ -20,7 +20,7 @@ body{
 .lienTableau:hover {
 
     color: #fa8405;
-    font-weight: bolder;
+    /*font-weight: bolder;*/
 }
 a{
     color : black;

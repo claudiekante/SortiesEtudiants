@@ -25,7 +25,7 @@
                     <div class="modal-body">
                         {{ form_widget(lieuType)}}
                         <button type="button" class="btn btn-light" data-dismiss="modal">Fermer</button>
-                        <button class="btn btn-outline-warning" type="submit">Ajouter</button>
+                        <button class="btn btn-warning " type="submit">Ajouter</button>
                         {{ form_end(lieuType) }}
                     </div>
                     <div class="modal-footer">
@@ -47,7 +47,7 @@
     <div class="card-body">
         {{ form_start(sortieCreateType) }}
     {{ form_row(sortieCreateType.lieu) }}
-        <button type="button" class="btn btn-outline-warning" style="margin-left: 60%" data-toggle="modal" data-target="#exampleModal">
+        <button type="button" class="btn btn-warning btn-sm" style="margin-left: 60%" data-toggle="modal" data-target="#exampleModal">
             Ajouter un lieu
         </button><br>
         {{ form_row(sortieCreateType.nom) }}
@@ -60,7 +60,7 @@
         <i style="font-size: small">* Champ obligatoire</i><br>
     <br>
     <button type="submit" class="btn btn-light" name="createSortie" value="Créée" onclick=window.location.href="{{ path('creer') }}">Enregistrer</button>
-        <button type="submit" class="btn btn-outline-warning" name="createSortie" value="Ouverte">Publier</button>
+        <button type="submit" class="btn btn-warning" name="createSortie" value="Ouverte">Publier</button>
     {{ form_end(sortieCreateType) }}
 
 

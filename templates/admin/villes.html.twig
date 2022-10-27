@@ -32,7 +32,7 @@
                                     <tr>
                                         <td>{{ ville.nom }}</td>
                                         <td>{{ ville.codePostal }}</td>
-                                        <td><a href="{{ path('admin_modifierVille', {'id': ville.id}) }}">Modifier</a> - <a href="{{ path('admin_deleteVille', {'id': ville.id}) }}">Supprimer</a></td>
+                                        <td><a href="{{ path('admin_modifierVille', {'id': ville.id}) }}" class="lienTableau">Modifier</a> - <a href="{{ path('admin_deleteVille', {'id': ville.id}) }}"class="lienTableau">Supprimer</a></td>
                                     </tr>
                                 {% endfor %}
 
