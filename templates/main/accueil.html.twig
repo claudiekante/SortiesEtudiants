@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} {{ parent() }} | Accueil | {{ parent() }} {% endblock %}
+{% block title %} Accueil | {{ parent() }} {% endblock %}
 
 
 {% block body %}
@@ -41,14 +41,14 @@
                         {% if app.user %}
                             <span class="ghost">
                         <p class="card-text">
-                            Recherche et inscrive-toi aux activités qui t'intéressent, ou clique ci-dessous pour en proposer une :</p>
+                            Recherche et inscris-toi aux activités qui t'intéressent, ou clique ci-dessous pour en proposer une :</p>
                             <button type="button" class="btn btn-warning btn-sm"
                                     onclick="window.location.href ='{{ path('creer') }}'">Proposer une sortie</button>
                           </span>
 
                             <span class="ghost2">
                         <p class="card-text">
-                            Recherche et inscrive-toi aux activités qui t'intéressent.</p>
+                            Recherche et inscris-toi aux activités qui t'intéressent.</p>
                           </span>
 
                         {% else %}

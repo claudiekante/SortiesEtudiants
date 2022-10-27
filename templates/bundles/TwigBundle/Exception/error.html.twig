@@ -3,7 +3,38 @@
 {% block title %}{{ parent() }} | Oups ! {% endblock %}
 
 {% block body %}
-<p> oups! il y a une erreur... </p>
-    <p> pour naviguer dans le site, il faut d'abord se connecter... </p>
+
+    <div class="container">
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+                <p></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+                <p></p>
+                <h1 class="h3 mb-3 font-weight-normal">oups...</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+
+                <div class="card"
+                ">
+                <div class="card-body">
+
+                    <p>On dirait que quelque chose n'a pas bien marchée.
+
+                        Retourne à la page d'accueil, pour essayer d'autres fonctionnalités dans sortir.com .</p>
+                    <a href="{{ path('main_accueil') }}">
+                        <button type="button" class="btn btn-secondary btn-sm">Retour</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
 
 {% endblock %}

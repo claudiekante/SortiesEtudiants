@@ -36,6 +36,7 @@
                             label: 'Password'
                         }) }}
                         {#        {{ form_row(registrationForm.agreeTerms) }} #}
+                       {{ form_row(registrationForm.administrateur) }}
 
                         <button type="submit" class="btn btn-light">S'inscrire</button>
                         {{ form_end(registrationForm) }}
@@ -47,6 +48,6 @@
         </div>
     </div>
 
-    <p>il faudra mettre ici la possibilité de télecharger une photo (property Avatar dans l'entité Utilisateur) </p>
+    <p> </p>
 
 {% endblock %}

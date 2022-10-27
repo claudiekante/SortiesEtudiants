@@ -2,15 +2,84 @@
 
 {% block body %}
 
-    <h4>Inscrire un utilisateur</h4>
+    <div class="container">
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+                <p></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+                <p></p>
+                <h1 class="h3 mb-3 font-weight-normal">Inscrire un utilisateur</h1>
+            </div>
+        </div>
 
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button type="submit">Inscrire</button>
-    {{ form_end(form) }}
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+
+                <div class="card" ">
+                    <div class="card-body">
+
+                        {{ form_start(form) }}
+                        <table>
+                            <tr>
+                                <td> {{ form_row(form.pseudo) }}</td>
+                                <td> &nbsp;&nbsp;&nbsp;</td>
+                                <td> {{ form_row(form.campus) }} </td>
+                            </tr>
+
+                            <tr>
+                                <td> {{ form_row(form.nom) }}</td>
+                                <td> </td>
+                                <td> {{ form_row(form.prenom) }} </td>
+                            </tr>
+
+                            <tr>
+                                <td> {{ form_row(form.telephone) }}</td>
+                                <td> </td>
+                                <td> {{ form_row(form.email) }}</td>
+                            </tr>
+
+                            <tr>
+                                <td> {{ form_row(form.avatar) }}</td>
+                                <td> </td>
+                                <td> {{ form_row(form.administrateur) }}  </td>
+                            </tr>
+
+                            <tr>
+                                <td> {{ form_row(form.plainPassword) }}</td>
+                                <td> </td>
+                                <td>  </td>
+                            </tr>
+                            <tr>
+                                <td><button type="submit" class="btn btn-warning btn-sm">Inscrire</button> &nbsp;&nbsp;&nbsp;
+                                    <a href="{{ path('admin_liste_utilisateurs') }}"><button type="button" class="btn btn-secondary btn-sm">Retour</button></a></td>
+                                <td> </td>
+                                <td>  </td>
+                            </tr>
+
+
+                        </table>
+
+
+{#                        {{ form_widget(form) }}#}
+{#                        <button type="submit" class="btn btn-warning btn-sm">Inscrire</button>#}
+
+
+
+                        {{ form_end(form) }}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
 {% endblock %}
 
 {% block title %}
-Inscrire un utilisateur | {{ parent() }}
+    Inscrire un utilisateur | {{ parent() }}
 {% endblock %}
 

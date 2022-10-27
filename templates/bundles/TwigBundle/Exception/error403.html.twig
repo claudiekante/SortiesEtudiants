@@ -3,5 +3,38 @@
 {% block title %}{{ parent() }} | Oups ! {% endblock %}
 
 {% block body %}
-<p> oups! il y a une erreur 403 </p>
+
+    <div class="container">
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+                <p></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+                <p></p>
+                <h1 class="h3 mb-3 font-weight-normal">oups! il y a une erreur 403</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+
+                <div class="card"
+                ">
+                <div class="card-body">
+
+                    <p>Il semble que celle-ci ne soit pas la page que tu voulais consulter.<br>
+                        Quelques fois, certaines fonctionnalités ne sont accessibles
+                        qu'aux utilisateurs enregistrés.<br>
+                        Retourne à la page d'accueil, et essaie de te connecter.</p>
+                    <a href="{{ path('main_accueil') }}">
+                        <button type="button" class="btn btn-secondary btn-sm">Retour</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
 {% endblock %}

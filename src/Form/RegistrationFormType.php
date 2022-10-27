@@ -36,7 +36,7 @@ class RegistrationFormType extends AbstractType
                 'label'=>'Campus*',
                 'class' => Campus::class,
                 'choice_label' =>'nom',
-                'placeholder'=>'--Choisir le campus--'
+                'placeholder'=>'--Choisir--'
             ])
             ->add('telephone', TextType::class, [
                 'label'=>'Telephone*',
