@@ -15,13 +15,13 @@
             <div class="modal-body">
                 <p>Pourquoi souhaitez-vous annuler cette sortie ? </p>
                 {{ form_row(motifAnnulationForm.motifAnnulation, {'value' : ''}) }}
-                <button type="button" class="btn btn-light" data-dismiss="modal">Fermer</button>
+               <div><i style="font-size: small;">* Champ obligatoire</i></div><br>
 
-                <button type="submit" class="btn btn-outline-warning"
+            <button type="button" class="btn btn-light" data-dismiss="modal">Fermer</button>
+                <button type="submit" class="btn btn-danger"
                         onclick=window.location.href="{{ path('app_sortie_modifiersortie', {'id': sortie.id}) }}">
                     Valider
                 </button>
-
                 {{ form_end(motifAnnulationForm) }}
             </div>
             <div class="modal-footer">
@@ -33,7 +33,7 @@
 <div>
     <!--liste des infos haut de page-->
     {% if sortie.etat.libelle == 'Annulée' %}
-        <p class="alert alert-danger" style="text-align: center"> Sortie Annulée
+        <p class="alert alert-danger" style="text-align: center"> Sortie annulée
             : {{ sortie.motifAnnulation }}</p> {% endif %}
     {% if sortie.etat.libelle == 'Clôturée' and sortie.participant.count != sortie.nbInscriptionsMax %}
         <p class="alert alert-danger" style="text-align: center"> La date limite d'inscription pour cette sortie est
@@ -84,10 +84,6 @@
                     </div>
 
                     <br>
-
-
-
-
                     <br>
                     <hr class="divider"/>
                     <br>
@@ -232,21 +228,21 @@
                 </div>
                 <div  class="containerLieu">
                     {% if sortie.organisateur.id == app.user.id  and  sortie.etat.libelle != 'Annulée' and sortie.etat.libelle != 'Passée' %}
-                        <a type="bouton" class="btn btn-danger "
+                        <a type="bouton" class="btn btn-secondary "
                            href="{{ path('app_sortie_modifiersortie', {'id': sortie.id}) }}">Modifier la sortie</a>&nbsp;&nbsp;&nbsp;
                     {% endif %}
                     {% if is_granted("ROLE_ADMIN") and  sortie.etat.libelle != 'Annulée' and sortie.etat.libelle != 'Passée' %}
-                        <a type="bouton" class="btn btn-danger"
+                        <a type="bouton" class="btn btn-secondary"
                            href="{{ path('app_sortie_modifiersortie', {'id': sortie.id}) }}">Modifier la sortie</a>&nbsp;&nbsp;&nbsp;
                     {% endif %}
                     {% if sortie.organisateur.id == app.user.id  and  sortie.etat.libelle != 'Annulée' and sortie.etat.libelle != 'Passée' %}
                         {#                        <div class="col text-center">#}
-                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">
+                        <button type="button" class="btn btn-danger " data-toggle="modal" data-target="#exampleModal">
                             Annuler la sortie
                         </button>&nbsp;&nbsp;&nbsp;
                     {% endif %}
                     {% if is_granted("ROLE_ADMIN") and  sortie.etat.libelle != 'Annulée' and sortie.etat.libelle != 'Passée' %}
-                        <button type="button" class="btn btn-secondary " data-toggle="modal"
+                        <button type="button" class="btn btn-danger " data-toggle="modal"
                                 data-target="#exampleModal">
                             Annuler la sortie
                         </button>&nbsp;&nbsp;&nbsp;
@@ -257,39 +253,7 @@
             <br>
         </div>
     </div>
-
-
-
     <br>
-
-{#<div class="container">#}
-{#    <div class="row justify-content-center">#}
-{#        <div style="margin-bottom: 50px; margin-left: 100%">#}
-{#            {% if sortie.organisateur.id == app.user.id  and  sortie.etat.libelle != 'Annulée' and sortie.etat.libelle != 'Passée' %}#}
-{#                <a type="bouton" class="btn btn-outline-danger"#}
-{#                   href="{{ path('app_sortie_modifiersortie', {'id': sortie.id}) }}">Modifier la sortie</a>#}
-{#            {% endif %}#}
-{#            {% if is_granted("ROLE_ADMIN") and  sortie.etat.libelle != 'Annulée' and sortie.etat.libelle != 'Passée' %}#}
-{#                <a type="bouton" class="btn btn-outline-danger"#}
-{#                   href="{{ path('app_sortie_modifiersortie', {'id': sortie.id}) }}">Modifier la sortie</a>#}
-{#            {% endif %}#}
-{#            {% if sortie.organisateur.id == app.user.id  and  sortie.etat.libelle != 'Annulée' and sortie.etat.libelle != 'Passée' %}#}
-{#            <div class="col text-center">#}
-{#                <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal">#}
-{#                    Annuler la sortie#}
-{#                </button>#}
-{#                {% endif %}#}
-{#                {% if is_granted("ROLE_ADMIN") and  sortie.etat.libelle != 'Annulée' and sortie.etat.libelle != 'Passée' %}#}
-{#                    <button type="button" class="btn btn-outline-danger" data-toggle="modal"#}
-{#                            data-target="#exampleModal">#}
-{#                        Annuler la sortie#}
-{#                    </button>#}
-{#                {% endif %}#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-{#</div>#}
-
         {% endblock %}
 
 

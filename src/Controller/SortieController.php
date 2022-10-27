@@ -109,12 +109,9 @@ class SortieController extends AbstractController
             $em->persist($sortie);
             $em->flush();
 
-            $this->addFlash(
-                'success',
-                'La sortie a bien été annulée');
-                 return $this->redirectToRoute('main_accueil');
-
+                 return $this->redirectToRoute('sortie_detailssortie', array('id'=>$id));
         }
+
         return $this->render('sortie/detailssortie.html.twig', [
 
             'sortie' => $sortie,
