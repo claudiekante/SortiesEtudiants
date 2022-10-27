@@ -134,6 +134,59 @@
             <p class="card-text" style="text-align: center">Longitude : {{ sortie.lieu.longitude }}</p>
         </div>
     </div>
+</div>
+<!-------------------------------------------------------------------->
+
+    <div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <h5 class="card-header">Liste des participants inscrits</h5>
+                    <div class="card-body">
+
+
+                        <div class="custom-table">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                <th scope="col">Pseudo</th>
+                                <th scope="col">Nom</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+
+
+
+                        {% for participant in sortie.participant %}
+                            <tr>
+                                <td><a href="{{ path('utilisateur_profilid', {'id': participant.id}) }}">{{participant.pseudo}}</a></td>
+                                <td>{{ participant.prenom }} {{ participant.nom | upper }}</td>
+                            </tr>
+                        {% endfor  %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -141,28 +194,8 @@
 
 
     <br>
-    <h5 style="text-align: center; margin-bottom: 30px">Liste des participants inscrits</h5>
+
 <div class="row justify-content-center">
-    <div class="col-lg-8 col-xl-10">
-    <div class="custom-table">
-        <table class="table table-striped border">
-            <thead>
-            <tr>
-                <th scope="col">Pseudo</th>
-                <th scope="col">Nom</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for participant in sortie.participant %}
-                <tr>
-                    <td><a href="{{ path('utilisateur_profilid', {'id': participant.id}) }}">{{participant.pseudo}}</a></td>
-                    <td>{{ participant.prenom }} {{ participant.nom | upper }}</td>
-                </tr>
-            {% endfor  %}
-            </tbody>
-        </table>
-    </div>
-    </div>
     <div style="margin-bottom: 50px; margin-left: 100%">
         {% if sortie.organisateur.id == app.user.id  and  sortie.etat.libelle != 'Annulée' and sortie.etat.libelle != 'Passée'%}
             <a type="bouton" class="btn btn-outline-danger" href="{{ path('app_sortie_modifiersortie', {'id': sortie.id}) }}">Modifier la sortie</a>
@@ -182,7 +215,8 @@
                 </button>
             {% endif %}
         </div>
-</div>
+    </div>
+
 
 
 {% endblock %}
