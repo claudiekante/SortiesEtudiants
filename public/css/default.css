@@ -371,6 +371,69 @@ a{
     padding : 10px 0;
 }
 
+.bouttonInfosAnnulée{
+    border-radius: 30px;
+    background-color: red;
+    position : absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 0;
+    padding: 5px;
+    height: auto;
+    width: 150px;
+}
+
+.bouttonInfosCloturée{
+    border-radius: 30px;
+    background-color: orange;
+    position : absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 0;
+    padding: 5px;
+    height: auto;
+    width: 150px;
+}
+.bouttonInfosOuverte{
+    border-radius: 30px;
+    background-color: limegreen;
+    position : absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 0;
+    padding: 5px;
+    height: auto;
+    width: 150px;
+}
+.bouttonInfosEnCours{
+    border-radius: 30px;
+    background-color: deepskyblue;
+    position : absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 0;
+    padding: 5px;
+    height: auto;
+    width: 150px;
+}
+.bouttonInfosCree{
+    border-radius: 30px;
+    background-color: darkgrey;
+    position : absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 0;
+    padding: 5px;
+    height: auto;
+    width: 150px;
+}
+
+
+
+
+
+
+
 /*a:hover {*/
 /*    content: '';*/
 /*    background-color: #EC3F25;*/

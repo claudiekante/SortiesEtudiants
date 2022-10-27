@@ -34,14 +34,14 @@
         <p class="alert alert-danger" style="text-align: center"> La date limite d'inscription pour cette sortie est expirée</p>{% endif %}
     {% if sortie.participant.count == sortie.nbInscriptionsMax %}
         <p class="alert alert-danger" style="text-align: center">Plus de places disponibles actuellement pour cette sortie</p>{% endif %}
-    {% if sortie.etat.libelle == 'Ouverte'and sortie.participant.count != (sortie.nbInscriptionsMax - 1 ) %}
-        <p class="alert alert-success" style="text-align: center">Il reste des places disponibles pour cette sortie</p>{% endif %}
+{#    {% if sortie.etat.libelle == 'Ouverte'and sortie.participant.count != (sortie.nbInscriptionsMax - 1 ) %}#}
+{#        <p class="alert alert-success" style="text-align: center">Il reste des places disponibles pour cette sortie</p>{% endif %}#}
     {% if sortie.etat.libelle == 'Ouverte' and sortie.participant.count == (sortie.nbInscriptionsMax - 1 )%}
         <p class="alert alert-success" style="text-align: center">Il ne reste plus qu'une seule place pour cette sortie !</p>{% endif %}
-    {% if sortie.etat.libelle == "Activité en cours" %}
-        <p class="alert alert-warning" style="text-align: center" >Cette activité est actuellement en cours</p>{% endif %}
-    {% if sortie.etat.libelle == "Passée" %}
-        <p class="alert alert-warning" style="text-align: center">Cette activité est terminée</p>{% endif %}
+{#    {% if sortie.etat.libelle == "Activité en cours" %}#}
+{#        <p class="alert alert-warning" style="text-align: center" >Cette activité est actuellement en cours</p>{% endif %}#}
+{#    {% if sortie.etat.libelle == "Passée" %}#}
+{#        <p class="alert alert-warning" style="text-align: center">Cette activité est terminée</p>{% endif %}#}
     {% if sortie.etat.libelle == "Créée" %}
         <p class="alert alert-warning" style="text-align: center">Cette activité n'est pas encore publiée</p>{% endif %}
     <div>
@@ -50,6 +50,41 @@
         <div class="container px-4 px-lg-5">
 <br>
             <h2 class="text-center mt-0">Détails de la sortie {{ sortie.nom }}</h2>
+            <br>
+            <div>
+{#            <button class="bouttonInfos">Sortie Annulée {{ sortie.motifAnnulation }}</button>#}
+
+
+                {%if sortie.etat.libelle == 'Annulée'%}
+                <button class="bouttonInfosAnnulée"> Sortie annulée </button>{% endif %}
+                {% if sortie.etat.libelle == 'Clôturée' and sortie.participant.count != sortie.nbInscriptionsMax  %}
+                    <button class="bouttonInfosCloturée"> Sortie clôturée </button>{% endif %}
+                {% if sortie.participant.count == sortie.nbInscriptionsMax %}
+                    <button class="bouttonInfosCloturée"> Sortie clôturée </button>{% endif %}
+                {% if sortie.etat.libelle == 'Ouverte'and sortie.participant.count != (sortie.nbInscriptionsMax - 1 ) %}
+                    <button class="bouttonInfosOuverte"> Sortie ouverte </button>{% endif %}
+                {% if sortie.etat.libelle == 'Ouverte' and sortie.participant.count == (sortie.nbInscriptionsMax - 1 )%}
+                    <button class="bouttonInfosOuverte"> Sortie ouverte </button>{% endif %}
+                {% if sortie.etat.libelle == "Activité en cours" %}
+                    <button class="bouttonInfosEnCours"> Sortie en cours </button>{% endif %}
+                {% if sortie.etat.libelle == "Passée" %}
+                    <button class="bouttonInfosAnnulée"> Sortie passée </button>{% endif %}
+                {% if sortie.etat.libelle == "Créée" %}
+                    <button class="bouttonInfosCree"> Sortie crée </button>{% endif %}
+                <div>
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+            <br>
             <br>
             <hr class="divider" />
             <br>
@@ -185,7 +220,7 @@
     <br>
 <div class="row justify-content-center">
     <div style="margin-bottom: 50px; margin-left: 100%">
-        {% if sortie.organisateur.id == app.user.id  and  sortie.etat.libelle != 'Annulée' and sortie.etat.libelle != 'Passée'%}
+        {% if sortie.organisateur.id == app.user.id  and  sortie.etat.libelle != 'Annulée' and sortie.etat.libelle != 'Passée' and %}
             <a type="bouton" class="btn btn-outline-danger" href="{{ path('app_sortie_modifiersortie', {'id': sortie.id}) }}">Modifier la sortie</a>
         {% endif %}
         {%if is_granted("ROLE_ADMIN") and  sortie.etat.libelle != 'Annulée' and sortie.etat.libelle != 'Passée'%}
