@@ -220,7 +220,7 @@
     <br>
 <div class="row justify-content-center">
     <div style="margin-bottom: 50px; margin-left: 100%">
-        {% if sortie.organisateur.id == app.user.id  and  sortie.etat.libelle != 'Annulée' and sortie.etat.libelle != 'Passée' and %}
+        {% if sortie.organisateur.id == app.user.id  and  sortie.etat.libelle != 'Annulée' and sortie.etat.libelle != 'Passée' %}
             <a type="bouton" class="btn btn-outline-danger" href="{{ path('app_sortie_modifiersortie', {'id': sortie.id}) }}">Modifier la sortie</a>
         {% endif %}
         {%if is_granted("ROLE_ADMIN") and  sortie.etat.libelle != 'Annulée' and sortie.etat.libelle != 'Passée'%}
