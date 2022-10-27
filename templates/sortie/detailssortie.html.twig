@@ -14,7 +14,7 @@
             </div>
             <div class="modal-body">
                 <p>Pourquoi souhaitez-vous annuler cette sortie ? </p>
-                {{ form_row(motifAnnulationForm.motifAnnulation, {'value' : '*****'}) }}
+                {{ form_row(motifAnnulationForm.motifAnnulation, {'value' : ''}) }}
                 <button type="button" class="btn btn-light" data-dismiss="modal">Fermer</button>
 
                 <button type="submit" class="btn btn-outline-warning"
@@ -82,7 +82,12 @@
                     <div>
 
                     </div>
+
                     <br>
+
+
+
+
                     <br>
                     <hr class="divider"/>
                     <br>
@@ -117,33 +122,9 @@
                             {% endif %}
                         {% endif %}
 
-                        {% if sortie.organisateur.id == app.user.id  and  sortie.etat.libelle != 'Annulée' and sortie.etat.libelle != 'Passée' %}
-                            <a type="bouton" class="btn btn-danger btn-sm"
-                               href="{{ path('app_sortie_modifiersortie', {'id': sortie.id}) }}">Modifier la sortie</a>&nbsp;&nbsp;&nbsp;
-                        {% endif %}
-                        {% if is_granted("ROLE_ADMIN") and  sortie.etat.libelle != 'Annulée' and sortie.etat.libelle != 'Passée' %}
-                            <a type="bouton" class="btn btn-danger btn-sm"
-                               href="{{ path('app_sortie_modifiersortie', {'id': sortie.id}) }}">Modifier la sortie</a>&nbsp;&nbsp;&nbsp;
-                        {% endif %}
-                        {% if sortie.organisateur.id == app.user.id  and  sortie.etat.libelle != 'Annulée' and sortie.etat.libelle != 'Passée' %}
-                        <div class="col text-center">
-                            <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#exampleModal">
-                                Annuler la sortie
-                            </button>&nbsp;&nbsp;&nbsp;
-                            {% endif %}
-                            {% if is_granted("ROLE_ADMIN") and  sortie.etat.libelle != 'Annulée' and sortie.etat.libelle != 'Passée' %}
-                                <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
-                                        data-target="#exampleModal">
-                                    Annuler la sortie
-                                </button>&nbsp;&nbsp;&nbsp;
-                            {% endif %}
-
-
-
-
+                    </div>
 
                             {# codice Ales #}
-
                     </div>
                     <div class="row gx-4 gx-lg-5">
                         <div class="col-lg-3 col-md-6 text-center">
@@ -195,7 +176,7 @@
                 </div>
         </section>
 
-        <p class="descriptionSortie" style="font-size: 30px; font-weight: 5px">Description de la sortie</p>
+        <p class="descriptionSortie" style="font-size: 30px; font-weight: 3px">Description de la sortie</p>
         <p class="descriptionSortie">{{ sortie.infosSortie }}</p>
         <div class="containerLieu">
             <div class="card bg-light mb-3" style="max-width: 18rem;">
@@ -245,10 +226,35 @@
                                     </table>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
+                <div  class="containerLieu">
+                    {% if sortie.organisateur.id == app.user.id  and  sortie.etat.libelle != 'Annulée' and sortie.etat.libelle != 'Passée' %}
+                        <a type="bouton" class="btn btn-danger "
+                           href="{{ path('app_sortie_modifiersortie', {'id': sortie.id}) }}">Modifier la sortie</a>&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    {% if is_granted("ROLE_ADMIN") and  sortie.etat.libelle != 'Annulée' and sortie.etat.libelle != 'Passée' %}
+                        <a type="bouton" class="btn btn-danger"
+                           href="{{ path('app_sortie_modifiersortie', {'id': sortie.id}) }}">Modifier la sortie</a>&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    {% if sortie.organisateur.id == app.user.id  and  sortie.etat.libelle != 'Annulée' and sortie.etat.libelle != 'Passée' %}
+                        {#                        <div class="col text-center">#}
+                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">
+                            Annuler la sortie
+                        </button>&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    {% if is_granted("ROLE_ADMIN") and  sortie.etat.libelle != 'Annulée' and sortie.etat.libelle != 'Passée' %}
+                        <button type="button" class="btn btn-secondary " data-toggle="modal"
+                                data-target="#exampleModal">
+                            Annuler la sortie
+                        </button>&nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                </div>
+                <br>
             </div>
+            <br>
         </div>
     </div>
 
