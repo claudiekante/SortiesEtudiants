@@ -6,6 +6,7 @@
     <div class="text-center">
         <h2 class="section-heading text-uppercase">Espace de gestion des utilisateurs</h2>
         <br>
+        <img style="width: 150px; margin-bottom: 20px" src="{{ asset('img/utilisateurColor.png') }}" alt="utilisateur">
         <br>
     </div>
 {#    <a href="{{ path('admin_inscrire_utilisateur') }}"><button type="button" class="btn btn-warning ">Inscrire un nouvel tilisateur</button></a>#}
@@ -87,7 +88,7 @@
                                     </tr>
                                 {% endfor %}
 {#                                <a href="{{ path('admin_inscrire_utilisateur') }}"><button type="button" class="btn btn-warning ">Inscrire un nouvel tilisateur</button></a>#}
-                                {#        <button type="button" onclick=window.location.href="{{ path('admin_app_import_csv')}}">Inscrire Utilisateur via .CSV</button>#}
+
                                 </tbody>
                             </table>
 
@@ -100,9 +101,10 @@
         </div>
         <br>
         <a href="{{ path('admin_inscrire_utilisateur') }}"><button type="button" class="btn btn-warning " >Inscrire un nouvel utilisateur</button></a>
+        <button type="button" class="btn btn-warning " onclick=window.location.href="{{ path('admin_app_import_csv')}}">Inscrire utilisateur via .CSV</button>
+        <br>
+        <br>
 
-        <br>
-        <br>
 
     </div>
 

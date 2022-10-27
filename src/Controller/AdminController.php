@@ -315,20 +315,20 @@ class AdminController extends AbstractController
     /**
      * @Route("/import-csv", name="app_import_csv", methods={"GET"})
      */
-    public function importCsv(EntityManagerInterface $em, CampusRepository $campusRepository): Response
+    public function importCsv(EntityManagerInterface $em, CampusRepository $campusRepository, UtilisateurRepository $utilisateurRepository): Response
     {
         // Pour la phase de développement, on peut vider la table...
         // ... à chaque fois avec l'instruction SQL 'TRUNCATE'
         // cf. https://code2dev.go.yo.fr/cours/symfony/doctrine_faq.php#h2_6
         $connection = $em->getConnection();
         $platform = $connection->getDatabasePlatform();
-
+        $listeUtilisateurs = $utilisateurRepository->findAllUsers();
        // $connection->executeQuery($platform->getTruncateTableSQL('utilisateur'));
 
         // Chemin vers le fichier
         // $this->getParameter('kernel.project_dir') récupère le chemin racine du projet (genre 'c:/wamp/www/projet')
         $sFile = $this->getParameter('kernel.project_dir').'/public/data/listeUsers.csv';
-
+        $utilisateurCourant = $utilisateurRepository->find($this->getUser());
         // On déclare un tableau qui stockera les nouveaux participants pour les afficher
         $aNewParticipants = [];
 
@@ -362,7 +362,8 @@ class AdminController extends AbstractController
                 $participant->setAdministrateur(true);
                 $participant->setPseudo($aLine[5]);
                 $participant->setTelephone($aLine[6]);
-                $participant->setCampus();
+                $participant->setCampus($utilisateurCourant->getCampus());
+
                 // etc. pour chaque colonne/setter (à adapter à votre entité/fichier/données attendues)
 
                 // On persiste l'objet courant
@@ -386,7 +387,10 @@ class AdminController extends AbstractController
         }
 
         // On appelle la vue en lui passant le tableau des nouveaux participants
-        return $this->render('admin/utilisateurs.html.twig', ['aNewParticipants' => $aNewParticipants]);
+        return $this->render('admin/utilisateurs.html.twig',
+            ['aNewParticipants' => $aNewParticipants,
+            'listeUtilisateurs' => $listeUtilisateurs
+        ]);
     }
 
 

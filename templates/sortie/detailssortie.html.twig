@@ -56,21 +56,21 @@
 
 
                 {%if sortie.etat.libelle == 'Annulée'%}
-                <button class="bouttonInfosAnnulée"> Sortie annulée </button>{% endif %}
+                <button class="bouttonInfosAnnulée" disabled="disabled"> Sortie annulée </button>{% endif %}
                 {% if sortie.etat.libelle == 'Clôturée' and sortie.participant.count != sortie.nbInscriptionsMax  %}
-                    <button class="bouttonInfosCloturée"> Sortie clôturée </button>{% endif %}
+                    <button class="bouttonInfosCloturée" disabled="disabled"> Sortie clôturée </button>{% endif %}
                 {% if sortie.participant.count == sortie.nbInscriptionsMax %}
-                    <button class="bouttonInfosCloturée"> Sortie clôturée </button>{% endif %}
+                    <button class="bouttonInfosCloturée" disabled="disabled"> Sortie clôturée </button>{% endif %}
                 {% if sortie.etat.libelle == 'Ouverte'and sortie.participant.count != (sortie.nbInscriptionsMax - 1 ) %}
-                    <button class="bouttonInfosOuverte"> Sortie ouverte </button>{% endif %}
+                    <button class="bouttonInfosOuverte" disabled="disabled"> Sortie ouverte </button>{% endif %}
                 {% if sortie.etat.libelle == 'Ouverte' and sortie.participant.count == (sortie.nbInscriptionsMax - 1 )%}
-                    <button class="bouttonInfosOuverte"> Sortie ouverte </button>{% endif %}
+                    <button class="bouttonInfosOuverte" disabled="disabled"> Sortie ouverte </button>{% endif %}
                 {% if sortie.etat.libelle == "Activité en cours" %}
-                    <button class="bouttonInfosEnCours"> Sortie en cours </button>{% endif %}
+                    <button class="bouttonInfosEnCours" disabled="disabled"> Sortie en cours </button>{% endif %}
                 {% if sortie.etat.libelle == "Passée" %}
-                    <button class="bouttonInfosAnnulée"> Sortie passée </button>{% endif %}
+                    <button class="bouttonInfosAnnulée" disabled="disabled"> Sortie passée </button>{% endif %}
                 {% if sortie.etat.libelle == "Créée" %}
-                    <button class="bouttonInfosCree"> Sortie crée </button>{% endif %}
+                    <button class="bouttonInfosCree" disabled="disabled"> Sortie crée </button>{% endif %}
                 <div>
 
             </div>
