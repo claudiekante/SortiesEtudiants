@@ -85,10 +85,25 @@ class SortieRepository extends ServiceEntityRepository
             $query->andWhere('c.id = :campus')->setParameter('campus', $campus);
         }
 
-        if($ouvertes) {
+        if($ouvertes && $dejaPasse) {
             $query->leftJoin('s.etat','e');
             $query->andWhere('e.libelle = :ouverte ');
-            $query->setParameter('ouverte','Ouverte');
+            $query->orWhere('e.libelle = :passee ');
+            $query->setParameter('ouverte', 'Ouverte');
+            $query->setParameter('passee', 'Passée');
+
+        } else {
+            if ($ouvertes) {
+                $query->leftJoin('s.etat', 'e');
+                $query->andWhere('e.libelle = :ouverte ');
+                $query->setParameter('ouverte', 'Ouverte');
+            }
+
+            if ($dejaPasse) {
+                $query->leftJoin('s.etat', 'e');
+                $query->andWhere('e.libelle = :passee ');
+                $query->setParameter('passee', 'Passée');
+            }
         }
 
         if ($organisateur)
@@ -110,13 +125,6 @@ class SortieRepository extends ServiceEntityRepository
 
         }
 
-        if ($dejaPasse)
-        {
-            $query->leftJoin('s.etat','e');
-            $query->andWhere('e.libelle = :passee ');
-            $query->setParameter('passee','Passée');
-
-        }
 
         if ($dateHeureDebut != null)
         {
