@@ -136,6 +136,18 @@ class SortieController extends AbstractController
             $etatCreee = $etatRepository->findByLibelle('Créée');
         }
 
+
+        $lieu = new Lieu();
+        $lieuForm = $this->createForm(LieuType::class, $lieu);
+        $lieuForm->handleRequest($request);
+        if ($lieuForm->isSubmitted() && $lieuForm->isValid()) {
+            $em->persist($lieu);
+            $em->flush();
+
+            $this->addFlash
+            ('success', 'Le lieu a bien été enregistré');
+            return $this->redirectToRoute('app_sortie_modifiersortie', array('id'=>$id));
+        }
         $sortie = $sortieRepository->find($id);
         $form = $this->createForm(SortieCreateType::class, $sortie);
         $form->handleRequest($request);
@@ -155,6 +167,7 @@ class SortieController extends AbstractController
         return $this->render('sortie/modifierSortie.html.twig', [
             'form' => $form->createView(),
             'sortie' => $sortie,
+            'lieuType' => $lieuForm->createView(),
 
         ]);
     }

@@ -44,12 +44,12 @@ class SortieCreateType extends AbstractType
                 'widget'=> 'single_text'
             ])
             ->add('duree', TimeType::class,[
-                'label'=>'Durée *',
+                'label'=>'Durée de la sortie*',
                 'html5'=> true,
                 'widget'=> 'single_text'
             ])
             ->add('dateLimitInscription', DateType::class,[
-               'label'=>'Date limite pour s\'inscrire *',
+               'label'=>'Date limite d\'inscription *',
                 'html5'=> true,
                 'widget'=> 'single_text'
             ])
@@ -64,7 +64,7 @@ class SortieCreateType extends AbstractType
             ])
 
             ->add('lieu', EntityType::class,[
-                'label'=> 'Lieu *',
+                'label'=> 'Lieu de la sortie*',
                 'class'=> Lieu::class,
                 'choice_label'=>'nom',
                 'placeholder'=>'--choisir un lieu--'
