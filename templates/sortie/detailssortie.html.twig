@@ -14,7 +14,7 @@
                 <div class="modal-body">
                     <p>Pourquoi souhaitez-vous annuler cette sortie ? </p>
                     {{ form_row(motifAnnulationForm.motifAnnulation, {'value' : '*****'})}}
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Fermer</button>
 
                     <button type="submit" class="btn btn-outline-warning" onclick=window.location.href="{{ path('app_sortie_modifiersortie', {'id': sortie.id}) }}">Valider</button>
 
@@ -73,16 +73,6 @@
                     <button class="bouttonInfosCree"> Sortie crée </button>{% endif %}
                 <div>
 
-
-
-
-
-
-
-
-
-
-
             </div>
             <br>
             <br>
@@ -124,7 +114,7 @@
                 <div class="col-lg-3 col-md-6 text-center">
                     <div class="mt-5">
                         <div class="mb-2"><i class="bi-laptop fs-1 text-primary"></i></div>
-                        <img src="{{ asset('img/rendez-vous.png') }}" class="imgIcone" alt="calendrier">
+                        <img src="{{ asset('img/calendrierColor.png') }}" class="imgIcone" alt="calendrier">
                         <h3 class="h4 mb-2">Date et heure <br>de la sortie</h3>
                         <br>
                         <p class=" mb-0" style="color: #EC3F25; font-size: large">Le {{ sortie.dateHeureDebut | date('d/m/Y à H:i') }}</p>
@@ -133,8 +123,8 @@
                 <div class="col-lg-3 col-md-6 text-center">
                     <div class="mt-5">
                         <div class="mb-2"><i class="bi-laptop fs-1 text-primary"></i></div>
-                        <img src="{{ asset('img/reveil.png') }}" class="imgIcone" alt="reveil">
-                        <h3 class="h4 mb-2">Date limite d'inscription</h3>
+                        <img src="{{ asset('img/reveilColor.png') }}" class="imgIcone" alt="reveil">
+                        <h3 class="h4 mb-2">Date limite <br> d'inscription</h3>
                         <br>
                         <p class=" mb-0" style="color: #EC3F25; font-size: large">Le {{ sortie.dateLimitInscription | date('d/m/Y') }}</p>
                     </div>
@@ -142,7 +132,7 @@
                 <div class="col-lg-3 col-md-6 text-center">
                     <div class="mt-5">
                         <div class="mb-2"><i class="bi-globe fs-1 text-primary"></i></div>
-                        <img src="{{ asset('img/groupe.png') }}" class="imgIcone" alt="groupe">
+                        <img src="{{ asset('img/grouperColor.png') }}" class="imgIcone" alt="groupe">
                         <h3 class="h4 mb-2">Nombre de place restantes</h3>
                         <br>
                         <p class=" mb-0" style="color: #EC3F25; font-size: large">{{ sortie.nbInscriptionsMax - sortie.participant.count }} </p>
@@ -151,7 +141,7 @@
                 <div class="col-lg-3 col-md-6 text-center">
                     <div class="mt-5">
                         <div class="mb-2"><i class="bi-heart fs-1 text-primary"></i></div>
-                        <img src="{{ asset('img/barre-de-charge.png') }}" class="imgIcone" alt="barre de chargement">
+                        <img src="{{ asset('img/sablierColor.png') }}" class="imgIcone" alt="barre de chargement">
                         <h3 class="h4 mb-2">Durée <br>de la sortie</h3>
                         <br>
                         <p class=" mb-0" style="color: #EC3F25; font-size: large">{{ sortie.duree | date('H\\h:i\\m')}}</p>
@@ -169,7 +159,7 @@
             <p class="descriptionSortie">{{ sortie.infosSortie }}</p>
 <div class="containerLieu">
     <div class="card bg-light mb-3" style="max-width: 18rem;">
-        <div class="card-header" style="text-align: center"><img src="{{ asset('img/epingle.png') }}" class="imgIconeLieu" alt="epingle lieu"></div>
+        <div class="card-header" style="text-align: center"><img src="{{ asset('img/epingleColor.png') }}" class="imgIconeLieu" alt="epingle lieu"></div>
         <div class="card-body">
             <h5 class="card-title" style="text-align: center">{{ sortie.lieu.nom }}</h5>
             <p class="card-text" style="text-align: center">{{ sortie.lieu.rue }}</p>
@@ -220,7 +210,7 @@
     <br>
 <div class="row justify-content-center">
     <div style="margin-bottom: 50px; margin-left: 100%">
-        {% if sortie.organisateur.id == app.user.id  and  sortie.etat.libelle != 'Annulée' and sortie.etat.libelle != 'Passée' and %}
+        {% if sortie.organisateur.id == app.user.id  and  sortie.etat.libelle != 'Annulée' and sortie.etat.libelle != 'Passée'%}
             <a type="bouton" class="btn btn-outline-danger" href="{{ path('app_sortie_modifiersortie', {'id': sortie.id}) }}">Modifier la sortie</a>
         {% endif %}
         {%if is_granted("ROLE_ADMIN") and  sortie.etat.libelle != 'Annulée' and sortie.etat.libelle != 'Passée'%}

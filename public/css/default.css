@@ -7,7 +7,8 @@
     box-sizing: border-box;
 }
 body{
-background-color: rgb(228, 229, 231);
+    background-color : whitesmoke;
+/*background-color: rgb(228, 229, 231);*/
 }
 
 /*body { height: 800px; }*/
@@ -169,6 +170,7 @@ nav p {
     }
 
     .nav_list {
+
         background-color: #fff;
         box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
         flex-direction: column;
@@ -431,11 +433,6 @@ a{
     height: auto;
     width: 150px;
 }
-
-
-
-
-
 
 
 /*a:hover {*/

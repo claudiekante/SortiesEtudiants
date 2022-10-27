@@ -120,8 +120,8 @@
                                 </td>
 
                                 <td>
-                                    <button type="submit" class="btn btn-warning btn-sm">Rechercher</button>
-                                    <button type="reset" class="btn btn-warning btn-sm">Clear</button>
+                                    <button type="submit" class="btn btn-warning ">Rechercher</button>
+                                    <button type="reset" class="btn btn-light" style="padding-left: 30px; padding-right: 30px">Effacer</button>
                                 </td>
 
                             </tr>
@@ -213,7 +213,7 @@
                       {% else %}
                     <td><p> </p></td>
                 {% endif %}
-                <td><a href="{{ path('utilisateur_profilid', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur.pseudo }}</a></td>
+                <td><a class="lienTableau" href="{{ path('utilisateur_profilid', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur.pseudo }}</a></td>
                 {% if app.user %}
                     <td> <a href="{{ path('sortie_detailssortie', {'id': sortie.id}) }}">Afficher</a></td>
                     {% else %}
