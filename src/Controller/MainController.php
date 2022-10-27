@@ -44,7 +44,6 @@ class MainController extends AbstractController
 
             $sorties = $sortieRepository->search($utilisateurCourant->getId(), $mots, $campus, $ouvertes, $organisateur,  $inscrit, $pasInscrit, $dejaPassee, $dateDebut, $dateFin);
 
-
             return $this->render('main/accueil.html.twig', [
                 "sorties" => $sorties,
                 "searchForm" => $searchForm->createView(),

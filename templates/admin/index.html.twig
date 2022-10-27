@@ -11,6 +11,8 @@
                 <h2 class="section-heading text-uppercase">Espace de contrôle de l'administrateur</h2>
 <br>
                 <br>
+                <img style="width: 250px; padding-bottom: 30px" src="{{ asset('img/controle-daccesColor.png') }}" alt="sécurité">
+
             </div>
             <div class="row text-center">
                 <div class="col-md-4">
@@ -28,7 +30,7 @@
                             <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
                         </span>
                     <h4 class="my-3">Gestion des campus</h4>
-                    <p class="text-muted">Gestion des campus existants et permettant l'accès à la plateforme de l'ensemble de ses élèves</p>
+                    <p class="text-muted">Gestion <br> des campus <br>qui utilisent la plateforme</p>
                     <a href="{{ path('admin_liste_campus') }}"><button type="button" class="btn btn-warning">Gérer les campus</button></a>
                 </div>
                 <div class="col-md-4">
@@ -37,7 +39,7 @@
                             <i class="fas fa-lock fa-stack-1x fa-inverse"></i>
                         </span>
                     <h4 class="my-3">Gestion des utilisateurs</h4>
-                    <p class="text-muted">Gestion de la liste des utilisateurs présents sur la plateforme. Modification, actif/inactif </p>
+                    <p class="text-muted">Gestion de la liste des utilisateurs <br> présents sur la plateforme. <br>Modification, actif/inactif </p>
                     <a href="{{ path('admin_liste_utilisateurs') }}"><button type="button" class="btn btn-warning ">Gérer les utilisateurs</button></a>
                 </div>
             </div>

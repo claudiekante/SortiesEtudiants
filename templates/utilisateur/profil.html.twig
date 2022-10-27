@@ -50,12 +50,12 @@
 
                         {{ form_start(form) }}
                         {{ form_widget(form) }}
-                        <button class="btn btn-light" type="submit">Enregistrer</button>
+                        <button class="btn btn-outline-warning" type="submit">Enregistrer</button>
                         <button class="btn btn-light" type="button"><a href="{{ path('main_accueil') }}">Annuler</a>
                         </button>
                         {{ form_end(form) }}
                         <p></p>
-                        <p>les champs marqués avec une * sont obligatoires </p>
+                        <p>* Champ Obligatoire </p>
                         <p></p>
 
 
@@ -63,6 +63,8 @@
                 </div>
             </div>
         </div>
+        <br>
+        <br>
     </div>
 
 

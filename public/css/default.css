@@ -7,7 +7,8 @@
     box-sizing: border-box;
 }
 body{
-background-color: rgb(228, 229, 231);
+    background-color : whitesmoke;
+/*background-color: rgb(228, 229, 231);*/
 }
 
 /*body { height: 800px; }*/
@@ -169,6 +170,7 @@ nav p {
     }
 
     .nav_list {
+
         background-color: #fff;
         box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
         flex-direction: column;
@@ -385,6 +387,7 @@ a{
     padding: 5px;
     height: auto;
     width: 150px;
+    color: black;
 }
 
 .bouttonInfosCloturée{
@@ -397,6 +400,7 @@ a{
     padding: 5px;
     height: auto;
     width: 150px;
+    color: black;
 }
 .bouttonInfosOuverte{
     border-radius: 30px;
@@ -408,6 +412,7 @@ a{
     padding: 5px;
     height: auto;
     width: 150px;
+    color: black;
 }
 .bouttonInfosEnCours{
     border-radius: 30px;
@@ -419,6 +424,7 @@ a{
     padding: 5px;
     height: auto;
     width: 150px;
+    color: black;
 }
 .bouttonInfosCree{
     border-radius: 30px;
@@ -430,12 +436,8 @@ a{
     padding: 5px;
     height: auto;
     width: 150px;
+    color: black;
 }
-
-
-
-
-
 
 
 /*a:hover {*/
