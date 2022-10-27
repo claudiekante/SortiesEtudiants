@@ -19,60 +19,60 @@ class EtatService
        $now = new \DateTime();
 
 
-       foreach ($sorties as $sortieUpdate) {
+       foreach ($sorties as $sortie) {
 
-           $dateFinSortie = $sortieUpdate->getDateHeureDebut()->getTimestamp() + $sortieUpdate->getDuree()->getTimestamp();
+           $dateFinSortie = $sortie->getDateHeureDebut()->getTimestamp() + $sortie->getDuree()->getTimestamp();
 
-           if ($sortieUpdate->getDateHeureDebut() <= new \DateTime()) {
+           if ($sortie->getDateHeureDebut() <= new \DateTime()) { //dateHeureDébutPassée
                if ($dateFinSortie <= $dateArchivage->getTimestamp()
-                   && $sortieUpdate->getEtat()->getLibelle() != 'Archivée') {
+                   && $sortie->getEtat()->getLibelle() != 'Archivée') {
                    //Archiver
                    $etat = $etatRepository->findByLibelle('Archivée');
-                   $sortieUpdate->setEtat($etat);
-                   $entityManager->persist($sortieUpdate);
+                   $sortie->setEtat($etat);
+                   $entityManager->persist($sortie);
 
                } elseif ($dateFinSortie <= $now->getTimestamp()
-                   && $sortieUpdate->getEtat()->getLibelle() != 'Annulée'
-                   && $sortieUpdate->getEtat()->getLibelle() != 'Passée'
-                   && $sortieUpdate->getEtat()->getLibelle() != 'Archivée') {
+                   && $sortie->getEtat()->getLibelle() != 'Annulée'
+                   && $sortie->getEtat()->getLibelle() != 'Passée'
+                   && $sortie->getEtat()->getLibelle() != 'Archivée') {
                    //Passée
                    $etat = $etatRepository->findByLibelle('Passée');
-                   $sortieUpdate->setEtat($etat);
-                   $entityManager->persist($sortieUpdate);
+                   $sortie->setEtat($etat);
+                   $entityManager->persist($sortie);
 
                } elseif ($dateFinSortie > $now->getTimestamp()
-                   && $sortieUpdate->getEtat()->getLibelle() != 'Annulée'
-               && $sortieUpdate->getEtat()->getLibelle() != 'Activité en cours'
-                   && $sortieUpdate->getEtat()->getLibelle() != 'Archivée') {
+                   && $sortie->getEtat()->getLibelle() != 'Annulée'
+                   && $sortie->getEtat()->getLibelle() != 'Activité en cours'
+                   && $sortie->getEtat()->getLibelle() != 'Archivée'
+                   && $sortie->getEtat()->getLibelle() != 'Créée') {
                    //Activité en Cours
                    $etat = $etatRepository->findByLibelle('Activité en cours');
-                   $sortieUpdate->setEtat($etat);
-                   $entityManager->persist($sortieUpdate);
+                   $sortie->setEtat($etat);
+                   $entityManager->persist($sortie);
 
                }
            } else {
-               if (($sortieUpdate->getParticipant()->count() === $sortieUpdate->getNbInscriptionsMax()
-                   || $sortieUpdate->getDateLimitInscription()->getTimestamp()+86400 < $now->getTimestamp())
-                   && $sortieUpdate->getEtat()->getLibelle() != 'Annulée'
-               && $sortieUpdate->getEtat()->getLibelle() != 'Clôturée'
-                   && $sortieUpdate->getEtat()->getLibelle() != 'Archivée') {
+               if (($sortie->getParticipant()->count() === $sortie->getNbInscriptionsMax()
+                   || $sortie->getDateLimitInscription()->getTimestamp()+86400 < $now->getTimestamp())
+                   && $sortie->getEtat()->getLibelle() != 'Annulée'
+                   && $sortie->getEtat()->getLibelle() != 'Clôturée'
+                   && $sortie->getEtat()->getLibelle() != 'Créée') {
 
                    $etat = $etatRepository->findByLibelle('Clôturée');
-                   $sortieUpdate->setEtat($etat);
-                   $entityManager->persist($sortieUpdate);
+                   $sortie->setEtat($etat);
+                   $entityManager->persist($sortie);
 
                }
 
-               if (($sortieUpdate->getParticipant()->count() < $sortieUpdate->getNbInscriptionsMax()
-                   && $sortieUpdate->getDateLimitInscription()->getTimestamp()+86400 >= $now->getTimestamp())
-                   && $sortieUpdate->getEtat()->getLibelle() != 'Annulée'
-                   && $sortieUpdate->getEtat()->getLibelle() != 'Ouverte'
-                   && $sortieUpdate->getEtat()->getLibelle() != 'Créée'
-                   && $sortieUpdate->getEtat()->getLibelle() != 'Archivée') {
+               if (($sortie->getParticipant()->count() < $sortie->getNbInscriptionsMax()
+                   && $sortie->getDateLimitInscription()->getTimestamp()+86400 >= $now->getTimestamp())
+                   && $sortie->getEtat()->getLibelle() != 'Annulée'
+                   && $sortie->getEtat()->getLibelle() != 'Ouverte'
+                   && $sortie->getEtat()->getLibelle() != 'Créée') {
 
                    $etat = $etatRepository->findByLibelle('Ouverte');
-                   $sortieUpdate->setEtat($etat);
-                   $entityManager->persist($sortieUpdate);
+                   $sortie->setEtat($etat);
+                   $entityManager->persist($sortie);
 
                }
            }
