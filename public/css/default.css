@@ -353,3 +353,33 @@ main {
     text-align: center;
     font-size: 30px;
 }
+
+.imgIcone{
+    width: 100px;
+    margin-bottom: 30px;
+
+}
+.imgIconeLieu{
+    width: 70px;
+    /*margin-bottom: 30px;*/
+}
+
+a{
+    color: #281508;
+    position: relative;
+    text-decoration: none;
+    padding : 10px 0;
+}
+
+/*a:hover {*/
+/*    content: '';*/
+/*    background-color: #EC3F25;*/
+/*    position: absolute;*/
+/*    bottom:0;*/
+/*    left: -20px;*/
+/*    opacity: 0;*/
+/*    height: 3px;*/
+/*    width: 100%;*/
+/*    border-radius: 3px;*/
+/*    transition: transform 0.2s ease;*/
+/*}*/

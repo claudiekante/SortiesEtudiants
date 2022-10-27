@@ -48,9 +48,11 @@
     <section class="page-section" id="services">
 
         <div class="container px-4 px-lg-5">
-
+<br>
             <h2 class="text-center mt-0">Détails de la sortie {{ sortie.nom }}</h2>
+            <br>
             <hr class="divider" />
+            <br>
 
             <p style="text-align: center">Organisée par :<a href="{{ path('utilisateur_profilid', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur.pseudo }}</a></p>
             <p style="text-align: center">Campus : {{ sortie.campus.nom }}</p>
@@ -79,47 +81,60 @@
                         {% endif %}
                     {% endif %}
 
+
 {#codice Ales#}
 
             </div>
             <div class="row gx-4 gx-lg-5">
                 <div class="col-lg-3 col-md-6 text-center">
                     <div class="mt-5">
-                        <div class="mb-2"><i class="bi-gem fs-1 text-primary"></i></div>
-
-                        <h3 class="h4 mb-2">Date et heure de la sortie</h3>
-                        <p class="text-muted mb-0"><p> Le {{ sortie.dateHeureDebut | date('d/m/Y à H:i') }}</p>
+                        <div class="mb-2"><i class="bi-laptop fs-1 text-primary"></i></div>
+                        <img src="{{ asset('img/rendez-vous.png') }}" class="imgIcone" alt="calendrier">
+                        <h3 class="h4 mb-2">Date et heure <br>de la sortie</h3>
+                        <br>
+                        <p class=" mb-0" style="color: #EC3F25; font-size: large">Le {{ sortie.dateHeureDebut | date('d/m/Y à H:i') }}</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 text-center">
                     <div class="mt-5">
                         <div class="mb-2"><i class="bi-laptop fs-1 text-primary"></i></div>
+                        <img src="{{ asset('img/reveil.png') }}" class="imgIcone" alt="reveil">
                         <h3 class="h4 mb-2">Date limite d'inscription</h3>
-                        <p class="text-muted mb-0">Le {{ sortie.dateLimitInscription | date('d/m/Y') }}</p>
+                        <br>
+                        <p class=" mb-0" style="color: #EC3F25; font-size: large">Le {{ sortie.dateLimitInscription | date('d/m/Y') }}</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 text-center">
                     <div class="mt-5">
                         <div class="mb-2"><i class="bi-globe fs-1 text-primary"></i></div>
+                        <img src="{{ asset('img/groupe.png') }}" class="imgIcone" alt="groupe">
                         <h3 class="h4 mb-2">Nombre de place restantes</h3>
-                        <p class="text-muted mb-0">{{ sortie.nbInscriptionsMax - sortie.participant.count }}</p>
+                        <br>
+                        <p class=" mb-0" style="color: #EC3F25; font-size: large">{{ sortie.nbInscriptionsMax - sortie.participant.count }} </p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 text-center">
                     <div class="mt-5">
                         <div class="mb-2"><i class="bi-heart fs-1 text-primary"></i></div>
-                        <h3 class="h4 mb-2">Durée de la sortie</h3>
-                        <p class="text-muted mb-0">{{ sortie.duree | date('H\\h:i\\m')}}</p>
+                        <img src="{{ asset('img/barre-de-charge.png') }}" class="imgIcone" alt="barre de chargement">
+                        <h3 class="h4 mb-2">Durée <br>de la sortie</h3>
+                        <br>
+                        <p class=" mb-0" style="color: #EC3F25; font-size: large">{{ sortie.duree | date('H\\h:i\\m')}}</p>
                     </div>
                 </div>
+
             </div>
+            <br>
+            <hr class="divider" />
+
         </div>
     </section>
-            <p class="descriptionSortie" style="font-size: 30px">Description de la sortie</p>
+
+            <p class="descriptionSortie" style="font-size: 30px; font-weight: 5px">Description de la sortie</p>
             <p class="descriptionSortie">{{ sortie.infosSortie }}</p>
 <div class="containerLieu">
     <div class="card bg-light mb-3" style="max-width: 18rem;">
-        <div class="card-header" style="text-align: center">Adresse de la sortie</div>
+        <div class="card-header" style="text-align: center"><img src="{{ asset('img/epingle.png') }}" class="imgIconeLieu" alt="epingle lieu"></div>
         <div class="card-body">
             <h5 class="card-title" style="text-align: center">{{ sortie.lieu.nom }}</h5>
             <p class="card-text" style="text-align: center">{{ sortie.lieu.rue }}</p>
@@ -135,6 +150,10 @@
     <div class="container">
         <div class="row">
             <div class="col">
+                <br>
+                <hr class="divider" />
+                <p class="descriptionSortie" style="font-size: 30px">Liste des inscrits</p>
+                <br>
                 <div class="card">
                     <h5 class="card-header">Liste des participants inscrits</h5>
                     <div class="card-body">
