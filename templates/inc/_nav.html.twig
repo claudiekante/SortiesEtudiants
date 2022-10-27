@@ -31,13 +31,14 @@
 
             {% if is_granted("ROLE_ADMIN") %}
                 <li class="nav_item"><a href="{{ path('admin_control') }}">Page Admin</a></li>
+                <li class="nav_item"><a href="{{ path('app_register') }}">Inscription</a></li>
                 {% endif %}
 
             <li class="nav_item"><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
         {% else %}
             <li class="nav_item"><a href="{{ path('main_accueil') }}">Accueil</a></li>
             <li class="nav_item"><a href="{{ path('app_login') }}">Connexion</a></li>
-            <li class="nav_item"><a href="{{ path('app_register') }}">Inscription</a></li>
+{#            <li class="nav_item"><a href="{{ path('app_register') }}">Inscription</a></li>#}
         {% endif %}
 
     </ul>

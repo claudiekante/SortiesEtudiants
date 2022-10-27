@@ -29,7 +29,7 @@
 
                                     <tr>
                                         <td>{{ campus.nom }}</td>
-                                        <td><a href="{{ path('admin_modifierCampus', {'id': campus.id}) }}">Modifier</a> - <a href="{{ path('admin_supprimerCampus', {'id': campus.id}) }}">Supprimer</a></td>
+                                        <td><a href="{{ path('admin_modifierCampus', {'id': campus.id}) }}" class="lienTableau">Modifier</a> - <a href="{{ path('admin_supprimerCampus', {'id': campus.id}) }}" class="lienTableau">Supprimer</a></td>
                                     </tr>
                                 {% endfor %}
 

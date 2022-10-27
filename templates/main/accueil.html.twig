@@ -192,7 +192,7 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th scope="col">Nom sortie</th>
+            <th scope="col">Nom</th>
             <th scope="col">Date</th>
             <th scope="col">Fin des inscriptions</th>
             <th scope="col">Inscrits/Places</th>
@@ -217,9 +217,9 @@
                       {% else %}
                     <td><p> </p></td>
                 {% endif %}
-                <td><a href="{{ path('utilisateur_profilid', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur.pseudo }}</a></td>
+                <td><a href="{{ path('utilisateur_profilid', {'id': sortie.organisateur.id}) }}" class="lienTableau">{{ sortie.organisateur.pseudo }}</a></td>
                 {% if app.user %}
-                    <td> <a href="{{ path('sortie_detailssortie', {'id': sortie.id}) }}">Afficher</a></td>
+                    <td> <a href="{{ path('sortie_detailssortie', {'id': sortie.id}) }}" class="lienTableau">Afficher</a></td>
                     {% else %}
                     <td><p> </p></td>
                 {% endif %}
@@ -244,9 +244,9 @@
                       {% else %}
                     <td><p> </p></td>
                 {% endif %}
-                <td><a href="{{ path('utilisateur_profilid', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur.pseudo }}</a></td>
+                <td><a href="{{ path('utilisateur_profilid', {'id': sortie.organisateur.id}) }}" class="lienTableau">{{ sortie.organisateur.pseudo }}</a></td>
                 {% if app.user %}
-                    <td> <a href="{{ path('sortie_detailssortie', {'id': sortie.id}) }}">Afficher</a></td>
+                    <td> <a href="{{ path('sortie_detailssortie', {'id': sortie.id}) }}" class="lienTableau">Afficher</a></td>
                     {% else %}
                     <td><p> </p></td>
                 {% endif %}
