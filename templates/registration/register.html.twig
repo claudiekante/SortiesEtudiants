@@ -37,8 +37,8 @@
                         }) }}
                         {#        {{ form_row(registrationForm.agreeTerms) }} #}
                        {{ form_row(registrationForm.administrateur) }}
-
-                        <button type="submit" class="btn btn-light">S'inscrire</button>
+                        <button class="btn btn-secondary btn-sm" type="button"><a href="{{ path('main_accueil') }}">Annuler</a></button>
+                        <button type="submit" class="btn btn-warning btn-sm">S'inscrire</button>
                         {{ form_end(registrationForm) }}
 
 

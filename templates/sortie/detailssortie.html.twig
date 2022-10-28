@@ -231,7 +231,7 @@
                         <a type="bouton" class="btn btn-secondary "
                            href="{{ path('app_sortie_modifiersortie', {'id': sortie.id}) }}">Modifier la sortie</a>&nbsp;&nbsp;&nbsp;
                     {% endif %}
-                    {% if is_granted("ROLE_ADMIN") and  sortie.etat.libelle != 'Annulée' and sortie.etat.libelle != 'Passée' %}
+                    {% if is_granted("ROLE_ADMIN") and  sortie.etat.libelle != 'Annulée' and sortie.etat.libelle != 'Passée' and sortie.organisateur.id != app.user.id  %}
                         <a type="bouton" class="btn btn-secondary"
                            href="{{ path('app_sortie_modifiersortie', {'id': sortie.id}) }}">Modifier la sortie</a>&nbsp;&nbsp;&nbsp;
                     {% endif %}
@@ -241,7 +241,7 @@
                             Annuler la sortie
                         </button>&nbsp;&nbsp;&nbsp;
                     {% endif %}
-                    {% if is_granted("ROLE_ADMIN") and  sortie.etat.libelle != 'Annulée' and sortie.etat.libelle != 'Passée' %}
+                    {% if is_granted("ROLE_ADMIN") and  sortie.etat.libelle != 'Annulée' and sortie.etat.libelle != 'Passée' and sortie.organisateur.id != app.user.id%}
                         <button type="button" class="btn btn-danger " data-toggle="modal"
                                 data-target="#exampleModal">
                             Annuler la sortie
