@@ -37,7 +37,7 @@ class ResetPasswordController extends AbstractController
     /**
      * Display & process form to request a password reset.
      *
-     * @Route("/reset-password", name="app_forgot_password_request")
+     * @Route("/SortiesEtudiants/public/reset-password", name="app_forgot_password_request")
      */
     public function request(Request $request, MailerInterface $mailer, TranslatorInterface $translator): Response
     {
@@ -60,7 +60,7 @@ class ResetPasswordController extends AbstractController
     /**
      * Confirmation page after a user has requested a password reset.
      *
-     * @Route("/reset-password/check-email", name="app_check_email")
+     * @Route("/SortiesEtudiants/public/reset-password/check-email", name="app_check_email")
      */
     public function checkEmail(): Response
     {
@@ -78,7 +78,7 @@ class ResetPasswordController extends AbstractController
     /**
      * Validates and process the reset URL that the user clicked in their email.
      *
-     * @Route("/reset-password/reset/{token}", name="app_reset_password")
+     * @Route("/SortiesEtudiants/public/reset-password/reset/{token}", name="app_reset_password")
      */
     public function reset(Request $request, UserPasswordHasherInterface $userPasswordHasher, TranslatorInterface $translator, string $token = null): Response
     {
